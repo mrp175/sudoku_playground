@@ -1,12 +1,16 @@
 type Board = (number | null)[][];
 
-export function solveBoard(board: Board): Board | false {
+export function solveBoard(
+  board: Board,
+  setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
+  htmlRefs: HTMLInputElement[]
+): Board | false {
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   for (let i = 1; i <= 9; i += 1) {
     const [row, col] = nextCell;
-    if (placeDigit(i, row, col, board)) {
-      const current = solveBoard(board);
+    if (placeDigit(i, row, col, board, setBoard, htmlRefs)) {
+      const current = solveBoard(board, setBoard, htmlRefs);
       if (current) return board;
     }
   }
@@ -20,6 +24,36 @@ function findNextCell(board: Board) {
     }
   }
   return false;
+}
+
+function placeDigit(
+  value: number,
+  row: number,
+  col: number,
+  board: Board,
+  setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
+  htmlRefs: HTMLInputElement[]
+) {
+  setBoard((b) => {
+    const newB = [...b];
+    newB[row][col] = value;
+    return newB;
+  });
+  board[row][col] = value;
+  updateDisplayValue(value, row, col, htmlRefs);
+  if (isCellValid(row, col, board)) return true;
+  board[row][col] = null;
+  return false;
+}
+
+function updateDisplayValue(
+  value: number,
+  row: number,
+  col: number,
+  refs: HTMLInputElement[]
+) {
+  const index = row * 9 + col;
+  refs[index].value = value + "";
 }
 
 function isCellValid(row: number, col: number, board: Board) {
@@ -62,11 +96,4 @@ function checkRowOrCol(
     }
   }
   return true;
-}
-
-function placeDigit(value: number, row: number, col: number, board: Board) {
-  board[row][col] = value;
-  if (isCellValid(row, col, board)) return true;
-  board[row][col] = null;
-  return false;
 }

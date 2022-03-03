@@ -1,0 +1,25 @@
+const b = null;
+
+export const emptyBoard = [
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+  [b, b, b, b, b, b, b, b, b],
+];
+
+export const hardOne = [
+  [8, b, b, b, b, b, b, b, b],
+  [b, b, 3, 6, b, b, b, b, b],
+  [b, 7, b, b, 9, b, 2, b, b],
+  [b, 5, b, b, b, 7, b, b, b],
+  [b, b, b, b, 4, 5, 7, b, b],
+  [b, b, b, 1, b, b, b, 3, b],
+  [b, b, 1, b, b, b, b, 6, 8],
+  [b, b, 8, 5, b, b, b, 1, b],
+  [b, 9, b, b, b, b, 4, b, b],
+];
