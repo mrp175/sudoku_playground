@@ -1,20 +1,25 @@
 type Board = (number | null)[][];
 
-export function solveBoard(
+export async function solveBoard(
   board: Board,
   setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
   htmlRefs: HTMLInputElement[]
-): Board | false {
+): Promise<Board | false> {
+  await timeout(10);
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   for (let i = 1; i <= 9; i += 1) {
     const [row, col] = nextCell;
     if (placeDigit(i, row, col, board, setBoard, htmlRefs)) {
-      const current = solveBoard(board, setBoard, htmlRefs);
+      const current = await solveBoard(board, setBoard, htmlRefs);
       if (current) return board;
     }
   }
   return false;
+}
+
+function timeout(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function findNextCell(board: Board) {
