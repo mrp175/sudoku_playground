@@ -1,3 +1,5 @@
+import { updateDisplayValue, colorCell } from "./utils";
+
 type Board = (number | null)[][];
 
 export async function solveBoard(
@@ -5,7 +7,7 @@ export async function solveBoard(
   setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
   htmlRefs: HTMLInputElement[]
 ): Promise<Board | false> {
-  await timeout(10);
+  await timeout(1000 / 30);
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   for (let i = 1; i <= 9; i += 1) {
@@ -39,26 +41,21 @@ function placeDigit(
   setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
   htmlRefs: HTMLInputElement[]
 ) {
+  console.log(value);
   setBoard((b) => {
     const newB = [...b];
     newB[row][col] = value;
     return newB;
   });
   board[row][col] = value;
-  updateDisplayValue(value, row, col, htmlRefs);
-  if (isCellValid(row, col, board)) return true;
+  // updateDisplayValue(value, row, col, htmlRefs);
+  if (isCellValid(row, col, board)) {
+    colorCell(value, row, col, htmlRefs);
+    return true;
+  }
+  colorCell(0, row, col, htmlRefs);
   board[row][col] = null;
   return false;
-}
-
-function updateDisplayValue(
-  value: number,
-  row: number,
-  col: number,
-  refs: HTMLInputElement[]
-) {
-  const index = row * 9 + col;
-  refs[index].value = value + "";
 }
 
 function isCellValid(row: number, col: number, board: Board) {

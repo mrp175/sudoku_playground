@@ -2,6 +2,7 @@ import { useRef, useState, useMemo, useEffect } from "react";
 import { solveBoard } from "../utils/solveBoard";
 import { emptyBoard, hardOne } from "../utils/boards";
 import { Grid, Input } from "./Board.styled";
+import { createColors } from "../utils/utils";
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -19,6 +20,13 @@ export default function Board() {
   useEffect(() => setHeight(+gridRef.current?.offsetWidth!), [width]);
   useEffect(() => window.addEventListener("resize", handleResize), []);
   useEffect(() => setSubGrid(createSubGrid(subGridRefs)), [board]);
+  const [animated, setAnimated] = useState("");
+  // useEffect(() => {
+  //   if (animated)
+  //     subGridRefs.current.forEach((c) => c.classList.add("animate"));
+  //   else subGridRefs.current.forEach((c) => c.classList.remove("animate"));
+  //   console.log(subGridRefs);
+  // }, [animated]);
 
   function createSubGrid(
     subGridRefs: React.MutableRefObject<HTMLInputElement[]>
@@ -32,6 +40,7 @@ export default function Board() {
       result.push(
         <div key={`${row},${col}`}>
           <Input
+            className={animated}
             type="number"
             max="9"
             min="0"
@@ -48,8 +57,16 @@ export default function Board() {
   }
 
   function editVal() {
+    console.log(subGridRefs);
     solveBoard([...board], setBoard, subGridRefs.current);
   }
+
+  // function addRemoveClass(className: string): () => void {
+  //   return function () {
+  //     if (animated) setAnimated("");
+  //     else setAnimated(className);
+  //   };
+  // }
 
   return (
     <>

@@ -21,7 +21,7 @@ export const Grid = styled.div`
   border: 1px solid black;
 
   & > div {
-    border: 1px solid green;
+    /* border: 1px solid green; */
   }
 `;
 
@@ -30,4 +30,8 @@ export const Input = styled.input`
   width: 100%;
   font-size: 200%;
   text-align: center;
+  background: white;
+  transition: 1.2s ease, transform 0.1s ease;
+  border: none;
+  border-radius: 3px;
 `;
