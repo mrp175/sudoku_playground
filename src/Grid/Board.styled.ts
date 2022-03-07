@@ -16,13 +16,9 @@ export const Grid = styled.div`
   display: grid;
   grid-template-rows: repeat(9, 1fr);
   grid-template-columns: repeat(9, 1fr);
-  max-width: 800px;
+  width: 700px;
   height: ${prop("height")}px;
-  border: 1px solid black;
-
-  & > div {
-    /* border: 1px solid green; */
-  }
+  margin: 20px;
 `;
 
 export const Input = styled.input`
@@ -34,4 +30,20 @@ export const Input = styled.input`
   transition: 1.2s ease, transform 0.1s ease;
   border: none;
   border-radius: 3px;
+`;
+export const Canvas = styled.canvas`
+  border: 1px solid black;
+  margin: 0;
+`;
+
+export const Centered = styled.div`
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  width: 100vw;
+  height: 100vh;
 `;
