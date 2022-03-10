@@ -31,9 +31,13 @@ export const Input = styled.input`
   border: none;
   border-radius: 3px;
 `;
+
 export const Canvas = styled.canvas`
   border: 1px solid black;
   margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 `;
 
 export const Centered = styled.div`
@@ -46,4 +50,8 @@ export const Centered = styled.div`
   justify-items: center;
   width: 100vw;
   height: 100vh;
+`;
+
+export const Cell = styled.div`
+  position: relative;
 `;

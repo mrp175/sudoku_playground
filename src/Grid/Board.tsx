@@ -1,16 +1,16 @@
 import { useRef, useState, useMemo, useEffect } from "react";
 import { solveBoard } from "../utils/solveBoard";
 import { emptyBoard, hardOne } from "../utils/boards";
-import { Grid, Input, Canvas, Centered } from "./Board.styled";
+import { Grid, Input, Canvas, Centered, Cell } from "./Board.styled";
 import { createColors } from "../utils/utils";
 
-type Refs = React.MutableRefObject<
-  [HTMLCanvasElement, CanvasRenderingContext2D][]
->;
+type CAC = [HTMLCanvasElement, CanvasRenderingContext2D];
+type Refs = React.MutableRefObject<CAC[]>;
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);
   const subGridRefs: Refs = useRef([]);
+  const cellTextRefs: Refs = useRef([]);
   const [width, setWidth] = useState(0);
   const [subGrid, setSubGrid] = useState<JSX.Element[]>([]);
   // const [board, setBoard] = useState<(number | null)[][]>(emptyBoard);
@@ -24,6 +24,14 @@ export default function Board() {
     const refs = subGridRefs.current;
     if (refs) {
       for (let ref of refs) {
+        const canvas = ref[0];
+        canvas.height = width / 9;
+        canvas.width = width / 9;
+      }
+    }
+    const textRefs = cellTextRefs.current;
+    if (textRefs) {
+      for (let ref of textRefs) {
         const canvas = ref[0];
         canvas.height = width / 9;
         canvas.width = width / 9;
@@ -49,19 +57,28 @@ export default function Board() {
 
   function createSubGrid(subGridRefs: Refs) {
     const result = [];
-    const refs = subGridRefs.current;
+    const colorRefs = subGridRefs.current;
+    const numberRefs = cellTextRefs.current;
     for (let i = 0; i < 9 * 9; i += 1) {
       const row = Math.floor(i / 9);
       const col = i % 9;
       let val: number | null | string = board[row][col];
       if (val === null) val = "";
       result.push(
-        <Canvas
-          key={`${row},${col}`}
-          ref={(el) => {
-            refs.push([el!, el?.getContext("2d")!]);
-          }}
-        />
+        <Cell>
+          <Canvas
+            key={`${row},${col}`}
+            ref={(el) => {
+              colorRefs.push([el!, el?.getContext("2d")!]);
+            }}
+          />
+          <Canvas
+            key={`${row},${col}`}
+            ref={(el) => {
+              numberRefs.push([el!, el?.getContext("2d")!]);
+            }}
+          />
+        </Cell>
       );
     }
     return result;
