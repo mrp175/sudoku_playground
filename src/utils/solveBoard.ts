@@ -1,4 +1,4 @@
-import { updateDisplayValue, drawNumberToCell, colorCell } from "./utils";
+import { drawNumberToCell, colorCell } from "./drawToCells";
 
 type Board = (number | null)[][];
 
@@ -48,15 +48,16 @@ function placeDigit(
     newB[row][col] = value;
     return newB;
   });
-  board[row][col] = value;
-  // updateDisplayValue(value, row, col, htmlRefs);
   if (isCellValid(row, col, board)) {
     colorCell(value, row, col, refs);
     drawNumberToCell(value, row, col, textRefs);
     return true;
   }
-  // colorCell(0, row, col, refs);
-  board[row][col] = null;
+  setBoard((b) => {
+    const newB = [...b];
+    newB[row][col] = null;
+    return newB;
+  });
   return false;
 }
 
