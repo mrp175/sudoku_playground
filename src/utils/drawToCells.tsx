@@ -4,12 +4,13 @@ export function drawNumberToCell(
   value: number,
   row: number,
   col: number,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][]
+  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  color: string
 ) {
   if (value === null) return;
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
-  ctx.fillStyle = "white";
+  ctx.fillStyle = color;
   // ctx.fillStyle = "rgb(75, 75, 75)";
   ctx.textAlign = "center";
   ctx.font = "bold 30pt Courier";

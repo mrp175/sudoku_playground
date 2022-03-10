@@ -50,7 +50,7 @@ function placeDigit(
   });
   if (isCellValid(row, col, board)) {
     colorCell(value, row, col, refs);
-    drawNumberToCell(value, row, col, textRefs);
+    drawNumberToCell(value, row, col, textRefs, "white");
     return true;
   }
   setBoard((b) => {

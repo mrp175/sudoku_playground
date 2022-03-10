@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { Refs } from "../types/types";
 import { solveBoard } from "../utils/solveBoard";
-import { emptyBoard, hardOne } from "../utils/boards";
+import { hardOne } from "../utils/boards";
 import { Grid, Centered } from "./Board.styled";
-import { handleResize } from "../utils/utils";
+import { handleResize, deepCopyBoard } from "../utils/utils";
 import { createSubGrid } from "../utils/createBoard";
 import { refreshCells } from "../utils/refreshCell";
 
@@ -13,7 +13,9 @@ export default function Board() {
   const cellNumberRefs: Refs = useRef([]);
   const [width, setWidth] = useState(0);
   const [subGrid, setSubGrid] = useState<JSX.Element[]>([]);
-  const [board, setBoard] = useState<(number | null)[][]>([...hardOne]);
+  const [board, setBoard] = useState<(number | null)[][]>(
+    deepCopyBoard(hardOne)
+  );
 
   useEffect(
     () => setSubGrid(createSubGrid(cellColorRefs, cellNumberRefs, board)),

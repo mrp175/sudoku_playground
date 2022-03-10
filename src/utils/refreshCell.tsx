@@ -1,6 +1,7 @@
 import { Refs, Board, CAC } from "../types/types";
 import { indexToRowCol } from "./utils";
 import { drawNumberToCell } from "./drawToCells";
+import { hardOne } from "./boards";
 
 export function refreshCells(
   colorRefs: Refs,
@@ -14,7 +15,7 @@ export function refreshCells(
       let [canvas, ctx] = colors[i];
       fadeOutColor(canvas, ctx);
       [canvas, ctx] = numbers[i];
-      drawPlacedNumbers(numbers, board, i);
+      drawPlacedNumbers(numbers, hardOne, board, i);
       fadeOutNumber(canvas, ctx);
     }
   }
@@ -25,10 +26,10 @@ function fadeOutColor(
   ctx: CanvasRenderingContext2D
 ) {
   const pixelData = ctx.getImageData(0, 0, 1, 1).data;
-  let tailLength = 0.8;
-  let r = 16;
-  let g = 32;
-  let b = 39;
+  const tailLength = 0.8;
+  const r = 16;
+  const g = 32;
+  const b = 39;
   ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${1 - tailLength})`;
   // if (pixelData[0] >= 250 || pixelData[1] >= 250 || pixelData[2] >= 250)
   //   ctx.fillStyle = "white";
@@ -50,8 +51,15 @@ function fadeOutNumber(
   ctx.putImageData(imageData, 0, 0);
 }
 
-export function drawPlacedNumbers(refs: CAC[], board: Board, index: number) {
+function drawPlacedNumbers(
+  refs: CAC[],
+  originalBoard: Board,
+  currentBoard: Board,
+  index: number
+) {
   const [row, col] = indexToRowCol(index);
-  const value = board[row][col] as number;
-  drawNumberToCell(value, row, col, refs);
+  const value = currentBoard[row][col] as number;
+  if (originalBoard[row][col])
+    drawNumberToCell(value, row, col, refs, "rgb(60, 224, 175)");
+  else drawNumberToCell(value, row, col, refs, "white");
 }

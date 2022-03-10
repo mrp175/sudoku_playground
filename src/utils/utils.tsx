@@ -1,4 +1,4 @@
-import { Refs } from "../types/types";
+import { Refs, Board } from "../types/types";
 
 export function handleResize(
   ref: React.RefObject<HTMLDivElement>,
@@ -35,4 +35,12 @@ export function indexToRowCol(index: number): [number, number] {
 
 export function RowColToIndex(row: number, col: number): number {
   return row * 9 + col;
+}
+
+export function deepCopyBoard(board: Board): Board {
+  const result: Board = [];
+  for (let arr of board) {
+    result.push([...arr]);
+  }
+  return result;
 }
