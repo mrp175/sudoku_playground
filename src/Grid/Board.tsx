@@ -2,7 +2,7 @@ import { useRef, useState, useMemo, useEffect } from "react";
 import { solveBoard } from "../utils/solveBoard";
 import { emptyBoard, hardOne } from "../utils/boards";
 import { Grid, Input, Canvas, Centered, Cell } from "./Board.styled";
-import { createColors } from "../utils/utils";
+import { createColors, drawNumberToCell } from "../utils/utils";
 
 type CAC = [HTMLCanvasElement, CanvasRenderingContext2D];
 type Refs = React.MutableRefObject<CAC[]>;
@@ -65,15 +65,13 @@ export default function Board() {
       let val: number | null | string = board[row][col];
       if (val === null) val = "";
       result.push(
-        <Cell>
+        <Cell key={`${row},${col}`}>
           <Canvas
-            key={`${row},${col}`}
             ref={(el) => {
               colorRefs.push([el!, el?.getContext("2d")!]);
             }}
           />
           <Canvas
-            key={`${row},${col}`}
             ref={(el) => {
               numberRefs.push([el!, el?.getContext("2d")!]);
             }}
@@ -88,27 +86,29 @@ export default function Board() {
   //   fadeOut(refs[i]);
   // }, 1000 / 1);
 
-  function fadeOut(refs: {
-    current: [HTMLCanvasElement, CanvasRenderingContext2D][];
-  }): void {
-    const current = refs.current;
-    if (current) {
-      for (let ref of current) {
-        const [canvas, ctx] = ref;
-        const pixelData = ctx.getImageData(0, 0, 1, 1).data;
-        const rgba = `rgba(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]}, ${
-          pixelData[3] / 255
-        })`;
+  function fadeOut(colorRefs: Refs, numberRefs: Refs): void {
+    const colors = colorRefs.current;
+    const numbers = numberRefs.current;
+    if (colors && numbers) {
+      for (let i = 0; i < colors.length; i += 1) {
+        const row = Math.floor(i / 9);
+        const col = i % 9;
+        let [canvas, ctx] = colors[i];
+        // const pixelData = ctx.getImageData(0, 0, 1, 1).data;
         ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
-        if (pixelData[0] >= 250 || pixelData[1] >= 250 || pixelData[2] >= 250)
-          ctx.fillStyle = "white";
+        // if (pixelData[0] >= 250 || pixelData[1] >= 250 || pixelData[2] >= 250)
+        //   ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        [canvas, ctx] = numbers[i];
+        drawNumberToCell(board[row][col] as number, row, col, numbers);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
     }
   }
 
   function editVal() {
-    solveBoard([...board], setBoard, subGridRefs.current);
+    solveBoard([...board], setBoard, subGridRefs.current, cellTextRefs.current);
   }
 
   // function addRemoveClass(className: string): () => void {
@@ -120,7 +120,7 @@ export default function Board() {
 
   useEffect(function () {
     setInterval(function () {
-      fadeOut(subGridRefs);
+      fadeOut(subGridRefs, cellTextRefs);
     }, 1000 / 30);
   }, []);
 

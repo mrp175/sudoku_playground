@@ -1,19 +1,20 @@
-import { updateDisplayValue, drawToCell } from "./utils";
+import { updateDisplayValue, drawNumberToCell, colorCell } from "./utils";
 
 type Board = (number | null)[][];
 
 export async function solveBoard(
   board: Board,
   setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][]
+  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][]
 ): Promise<Board | false> {
   await timeout(1000 / 30);
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   for (let i = 1; i <= 9; i += 1) {
     const [row, col] = nextCell;
-    if (placeDigit(i, row, col, board, setBoard, refs)) {
-      const current = await solveBoard(board, setBoard, refs);
+    if (placeDigit(i, row, col, board, setBoard, refs, textRefs)) {
+      const current = await solveBoard(board, setBoard, refs, textRefs);
       if (current) return board;
     }
   }
@@ -39,7 +40,8 @@ function placeDigit(
   col: number,
   board: Board,
   setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][]
+  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][]
 ) {
   setBoard((b) => {
     const newB = [...b];
@@ -49,8 +51,8 @@ function placeDigit(
   board[row][col] = value;
   // updateDisplayValue(value, row, col, htmlRefs);
   if (isCellValid(row, col, board)) {
-    // colorCell(value, row, col, htmlRefs);
-    drawToCell(value, row, col, refs);
+    colorCell(value, row, col, refs);
+    drawNumberToCell(value, row, col, textRefs);
     return true;
   }
   // colorCell(0, row, col, refs);

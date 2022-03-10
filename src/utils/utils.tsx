@@ -32,8 +32,6 @@ export function createColors() {
   return result;
 }
 
-const colors = createColors();
-
 // export function colorCell(
 //   value: number,
 //   row: number,
@@ -66,7 +64,28 @@ export function updateDisplayValue(
   refs[index].value = value + "";
 }
 
-export function drawToCell(
+export function drawNumberToCell(
+  value: number,
+  row: number,
+  col: number,
+  refs: [HTMLCanvasElement, CanvasRenderingContext2D][]
+) {
+  if (value === null) return;
+  const index = row * 9 + col;
+  const [canvas, ctx] = refs[index];
+  ctx.beginPath();
+  ctx.fillStyle = "black";
+  ctx.textAlign = "center";
+  ctx.font = "bold 30pt Courier";
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+  ctx.fillText(value + "", canvas.width / 2, canvas.height / 2 + 2);
+  ctx.closePath();
+}
+
+const colors = createColors();
+
+export function colorCell(
   value: number,
   row: number,
   col: number,
@@ -74,14 +93,8 @@ export function drawToCell(
 ) {
   const index = row * 9 + col;
   const [canvas, ctx] = refs[index];
-  ctx.font = ctx.font.replace(/\d+px/, "24px");
-  // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   ctx.fillStyle = colors[value - 1];
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "black";
-  ctx.textAlign = "center";
-  ctx.font = "bold 30pt Courier";
-  ctx.fillText(value + "", canvas.width / 2, canvas.height / 2 + 6);
   ctx.closePath();
 }
