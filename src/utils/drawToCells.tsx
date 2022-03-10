@@ -37,7 +37,7 @@ export function createColors() {
 }
 
 const colors = createColors();
-const color = "rgb(245, 207, 207)";
+const color = "rgb(80, 255, 138)";
 
 export function colorCell(
   value: number,
@@ -49,6 +49,8 @@ export function colorCell(
   ctx.beginPath();
   ctx.fillStyle = colors[value - 1];
   // ctx.fillStyle = color;
+  // ctx.shadowColor = colors[value - 1];
+  // ctx.shadowBlur = 15;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.closePath();
 }

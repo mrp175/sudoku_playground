@@ -1,4 +1,5 @@
 import { drawNumberToCell, colorCell } from "./drawToCells";
+import { deepCopyBoard } from "./utils";
 
 type Board = (number | null)[][];
 
@@ -11,13 +12,19 @@ export async function solveBoard(
   await timeout(1000 / 60);
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
+  const [row, col] = nextCell;
   for (let i = 1; i <= 9; i += 1) {
-    const [row, col] = nextCell;
     if (placeDigit(i, row, col, board, setBoard, refs, textRefs)) {
       const current = await solveBoard(board, setBoard, refs, textRefs);
       if (current) return board;
     }
   }
+  board[row][col] = null;
+  setBoard((b) => {
+    const newB = deepCopyBoard(board);
+    newB[row][col] = null;
+    return newB;
+  });
   return false;
 }
 
@@ -44,24 +51,20 @@ function placeDigit(
   textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][]
 ) {
   setBoard((b) => {
-    const newB = [...b];
+    const newB = deepCopyBoard(board);
     newB[row][col] = value;
     return newB;
   });
+  board[row][col] = value;
   if (isCellValid(row, col, board)) {
     colorCell(value, row, col, refs);
     drawNumberToCell(value, row, col, textRefs, "white");
     return true;
   }
-  setBoard((b) => {
-    const newB = [...b];
-    newB[row][col] = null;
-    return newB;
-  });
   return false;
 }
 
-function isCellValid(row: number, col: number, board: Board) {
+export function isCellValid(row: number, col: number, board: Board) {
   if (!checkRowOrCol(row, col, board, "horizontal")) return false;
   if (!checkRowOrCol(row, col, board, "vertical")) return false;
   if (!checkSubgrid(row, col, board)) return false;

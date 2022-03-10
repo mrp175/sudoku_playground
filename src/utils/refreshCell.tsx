@@ -1,12 +1,12 @@
 import { Refs, Board, CAC } from "../types/types";
 import { indexToRowCol } from "./utils";
 import { drawNumberToCell } from "./drawToCells";
-import { hardOne } from "./boards";
 
 export function refreshCells(
   colorRefs: Refs,
   numberRefs: Refs,
-  board: Board
+  originalBoard: Board,
+  currentBoard: Board
 ): void {
   const colors = colorRefs.current;
   const numbers = numberRefs.current;
@@ -15,7 +15,7 @@ export function refreshCells(
       let [canvas, ctx] = colors[i];
       fadeOutColor(canvas, ctx);
       [canvas, ctx] = numbers[i];
-      drawPlacedNumbers(numbers, hardOne, board, i);
+      drawPlacedNumbers(numbers, originalBoard, currentBoard, i);
       fadeOutNumber(canvas, ctx);
     }
   }

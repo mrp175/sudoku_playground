@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Refs } from "../types/types";
-import { solveBoard } from "../utils/solveBoard";
-import { hardOne } from "../utils/boards";
+import { solveBoard, isCellValid } from "../utils/solveBoard";
+import { emptyBoard as hardOne } from "../utils/boards";
 import { Grid, Centered } from "./Board.styled";
 import { handleResize, deepCopyBoard } from "../utils/utils";
 import { createSubGrid } from "../utils/createBoard";
@@ -14,6 +14,9 @@ export default function Board() {
   const [width, setWidth] = useState(0);
   const [subGrid, setSubGrid] = useState<JSX.Element[]>([]);
   const [board, setBoard] = useState<(number | null)[][]>(
+    deepCopyBoard(hardOne)
+  );
+  const [newBoard, setNewBoard] = useState<(number | null)[][]>(
     deepCopyBoard(hardOne)
   );
 
@@ -30,7 +33,7 @@ export default function Board() {
 
   function solve() {
     solveBoard(
-      [...board],
+      newBoard,
       setBoard,
       cellColorRefs.current,
       cellNumberRefs.current
@@ -39,9 +42,14 @@ export default function Board() {
 
   useEffect(function () {
     setInterval(function () {
-      refreshCells(cellColorRefs, cellNumberRefs, board);
+      refreshCells(cellColorRefs, cellNumberRefs, hardOne, newBoard);
     }, 1000 / 30);
   }, []);
+
+  // useEffect(function () {
+  //   hardOne[0][1] = 9;
+  //   console.log(isCellValid(0, 1, hardOne));
+  // }, []);
 
   return (
     <>
