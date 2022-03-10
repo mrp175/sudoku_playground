@@ -16,9 +16,13 @@ export const Grid = styled.div`
   display: grid;
   grid-template-rows: repeat(9, 1fr);
   grid-template-columns: repeat(9, 1fr);
-  width: 700px;
-  height: ${prop("height")}px;
+  /* width: 700px;
+  height: ${prop("height")}px; */
   margin: 20px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  grid-gap: 2px;
+  overflow: hidden;
 `;
 
 export const Input = styled.input`
@@ -33,7 +37,7 @@ export const Input = styled.input`
 `;
 
 export const Canvas = styled.canvas`
-  border: 1px solid black;
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
   margin: 0;
   position: absolute;
   left: 0;
@@ -53,5 +57,12 @@ export const Centered = styled.div`
 `;
 
 export const Cell = styled.div`
+  align-self: center;
+  justify-self: center;
   position: relative;
+  height: 80px;
+  width: 80px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
 `;

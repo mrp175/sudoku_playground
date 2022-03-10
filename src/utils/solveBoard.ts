@@ -8,7 +8,7 @@ export async function solveBoard(
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][]
 ): Promise<Board | false> {
-  await timeout(1000 / 30);
+  await timeout(1000 / 60);
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   for (let i = 1; i <= 9; i += 1) {

@@ -9,7 +9,8 @@ export function drawNumberToCell(
   if (value === null) return;
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
+  // ctx.fillStyle = "rgb(75, 75, 75)";
   ctx.textAlign = "center";
   ctx.font = "bold 30pt Courier";
   ctx.textBaseline = "middle";
@@ -25,16 +26,17 @@ function getCanvasAndContext(refs: CanvasArr, row: number, col: number) {
 
 export function createColors() {
   const result = [];
-  let increment = 360 / 9;
-  let hue = 0;
+  let increment = Math.floor(150 / 9);
+  let hue = 220;
   for (let i = 0; i <= 9; i += 1) {
-    result.push(`hsl(${hue}, 40%, 75%)`);
+    result.push(`hsl(${hue}, 100%, 83%)`);
     hue += increment;
   }
   return result;
 }
 
 const colors = createColors();
+const color = "rgb(245, 207, 207)";
 
 export function colorCell(
   value: number,
@@ -45,6 +47,7 @@ export function colorCell(
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
   ctx.fillStyle = colors[value - 1];
+  // ctx.fillStyle = color;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.closePath();
 }
