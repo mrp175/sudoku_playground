@@ -1,4 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import { AppContext } from "../App/App";
 import { Refs } from "../types/types";
 import { solveBoard, isCellValid } from "../utils/solveBoard";
 import { emptyBoard as hardOne } from "../utils/boards";
@@ -19,6 +20,9 @@ export default function Board() {
   const [newBoard, setNewBoard] = useState<(number | null)[][]>(
     deepCopyBoard(hardOne)
   );
+  const isRunningRef = useContext(
+    AppContext
+  ) as React.MutableRefObject<boolean>;
 
   useEffect(
     () => setSubGrid(createSubGrid(cellColorRefs, cellNumberRefs, board)),
@@ -36,7 +40,8 @@ export default function Board() {
       newBoard,
       setBoard,
       cellColorRefs.current,
-      cellNumberRefs.current
+      cellNumberRefs.current,
+      isRunningRef
     );
   }
 

@@ -7,24 +7,36 @@ export async function solveBoard(
   board: Board,
   setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][]
+  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  isRunningRef: React.MutableRefObject<boolean>
 ): Promise<Board | false> {
+  if (isRunningRef.current === false) return board;
   await timeout(1000 / 60);
+
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   const [row, col] = nextCell;
+
   for (let i = 1; i <= 9; i += 1) {
     if (placeDigit(i, row, col, board, setBoard, refs, textRefs)) {
-      const current = await solveBoard(board, setBoard, refs, textRefs);
+      const current = await solveBoard(
+        board,
+        setBoard,
+        refs,
+        textRefs,
+        isRunningRef
+      );
       if (current) return board;
     }
   }
+
   board[row][col] = null;
   setBoard((b) => {
     const newB = deepCopyBoard(board);
     newB[row][col] = null;
     return newB;
   });
+
   return false;
 }
 
