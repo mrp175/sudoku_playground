@@ -1,42 +1,32 @@
 import { drawNumberToCell, colorCell } from "./drawToCells";
-import { deepCopyBoard } from "./utils";
+import { AppContextType } from "../types/types";
 
 type Board = (number | null)[][];
 
 export async function solveBoard(
   board: Board,
-  setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  isRunningRef: React.MutableRefObject<boolean>
+  context: AppContextType
 ): Promise<Board | false> {
-  if (isRunningRef.current === false) return board;
-  await timeout(1000 / 60);
+  if (context.isRunning === false) {
+    console.log(context);
+    return board;
+  }
+  await timeout(1000 / 30);
 
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   const [row, col] = nextCell;
 
   for (let i = 1; i <= 9; i += 1) {
-    if (placeDigit(i, row, col, board, setBoard, refs, textRefs)) {
-      const current = await solveBoard(
-        board,
-        setBoard,
-        refs,
-        textRefs,
-        isRunningRef
-      );
+    if (placeDigit(i, row, col, board, refs, textRefs)) {
+      const current = await solveBoard(board, refs, textRefs, context);
       if (current) return board;
     }
   }
 
   board[row][col] = null;
-  setBoard((b) => {
-    const newB = deepCopyBoard(board);
-    newB[row][col] = null;
-    return newB;
-  });
-
   return false;
 }
 
@@ -58,15 +48,9 @@ function placeDigit(
   row: number,
   col: number,
   board: Board,
-  setBoard: React.Dispatch<React.SetStateAction<(number | null)[][]>>,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][]
 ) {
-  setBoard((b) => {
-    const newB = deepCopyBoard(board);
-    newB[row][col] = value;
-    return newB;
-  });
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
     colorCell(value, row, col, refs);

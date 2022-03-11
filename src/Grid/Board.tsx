@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 import { AppContext } from "../App/App";
 import { Refs } from "../types/types";
 import { solveBoard, isCellValid } from "../utils/solveBoard";
-import { emptyBoard as hardOne } from "../utils/boards";
+import { hardOne } from "../utils/boards";
 import { Grid, Centered } from "./Board.styled";
 import { handleResize, deepCopyBoard } from "../utils/utils";
 import { createSubGrid } from "../utils/createBoard";
@@ -14,18 +14,14 @@ export default function Board() {
   const cellNumberRefs: Refs = useRef([]);
   const [width, setWidth] = useState(0);
   const [subGrid, setSubGrid] = useState<JSX.Element[]>([]);
-  const [board, setBoard] = useState<(number | null)[][]>(
-    deepCopyBoard(hardOne)
-  );
-  const [newBoard, setNewBoard] = useState<(number | null)[][]>(
-    deepCopyBoard(hardOne)
-  );
-  const isRunningRef = useContext(
-    AppContext
-  ) as React.MutableRefObject<boolean>;
+  const boardRef = useRef(deepCopyBoard(hardOne));
+  const context = useContext(AppContext);
 
   useEffect(
-    () => setSubGrid(createSubGrid(cellColorRefs, cellNumberRefs, board)),
+    () =>
+      setSubGrid(
+        createSubGrid(cellColorRefs, cellNumberRefs, boardRef.current)
+      ),
     []
   );
   useEffect(() => {
@@ -37,24 +33,18 @@ export default function Board() {
 
   function solve() {
     solveBoard(
-      newBoard,
-      setBoard,
+      boardRef.current,
       cellColorRefs.current,
       cellNumberRefs.current,
-      isRunningRef
+      context?.current!
     );
   }
 
   useEffect(function () {
     setInterval(function () {
-      refreshCells(cellColorRefs, cellNumberRefs, hardOne, newBoard);
+      refreshCells(cellColorRefs, cellNumberRefs, hardOne, boardRef.current);
     }, 1000 / 30);
   }, []);
-
-  // useEffect(function () {
-  //   hardOne[0][1] = 9;
-  //   console.log(isCellValid(0, 1, hardOne));
-  // }, []);
 
   return (
     <>

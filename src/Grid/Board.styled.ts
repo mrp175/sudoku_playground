@@ -65,4 +65,7 @@ export const Cell = styled.div`
   display: grid;
   align-items: center;
   justify-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(16, 32, 39);
 `;

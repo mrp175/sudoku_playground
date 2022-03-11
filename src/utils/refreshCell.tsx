@@ -16,7 +16,7 @@ export function refreshCells(
       fadeOutColor(canvas, ctx);
       [canvas, ctx] = numbers[i];
       drawPlacedNumbers(numbers, originalBoard, currentBoard, i);
-      fadeOutNumber(canvas, ctx);
+      fadeOutCanvas(canvas, ctx);
     }
   }
 }
@@ -33,12 +33,13 @@ function fadeOutColor(
   ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${1 - tailLength})`;
   // if (pixelData[0] >= 250 || pixelData[1] >= 250 || pixelData[2] >= 250)
   //   ctx.fillStyle = "white";
-  if (pixelData[0] <= r + 5 || pixelData[1] <= g + 5 || pixelData[2] <= b + 5)
-    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+  // if (pixelData[0] <= r + 5 || pixelData[1] <= g + 5 || pixelData[2] <= b + 5)
+  //   ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+  if (pixelData[1] <= g + 5) ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function fadeOutNumber(
+function fadeOutCanvas(
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D
 ) {
