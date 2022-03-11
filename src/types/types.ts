@@ -4,6 +4,7 @@ export type Board = (number | null)[][];
 export type CanvasArr = [HTMLCanvasElement, CanvasRenderingContext2D][];
 export type AppContextType = {
   isRunning: boolean;
+  illuminateCells: boolean;
   colorFadeSpeed: number;
   textFadeSpeed: number;
   speed: number;

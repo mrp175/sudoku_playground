@@ -8,10 +8,11 @@ export const AppContext =
 
 const context = {
   isRunning: false,
-  speed: 1,
-  colorFadeSpeed: 1,
-  textFadeSpeed: 1,
-  fadeRefreshRate: 1,
+  speed: 60,
+  illuminateCells: true,
+  colorFadeSpeed: 80,
+  textFadeSpeed: 30,
+  fadeRefreshRate: 30,
 };
 
 function App() {

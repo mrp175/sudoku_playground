@@ -1,4 +1,4 @@
-import { Refs, Board, CAC } from "../types/types";
+import { Refs, Board, CAC, AppContextType } from "../types/types";
 import { indexToRowCol } from "./utils";
 import { drawNumberToCell } from "./drawToCells";
 
@@ -6,27 +6,29 @@ export function refreshCells(
   colorRefs: Refs,
   numberRefs: Refs,
   originalBoard: Board,
-  currentBoard: Board
+  currentBoard: Board,
+  context: AppContextType
 ): void {
   const colors = colorRefs.current;
   const numbers = numberRefs.current;
   if (colors && numbers) {
     for (let i = 0; i < colors.length; i += 1) {
       let [canvas, ctx] = colors[i];
-      fadeOutColor(canvas, ctx);
+      fadeOutColor(canvas, ctx, context);
       [canvas, ctx] = numbers[i];
       drawPlacedNumbers(numbers, originalBoard, currentBoard, i);
-      fadeOutCanvas(canvas, ctx);
+      fadeOutCanvas(canvas, ctx, context);
     }
   }
 }
 
 function fadeOutColor(
   canvas: HTMLCanvasElement,
-  ctx: CanvasRenderingContext2D
+  ctx: CanvasRenderingContext2D,
+  context: AppContextType
 ) {
   const pixelData = ctx.getImageData(0, 0, 1, 1).data;
-  const tailLength = 0.8;
+  const tailLength = context.colorFadeSpeed;
   const r = 16;
   const g = 32;
   const b = 39;
@@ -41,12 +43,14 @@ function fadeOutColor(
 
 function fadeOutCanvas(
   canvas: HTMLCanvasElement,
-  ctx: CanvasRenderingContext2D
+  ctx: CanvasRenderingContext2D,
+  context: AppContextType
 ) {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const values = imageData.data;
+  const textFadeSpeed = context.textFadeSpeed;
   for (let i = 3; i < values.length; i += 4) {
-    values[i] -= 20;
+    values[i] -= textFadeSpeed;
     if (values[i] < 0) values[i] = 0;
   }
   ctx.putImageData(imageData, 0, 0);

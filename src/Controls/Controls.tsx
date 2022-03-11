@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AppContext } from "../App/App";
-import { AppContextType } from "../types/types";
 
 export default function Controls() {
   const contextRef = useContext(AppContext);
@@ -29,18 +28,53 @@ export default function Controls() {
       }
     };
   }
+
+  function toggleColor() {
+    const current = contextRef?.current;
+    if (current) {
+      const showColor = current.illuminateCells;
+      if (showColor) current.illuminateCells = false;
+      else current.illuminateCells = true;
+    }
+  }
+
   return (
     <div>
       Controls
       <button onClick={handleClick}>Pause</button>
       speed
-      <input type="range" onChange={handleChange("speed")}></input>
+      <input
+        type="range"
+        min="1"
+        max="360"
+        step="1"
+        onChange={handleChange("speed")}
+      ></input>
+      <button onClick={toggleColor}>Illuminate Cells</button>
       color fade speed
-      <input type="range" onChange={handleChange("speed")}></input>
+      <input
+        type="range"
+        min="0.01"
+        max="0.99"
+        step="0.01"
+        onChange={handleChange("colorFadeSpeed")}
+      ></input>
       text fade speed
-      <input type="range" onChange={handleChange("speed")}></input>
+      <input
+        type="range"
+        min="1"
+        max="100"
+        step="1"
+        onChange={handleChange("textFadeSpeed")}
+      ></input>
       fade refresh rate
-      <input type="range" onChange={handleChange("speed")}></input>
+      <input
+        type="range"
+        min="10"
+        max="240"
+        step="1"
+        onChange={handleChange("fadeRefreshRate")}
+      ></input>
     </div>
   );
 }

@@ -15,6 +15,8 @@ export function drawNumberToCell(
   ctx.font = "bold 30pt Courier";
   ctx.textBaseline = "middle";
   ctx.textAlign = "center";
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 2;
   ctx.fillText(value + "", canvas.width / 2, canvas.height / 2 + 2);
   ctx.closePath();
 }

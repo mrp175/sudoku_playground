@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { AppContext } from "../App/App";
-import { Refs } from "../types/types";
+import { AppContextType, Refs } from "../types/types";
 import { solveBoard, isCellValid } from "../utils/solveBoard";
 import { hardOne } from "../utils/boards";
 import { Grid, Centered } from "./Board.styled";
 import { handleResize, deepCopyBoard } from "../utils/utils";
 import { createSubGrid } from "../utils/createBoard";
-import { refreshCells } from "../utils/refreshCell";
+import { refreshCells } from "../utils/refreshCells";
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -41,9 +41,24 @@ export default function Board() {
   }
 
   useEffect(function () {
-    setInterval(function () {
-      refreshCells(cellColorRefs, cellNumberRefs, hardOne, boardRef.current);
-    }, 1000 / 30);
+    function refreshTimeout() {
+      const refreshRate = context?.current.fadeRefreshRate || 30;
+      const current = context?.current;
+      if (current) {
+        refreshCells(
+          cellColorRefs,
+          cellNumberRefs,
+          hardOne,
+          boardRef.current,
+          current
+        );
+      }
+      setTimeout(() => refreshTimeout(), 1000 / refreshRate);
+    }
+    refreshTimeout();
+    // setInterval(function () {
+    //   refreshCells(cellColorRefs, cellNumberRefs, hardOne, boardRef.current);
+    // }, 1000 / refreshRate);
   }, []);
 
   return (

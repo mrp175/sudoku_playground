@@ -13,14 +13,14 @@ export async function solveBoard(
     console.log(context);
     return board;
   }
-  await timeout(1000 / 30);
+  await timeout(1000 / context.speed);
 
   const nextCell = findNextCell(board);
   if (!nextCell) return board;
   const [row, col] = nextCell;
 
   for (let i = 1; i <= 9; i += 1) {
-    if (placeDigit(i, row, col, board, refs, textRefs)) {
+    if (placeDigit(i, row, col, board, refs, textRefs, context)) {
       const current = await solveBoard(board, refs, textRefs, context);
       if (current) return board;
     }
@@ -49,11 +49,12 @@ function placeDigit(
   col: number,
   board: Board,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][]
+  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  context: AppContextType
 ) {
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
-    colorCell(value, row, col, refs);
+    if (context.illuminateCells) colorCell(value, row, col, refs);
     drawNumberToCell(value, row, col, textRefs, "white");
     return true;
   }
