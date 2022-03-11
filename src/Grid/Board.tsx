@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 import { AppContext } from "../App/App";
 import { AppContextType, Refs } from "../types/types";
 import { solveBoard, isCellValid } from "../utils/solveBoard";
-import { hardOne } from "../utils/boards";
+import { _075 as hardOne } from "../utils/boards";
 import { Grid, Centered } from "./Board.styled";
 import { handleResize, deepCopyBoard } from "../utils/utils";
 import { createSubGrid } from "../utils/createBoard";

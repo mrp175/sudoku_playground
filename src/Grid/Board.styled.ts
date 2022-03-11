@@ -23,6 +23,7 @@ export const Grid = styled.div`
   border-radius: 20px;
   grid-gap: 2px;
   overflow: hidden;
+  background: rgba(54, 224, 173, 0.2);
 `;
 
 export const Input = styled.input`

@@ -55,7 +55,7 @@ export default function Controls() {
       <input
         type="range"
         min="0.01"
-        max="0.99"
+        max="0.95"
         step="0.01"
         onChange={handleChange("colorFadeSpeed")}
       ></input>
@@ -63,7 +63,7 @@ export default function Controls() {
       <input
         type="range"
         min="1"
-        max="100"
+        max="255"
         step="1"
         onChange={handleChange("textFadeSpeed")}
       ></input>

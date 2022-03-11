@@ -26,6 +26,8 @@ export async function solveBoard(
     }
   }
 
+  // await timeout(1000 / context.speed);
+  // colorCell(row, col, refs);
   board[row][col] = null;
   return false;
 }
@@ -54,7 +56,7 @@ function placeDigit(
 ) {
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
-    if (context.illuminateCells) colorCell(value, row, col, refs);
+    if (context.illuminateCells) colorCell(row, col, refs);
     drawNumberToCell(value, row, col, textRefs, "white");
     return true;
   }

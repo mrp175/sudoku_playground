@@ -35,3 +35,15 @@ export const hardOneTes = [
   [b, b, 8, 5, b, b, b, 1, b],
   [b, 9, b, b, b, b, 4, b, b],
 ];
+
+export const _075 = [
+  [b, b, 7, b, 8, 1, b, b, 5],
+  [b, b, b, b, b, 3, b, 4, b],
+  [b, b, 4, b, b, b, 9, b, 8],
+  [5, b, b, b, 4, b, b, 3, b],
+  [b, b, b, 8, b, 9, b, b, b],
+  [b, 7, b, b, 1, b, b, b, 2],
+  [6, b, 3, b, b, b, 7, b, b],
+  [b, 4, b, 9, b, b, b, b, b],
+  [8, b, b, 1, 7, b, 6, b, b],
+];

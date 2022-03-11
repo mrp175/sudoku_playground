@@ -10,9 +10,9 @@ const context = {
   isRunning: false,
   speed: 60,
   illuminateCells: true,
-  colorFadeSpeed: 80,
-  textFadeSpeed: 30,
-  fadeRefreshRate: 30,
+  colorFadeSpeed: 0.85,
+  textFadeSpeed: 65,
+  fadeRefreshRate: 60,
 };
 
 function App() {

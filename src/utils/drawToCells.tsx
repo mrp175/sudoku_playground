@@ -41,7 +41,6 @@ const colors = createColors();
 const color = "rgb(60, 224, 175)";
 
 export function colorCell(
-  value: number,
   row: number,
   col: number,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][]
