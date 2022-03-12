@@ -10,3 +10,6 @@ export type AppContextType = {
   speed: number;
   fadeRefreshRate: number;
 };
+export type MouseContextType = {
+  position: { x: number; y: number };
+};

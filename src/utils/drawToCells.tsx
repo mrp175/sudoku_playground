@@ -52,3 +52,13 @@ export function colorCell(
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.closePath();
 }
+
+export function colorCanvas(
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D
+) {
+  ctx.beginPath();
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.closePath();
+}

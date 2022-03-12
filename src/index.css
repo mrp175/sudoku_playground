@@ -11,6 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* background: rgb(87, 58, 73); */
   background: rgb(26, 51, 63);
+  background-color: #1a333f;
   /* -webkit-mask-image: url("./images/noiseTexture.png");
   mask-image: url("./images//noiseTexture.png"); */
 }

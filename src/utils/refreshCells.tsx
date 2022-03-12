@@ -1,16 +1,26 @@
-import { Refs, Board, CAC, AppContextType } from "../types/types";
+import {
+  Refs,
+  Board,
+  CAC,
+  AppContextType,
+  MouseContextType,
+} from "../types/types";
 import { indexToRowCol } from "./utils";
 import { drawNumberToCell } from "./drawToCells";
+import { mouseHover } from "./mouseHover";
 
 export function refreshCells(
   colorRefs: Refs,
   numberRefs: Refs,
   originalBoard: Board,
   currentBoard: Board,
-  context: AppContextType
+  context: AppContextType,
+  mouse: MouseContextType
 ): void {
+  const { x, y } = mouse.position;
   const colors = colorRefs.current;
   const numbers = numberRefs.current;
+  // mouseHover(numbers[0][0], numbers[0][1], x, y);
   if (colors && numbers) {
     for (let i = 0; i < colors.length; i += 1) {
       let [canvas, ctx] = colors[i];

@@ -1,5 +1,5 @@
 import { Refs } from "../types/types";
-import { Cell, Canvas } from "../Grid/Board.styled";
+import { Cell, Canvas } from "../Board/Board.styled";
 
 export function createSubGrid(
   cellColorRefs: Refs,

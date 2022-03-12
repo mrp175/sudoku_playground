@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect, useContext } from "react";
-import { AppContext } from "../App/App";
+import { AppContext, MouseContext } from "../App/App";
 import { AppContextType, Refs } from "../types/types";
 import { solveBoard, isCellValid } from "../utils/solveBoard";
-import { _075 as hardOne } from "../utils/boards";
+import { hardOne } from "../utils/boards";
 import { Grid, Centered } from "./Board.styled";
 import { handleResize, deepCopyBoard } from "../utils/utils";
 import { createSubGrid } from "../utils/createBoard";
@@ -16,6 +16,7 @@ export default function Board() {
   const [subGrid, setSubGrid] = useState<JSX.Element[]>([]);
   const boardRef = useRef(deepCopyBoard(hardOne));
   const context = useContext(AppContext);
+  const mouseContext = useContext(MouseContext);
 
   useEffect(
     () =>
@@ -44,26 +45,25 @@ export default function Board() {
     function refreshTimeout() {
       const refreshRate = context?.current.fadeRefreshRate || 30;
       const current = context?.current;
-      if (current) {
+      const mouse = mouseContext?.current;
+      if (current && mouse) {
         refreshCells(
           cellColorRefs,
           cellNumberRefs,
           hardOne,
           boardRef.current,
-          current
+          current,
+          mouse
         );
       }
       setTimeout(() => refreshTimeout(), 1000 / refreshRate);
     }
     refreshTimeout();
-    // setInterval(function () {
-    //   refreshCells(cellColorRefs, cellNumberRefs, hardOne, boardRef.current);
-    // }, 1000 / refreshRate);
   }, []);
 
   return (
     <>
-      <button onClick={solve}> check </button>
+      {/* <button onClick={solve}> check </button> */}
       <Centered>
         <Grid theme={{ height: width }} ref={gridRef}>
           {subGrid}
