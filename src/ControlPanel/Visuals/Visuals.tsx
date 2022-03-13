@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AppContext } from "../../App/App";
-import { handleRangeBias } from "../../utils/utils";
 
 export default function Controls() {
   const contextRef = useContext(AppContext);
@@ -37,11 +36,6 @@ export default function Controls() {
       if (showColor) current.illuminateCells = false;
       else current.illuminateCells = true;
     }
-  }
-
-  function test(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
-    console.log(handleRangeBias(+e.target.value, 0.5, "log"));
   }
 
   return (
@@ -81,7 +75,6 @@ export default function Controls() {
         step="1"
         onChange={handleChange("fadeRefreshRate")}
       ></input>
-      <input type="range" min="0" max="1" step="0.001" onChange={test}></input>
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
-import Grid from "../Board/Board";
-import Controls from "../Controls/Visuals/Visuals";
+import Board from "../Board/Board";
+import Controls from "../ControlPanel/Visuals/Visuals";
 import { AppContextType, MouseContextType } from "../types/types";
-import { ComponentWrapper } from "./App.styled";
-import PlayPause from "../Controls/PlayPause/PlayPause";
-import TitleBar from "../TopBar/TitleBar";
+import { ComponentWrapper, GridContainer } from "./App.styled";
+import PlayPause from "../ControlPanel/PlayPause/PlayPause";
+import TitleBar from "../TitleBar/TitleBar";
+import { Grid } from "./App.styled";
+import ControlPanel from "../ControlPanel/ControlPanel";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -44,7 +46,12 @@ function App() {
         <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
           {/* <Controls /> */}
           <TitleBar />
-          <Grid />
+          <GridContainer>
+            <Grid theme={{ orientation: "landscape" }}>
+              <Board />
+              <ControlPanel />
+            </Grid>
+          </GridContainer>
           {/* <PlayPause /> */}
         </ComponentWrapper>
       </MouseContext.Provider>

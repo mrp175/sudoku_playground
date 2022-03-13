@@ -44,20 +44,3 @@ export function deepCopyBoard(board: Board): Board {
   }
   return result;
 }
-
-export function handleRangeBias(
-  x: number,
-  bias: number,
-  type: "exp" | "log"
-): number {
-  if (type === "exp") {
-    x = 1 - x;
-    let k = Math.pow(1 - bias, 3);
-    k = (x * k) / (x * k - x + 1);
-    return 1 - k;
-  } else {
-    let k = Math.pow(1 - bias, 3);
-    k = (x * k) / (x * k - x + 1);
-    return k;
-  }
-}

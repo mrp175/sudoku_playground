@@ -3,9 +3,9 @@ import { box_shadow, font_family } from "../styleVars/styleVars";
 
 export const Btn = styled.button`
   outline: none;
-  width: 200px;
+  width: 250px;
   border-radius: 25px;
-  box-shadow: ${box_shadow};
+  /* box-shadow: ${box_shadow}; */
   border: none;
   font-family: ${font_family};
   font-size: 25px;
@@ -27,10 +27,9 @@ export const Btn = styled.button`
         : "filter: brightness(120%)"};
     ${(props) =>
       props.theme.glowOnHover ? "color: white" : `color: ${props.theme.color}`};
-    text-shadow: 0px 0px 3px
-      ${(props) =>
-        props.theme.glowOnHover ? "white" : `rgb${props.theme.color}`};
-    /* box-shadow: 0px 0px 15px 0px rgba(${(props) =>
-      props.theme.color}, 0.4); */
+    text-shadow: 0px 0px 3px;
+    /* ${(props) =>
+      props.theme.glowOnHover ? "white" : `rgb${props.theme.color}`};
+    box-shadow: 0px 0px 15px 0px rgba(${(props) => props.theme.color}, 0.4); */
   }
 `;

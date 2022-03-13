@@ -3,7 +3,7 @@ import { AppContext, MouseContext } from "../App/App";
 import { AppContextType, Refs } from "../types/types";
 import { solveBoard, isCellValid } from "../utils/solveBoard";
 import { hardOne } from "../utils/boards";
-import { Grid, Centered } from "./Board.styled";
+import { BoardGrid, Centered } from "./Board.styled";
 import { handleResize, deepCopyBoard } from "../utils/utils";
 import { createSubGrid } from "../utils/createBoard";
 import { refreshCells } from "../utils/refreshCells";
@@ -63,11 +63,11 @@ export default function Board() {
 
   return (
     <>
-      {/* <button onClick={solve}> check </button> */}
       <Centered>
-        <Grid theme={{ height: width }} ref={gridRef}>
+        {/* <button onClick={solve}> solve </button> */}
+        <BoardGrid theme={{ height: width }} ref={gridRef}>
           {subGrid}
-        </Grid>
+        </BoardGrid>
       </Centered>
     </>
   );

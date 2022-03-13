@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { border_radius, primary_color } from "../styleVars/styleVars";
 
 type Props = {
   theme: {
@@ -12,29 +13,19 @@ function prop(name: string) {
   };
 }
 
-export const Grid = styled.div`
+export const BoardGrid = styled.div`
   display: grid;
   grid-template-rows: repeat(9, 1fr);
   grid-template-columns: repeat(9, 1fr);
-  /* width: 700px;
-  height: ${prop("height")}px; */
-  margin: 20px;
+  /* width: 700px; */
+  height: ${prop("height")}px;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
+  border-radius: ${border_radius};
   grid-gap: 2px;
   overflow: hidden;
-  background: rgba(54, 224, 173, 0.2);
-`;
-
-export const Input = styled.input`
-  height: 100%;
-  width: 100%;
-  font-size: 200%;
-  text-align: center;
-  background: white;
-  transition: 1.2s ease, transform 0.1s ease;
-  border: none;
-  border-radius: 3px;
+  background: rgba(${primary_color}, 0.2);
+  max-width: 736px;
+  padding: 0;
 `;
 
 export const Canvas = styled.canvas`
@@ -46,15 +37,9 @@ export const Canvas = styled.canvas`
 `;
 
 export const Centered = styled.div`
-  pointer-events: none;
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: grid;
   align-items: center;
   justify-items: center;
-  width: 100vw;
-  height: 100vh;
+  padding: 0;
 `;
 
 export const Cell = styled.div`
