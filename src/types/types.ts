@@ -1,6 +1,7 @@
 export type CAC = [HTMLCanvasElement, CanvasRenderingContext2D];
 export type Refs = React.MutableRefObject<CAC[]>;
 export type Board = (number | null)[][];
+export type BoardRef = React.MutableRefObject<Board>;
 export type CanvasArr = [HTMLCanvasElement, CanvasRenderingContext2D][];
 export type AppContextType = {
   isRunning: boolean;
@@ -57,3 +58,9 @@ export interface NewMouseState {
   handleMove: HandleMouseInput;
   handleUp: HandleMouseInput;
 }
+
+export type AppContextPropNames =
+  | "colorFadeSpeed"
+  | "textFadeSpeed"
+  | "speed"
+  | "fadeRefreshRate";

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { MouseInput } from "../utils/handleMouseInput";
 import {
   handleBoundaries,
@@ -19,6 +19,7 @@ import {
   Text,
   Canvas,
 } from "./Dial.styled";
+import { AppContext } from "../App/App";
 
 export default function Dial({
   min,
@@ -36,13 +37,27 @@ export default function Dial({
   const initDialVal = initializeDialPos(init, min, max);
   const dial = new DialState(initDialVal);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const appContext = useContext(AppContext);
 
   function mapMouseToDial(mouse: MouseState) {
-    const change = mouse.y.distanceTravelled * 2;
+    const change = mouse.y.distanceTravelled;
     let valueInDeg = dial.start + change;
     if (valueInDeg > 130) valueInDeg = 130;
     if (valueInDeg < -130) valueInDeg = -130;
-    return valueInDeg;
+    const steps = Math.floor(valueInDeg / 6.5) * 6.5;
+    setSpeed(steps);
+    return steps;
+  }
+
+  function setSpeed(dialVal: number) {
+    const current = appContext?.current;
+    if (current) {
+      let mapped = mapNumberRange(dialVal, -130, 130, 0, 1);
+      mapped = handleRangeBias(mapped, 0.6, "log");
+      mapped = mapNumberRange(mapped, 0, 1, 1, 380);
+      mapped = Math.round((mapped + Number.EPSILON) * 100) / 100;
+      current.speed = mapped;
+    }
   }
 
   function handleMouseMove(
@@ -67,6 +82,15 @@ export default function Dial({
         dial.start = s;
         return s;
       });
+    }
+  }
+
+  function setGlowAmount() {
+    const current = appContext?.current;
+    if (current) {
+      let mapped = mapNumberRange(current.speed, 1, 380, 0, 1);
+      mapped = handleRangeBias(mapped, 0.5, "exp");
+      return mapped;
     }
   }
 
@@ -97,12 +121,12 @@ export default function Dial({
 
   return (
     <Component>
-      <Knob>
+      <Knob theme={{ glowAmount: setGlowAmount() }}>
         <Background></Background>
         {/* <div className="Dial__knob__highlight"></div> */}
         <Canvas />
         <LineContainer ref={knobRef}>
-          <Line></Line>
+          <Line theme={{ glowAmount: setGlowAmount() }}></Line>
         </LineContainer>
       </Knob>
       <Text>Speed</Text>

@@ -10,7 +10,6 @@ export async function solveBoard(
   context: AppContextType
 ): Promise<Board | false> {
   if (context.isRunning === false) {
-    console.log(context);
     return board;
   }
   await timeout(1000 / context.speed);

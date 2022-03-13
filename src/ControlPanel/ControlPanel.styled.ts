@@ -27,9 +27,3 @@ export const Component = styled.div`
     align-content: center;
   }
 `;
-
-export const DialText = styled.div`
-  font-size: 16px;
-  color: rgb(${primary_color});
-  margin: 10px;
-`;

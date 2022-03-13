@@ -18,10 +18,11 @@ export const Knob = styled.div`
   border-radius: 50%;
   display: grid;
   justify-items: center;
-  box-shadow: none;
   overflow: hidden;
   position: relative;
   border: 2px solid rgba(${primary_color}, 0.2);
+  box-shadow: 0px 0px 15px 0px
+    hsla(162, 73%, ${(props) => Math.floor(props.theme.glowAmount * 10)}%, 0.4);
   box-shadow: ${box_shadow};
   &:hover {
     background: rgba(${primary_color}, 0.05);
@@ -42,10 +43,12 @@ export const Line = styled.div`
   height: 1em;
   width: 0;
   left: calc(50% - 2px);
-  border: 2px solid rgb(${primary_color});
+  border: 2px solid
+    rgba(${primary_color}, ${(props) => props.theme.glowAmount / 2 + 0.8});
   border-bottom-left-radius: 1em;
   border-bottom-right-radius: 1em;
-  box-shadow: 0px 0px 30px 0px rgb(${primary_color});
+  box-shadow: 0px 0px 30px 2px
+    rgba(${primary_color}, ${(props) => props.theme.glowAmount / 2 + 0.4});
 `;
 
 export const Canvas = styled.canvas``;

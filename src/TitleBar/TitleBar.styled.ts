@@ -15,6 +15,6 @@ export const Component = styled.div`
 export const Title = styled.div`
   font-size: ${title_bar.font_size}px;
   color: rgb(${primary_color});
-  font-weight: 500;
+  font-weight: 900;
   text-shadow: 0px 0px 2px rgb(${primary_color});
 `;

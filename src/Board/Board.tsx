@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useContext } from "react";
-import { AppContext, MouseContext } from "../App/App";
+import { AppContext, BoardContext, MouseContext } from "../App/App";
 import { AppContextType, Refs } from "../types/types";
 import { solveBoard, isCellValid } from "../utils/solveBoard";
 import { hardOne } from "../utils/boards";
@@ -17,6 +17,7 @@ export default function Board() {
   const boardRef = useRef(deepCopyBoard(hardOne));
   const context = useContext(AppContext);
   const mouseContext = useContext(MouseContext);
+  const boardContext = useContext(BoardContext);
 
   useEffect(
     () =>
@@ -31,15 +32,11 @@ export default function Board() {
       1
     );
   }, []);
-
-  function solve() {
-    solveBoard(
-      boardRef.current,
-      cellColorRefs.current,
-      cellNumberRefs.current,
-      context?.current!
-    );
-  }
+  useEffect(() => {
+    if (boardContext) {
+      boardContext.current = [boardRef, cellColorRefs, cellNumberRefs];
+    }
+  });
 
   useEffect(function () {
     function refreshTimeout() {
@@ -64,7 +61,6 @@ export default function Board() {
   return (
     <>
       <Centered>
-        {/* <button onClick={solve}> solve </button> */}
         <BoardGrid theme={{ height: width }} ref={gridRef}>
           {subGrid}
         </BoardGrid>

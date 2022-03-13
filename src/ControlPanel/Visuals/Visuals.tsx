@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../../App/App";
+import { AppContextPropNames } from "../../types/types";
 
 export default function Controls() {
   const contextRef = useContext(AppContext);
@@ -13,16 +14,9 @@ export default function Controls() {
     }
   }
 
-  type VarNames =
-    | "colorFadeSpeed"
-    | "textFadeSpeed"
-    | "speed"
-    | "fadeRefreshRate";
-
-  function handleChange(varName: VarNames) {
+  function handleChange(varName: AppContextPropNames) {
     return function (e: React.ChangeEvent<HTMLInputElement>) {
       const current = contextRef?.current;
-      console.log(e.target.value);
       if (current) {
         current[varName] = +e.target.value;
       }
