@@ -13,7 +13,6 @@ export default function DisableElevation({
   onClick: () => void;
   isDisabled: boolean;
 }) {
-  console.log(color);
   return (
     <Component theme={{ color, isDisabled }}>
       <Button

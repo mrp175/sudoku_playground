@@ -17,13 +17,12 @@ export function refreshCells(
   context: AppContextType,
   mouse: MouseContextType
 ): void {
-  const { x, y } = mouse.position;
   const colors = colorRefs.current;
   const numbers = numberRefs.current;
-  // mouseHover(numbers[0][0], numbers[0][1], x, y);
   if (colors && numbers) {
     for (let i = 0; i < colors.length; i += 1) {
       let [canvas, ctx] = colors[i];
+      mouseHover(canvas, ctx, mouse);
       fadeOutColor(canvas, ctx, context);
       [canvas, ctx] = numbers[i];
       fadeOutCanvas(canvas, ctx, context);
