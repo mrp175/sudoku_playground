@@ -68,7 +68,7 @@ export default function ControlPanel() {
       </div>
       <div>
         <Slider
-          textLabel="Color Fade Speed"
+          textLabel="Color Fade Duration"
           appContextPropName="colorFadeSpeed"
           min={0}
           max={0.92}
@@ -76,7 +76,7 @@ export default function ControlPanel() {
           expType="exp"
         />
         <Slider
-          textLabel="Text Fade Speed"
+          textLabel="Text Fade Duration"
           appContextPropName="textFadeSpeed"
           min={255}
           max={10}
