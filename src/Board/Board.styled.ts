@@ -22,7 +22,6 @@ export const BoardGrid = styled.div`
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
   border-radius: ${border_radius};
   grid-gap: 2px;
-  overflow: hidden;
   background: rgba(${primary_color}, 0.2);
   max-width: 736px;
   padding: 0;
