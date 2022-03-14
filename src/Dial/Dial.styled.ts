@@ -24,6 +24,7 @@ export const Knob = styled.div`
   box-shadow: 0px 0px 15px 0px
     hsla(162, 73%, ${(props) => Math.floor(props.theme.glowAmount * 10)}%, 0.4);
   box-shadow: ${box_shadow};
+  transition: 0.1s ease;
   &:hover {
     background: rgba(${primary_color}, 0.05);
     cursor: pointer;
