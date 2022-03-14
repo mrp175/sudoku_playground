@@ -68,7 +68,7 @@ export default function NonLinearSlider({
     <Box sx={{ width: 250, margin: "15px" }}>
       <Slider
         sx={{
-          color: `rgba(${primary_color}, 0.8)`,
+          color: `rgba(${primary_color}, 1)`,
         }}
         value={value}
         min={0}

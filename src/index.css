@@ -1,3 +1,7 @@
+:root {
+  --primary-color: 54, 224, 173;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -19,4 +23,26 @@ body {
   background-color: hsl(190, 43%, 20%);
   /* -webkit-mask-image: url("./images/noiseTexture.png");
   mask-image: url("./images//noiseTexture.png"); */
+}
+
+.MuiSlider-thumb:hover {
+  /* box-shadow: 0 0 15px 10px rgba(0, 255, 0, 0.3) !important; */
+  background: rgb(16, 43, 46);
+}
+
+.MuiSlider-thumb {
+  box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4) !important;
+  color: rgb(16, 32, 39);
+  border: 1px solid rgba(54, 224, 173, 0.4);
+  /* box-shadow: none !important; */
+}
+
+.MuiSlider-track {
+  color: rgba(54, 224, 173, 1);
+  /* box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4); */
+}
+
+.MuiSlider-rail {
+  color: rgba(54, 224, 173, 0.4);
+  /* box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4); */
 }

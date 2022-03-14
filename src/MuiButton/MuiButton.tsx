@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import { primary_color } from "../styleVars/styleVars";
+import { box_shadow, primary_color } from "../styleVars/styleVars";
 
 export default function DisableElevation({
   children,
@@ -19,7 +19,7 @@ export default function DisableElevation({
       variant="contained"
       disableElevation
       sx={{
-        transition: "0.3s ease",
+        transition: "0.2s ease",
         margin: "15px",
         width: 250,
         fontWeight: "900",
@@ -29,12 +29,18 @@ export default function DisableElevation({
         border: `2px solid rgba(${color}, 0.2)`,
         color: `rgb(${color})`,
         textShadow: `0px 0px 2px rgba(${color}, 1)`,
+        boxShadow: `${box_shadow}`,
+        "&.MuiSlider-thumb:hover": {
+          color: "red",
+          boxShadow: "0 0 0 10px rgba(0, 255, 0, 0.3) !important;",
+        },
         "&:hover": {
           background: `rgba(${color}, 0.05)`,
           filter: "brightness(120%)",
+          boxShadow: `${box_shadow}`,
         },
         "&:disabled": {
-          filter: "grayscale(70%)",
+          filter: "grayscale(100%)",
           textShadow: `none`,
           color: `rgb(${color})`,
         },
