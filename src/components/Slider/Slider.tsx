@@ -2,10 +2,10 @@ import { useContext, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import { primary_color } from "../styleVars/styleVars";
+import { primary_color } from "../../styleVars/styleVars";
 import { AppContext } from "../App/App";
-import { AppContextPropNames } from "../types/types";
-import { handleRangeBias, mapNumberRange } from "../utils/utils";
+import { AppContextPropNames } from "../../types/types";
+import { handleRangeBias, mapNumberRange } from "../../utils/utils";
 
 function valueLabelFormat(value: number) {
   const units = ["KB", "MB", "GB", "TB"];

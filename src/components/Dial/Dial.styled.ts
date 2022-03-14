@@ -3,7 +3,7 @@ import {
   background_color,
   box_shadow,
   primary_color,
-} from "../styleVars/styleVars";
+} from "../../styleVars/styleVars";
 
 export const Component = styled.div`
   font-size: 5rem;

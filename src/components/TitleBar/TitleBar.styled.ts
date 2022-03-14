@@ -4,7 +4,7 @@ import {
   box_shadow,
   primary_color,
   title_bar,
-} from "../styleVars/styleVars";
+} from "../../styleVars/styleVars";
 
 export const Component = styled.div`
   background: rgb(${background_alt_color});

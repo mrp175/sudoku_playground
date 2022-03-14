@@ -4,7 +4,7 @@ import {
   primary_color,
   background_alt_color,
   secondary_color,
-} from "../styleVars/styleVars";
+} from "../../styleVars/styleVars";
 
 export default function TitleBar() {
   return (

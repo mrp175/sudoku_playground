@@ -64,3 +64,5 @@ export type AppContextPropNames =
   | "textFadeSpeed"
   | "speed"
   | "fadeRefreshRate";
+
+export type BoardPresetsRefType = React.MutableRefObject<Board[] | null>;

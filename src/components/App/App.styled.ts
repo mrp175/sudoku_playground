@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { title_bar_height } from "../styleVars/styleVars";
+import { title_bar_height } from "../../styleVars/styleVars";
 
 export const ComponentWrapper = styled.div`
   height: 100vh;

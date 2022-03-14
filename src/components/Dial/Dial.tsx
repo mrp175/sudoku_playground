@@ -1,14 +1,14 @@
 /* eslint-disable */
 import { useRef, useEffect, useState, useContext } from "react";
-import { MouseInput } from "../utils/handleMouseInput";
+import { MouseInput } from "../../utils/handleMouseInput";
 import {
   handleBoundaries,
   initializeDialPos,
   addGenericEventListener,
   DialState,
-} from "../utils/dial";
-import { handleRangeBias, mapNumberRange } from "../utils/utils";
-import { DialType, NewMouseState, MouseState } from "../types/types";
+} from "../../utils/dial";
+import { handleRangeBias, mapNumberRange } from "../../utils/utils";
+import { DialType, NewMouseState, MouseState } from "../../types/types";
 import {
   Component,
   Line,

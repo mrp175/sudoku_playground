@@ -1,12 +1,11 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { AppContext, BoardContext, MouseContext } from "../App/App";
-import { AppContextType, Refs } from "../types/types";
-import { solveBoard, isCellValid } from "../utils/solveBoard";
-import { hardOne } from "../utils/boards";
+import { AppContextType, Refs } from "../../types/types";
+import { hardOne } from "../../utils/boards";
 import { BoardGrid, Centered } from "./Board.styled";
-import { handleResize, deepCopyBoard } from "../utils/utils";
-import { createSubGrid } from "../utils/createBoard";
-import { refreshCells } from "../utils/refreshCells";
+import { handleResize, deepCopyBoard } from "../../utils/utils";
+import { createSubGrid } from "../../utils/createBoard";
+import { refreshCells } from "../../utils/refreshCells";
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { box_shadow, font_family } from "../styleVars/styleVars";
+import { box_shadow, font_family } from "../../styleVars/styleVars";
 
 export const Btn = styled.button`
   outline: none;

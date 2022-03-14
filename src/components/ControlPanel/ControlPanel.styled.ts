@@ -4,7 +4,7 @@ import {
   border_radius,
   box_shadow,
   primary_color,
-} from "../styleVars/styleVars";
+} from "../../styleVars/styleVars";
 
 export const Component = styled.div`
   background: rgba(${primary_color}, 0.2);

@@ -1,15 +1,17 @@
 import { useContext, useState } from "react";
 import { Component } from "./ControlPanel.styled";
 import Slider from "../Slider/Slider";
-import { primary_color, secondary_color } from "../styleVars/styleVars";
+import { primary_color, secondary_color } from "../../styleVars/styleVars";
 import Dial from "../Dial/Dial";
 import MuiButton from "../MuiButton/MuiButton";
-import { AppContext, BoardContext } from "../App/App";
-import { solveBoard } from "../utils/solveBoard";
+import { AppContext, BoardContext, BoardPresetsContext } from "../App/App";
+import { solveBoard } from "../../utils/solveBoard";
+import { deepCopyBoard } from "../../utils/utils";
 
 export default function ControlPanel() {
   const appContext = useContext(AppContext);
   const boardContext = useContext(BoardContext);
+  const boardPresetsContext = useContext(BoardPresetsContext);
   const [isRunning, setIsRunning] = useState(false);
 
   function playPause() {
@@ -31,6 +33,13 @@ export default function ControlPanel() {
     }
   }
 
+  function resetBoard() {
+    let current = boardContext?.current;
+    if (current) {
+      current[0].current = deepCopyBoard(boardPresetsContext![1]);
+    }
+  }
+
   return (
     <Component>
       <div>
@@ -38,7 +47,7 @@ export default function ControlPanel() {
           {isRunning ? "PAUSE" : "SOLVE BOARD"}
         </MuiButton>
         <MuiButton
-          onClick={playPause}
+          onClick={resetBoard}
           color={secondary_color}
           isDisabled={isRunning}
         >

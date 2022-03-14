@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import { box_shadow, primary_color } from "../styleVars/styleVars";
+import { box_shadow, primary_color } from "../../styleVars/styleVars";
 import { Component } from "./MuiButton.styled";
 
 export default function DisableElevation({

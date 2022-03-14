@@ -1,12 +1,15 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Board from "../Board/Board";
-import { AppContextType, MouseContextType } from "../types/types";
+import { AppContextType, MouseContextType } from "../../types/types";
 import { ComponentWrapper, GridContainer } from "./App.styled";
 import TitleBar from "../TitleBar/TitleBar";
 import { Grid } from "./App.styled";
 import ControlPanel from "../ControlPanel/ControlPanel";
-import { Refs, BoardRef } from "../types/types";
+import { Refs, BoardRef, Board as BoardType } from "../../types/types";
 import SelectNumberPanel from "../SelectNumberPanel/SelectNumberPanel";
+import CombineProviders from "../CombineProviders/CombineProviders";
+import { setBoardPresets } from "../../utils/setBoardPresets";
+import { boards } from "../../utils/boards";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -40,25 +43,32 @@ export const BoardContext = React.createContext<React.MutableRefObject<
   [BoardRef, Refs, Refs] | null
 > | null>(null);
 
+export const BoardPresetsContext = React.createContext<
+  (number | null)[][][] | null
+>(null);
+
 function App() {
   const contextRef = useRef(context);
   const mouseContextRef = useRef(mouseContext);
   const boardContextRef = useRef<[BoardRef, Refs, Refs] | null>(null);
 
   return (
+    // <CombineProviders components={[AppContext, MouseContext, BoardContext]}></CombineProviders>
     <AppContext.Provider value={contextRef}>
       <MouseContext.Provider value={mouseContextRef}>
         <BoardContext.Provider value={boardContextRef}>
-          <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
-            <TitleBar />
-            <GridContainer>
-              <Grid theme={{ orientation: "landscape" }}>
-                <SelectNumberPanel />
-                <Board />
-                <ControlPanel />
-              </Grid>
-            </GridContainer>
-          </ComponentWrapper>
+          <BoardPresetsContext.Provider value={boards}>
+            <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
+              <TitleBar />
+              <GridContainer>
+                <Grid theme={{ orientation: "landscape" }}>
+                  <SelectNumberPanel />
+                  <Board />
+                  <ControlPanel />
+                </Grid>
+              </GridContainer>
+            </ComponentWrapper>
+          </BoardPresetsContext.Provider>
         </BoardContext.Provider>
       </MouseContext.Provider>
     </AppContext.Provider>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primary_color, border_radius } from "../styleVars/styleVars";
+import { primary_color, border_radius } from "../../styleVars/styleVars";
 
 type Props = {
   theme: {

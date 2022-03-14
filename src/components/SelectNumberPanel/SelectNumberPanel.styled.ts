@@ -4,8 +4,8 @@ import {
   border_radius,
   box_shadow,
   background_alt_color,
-} from "../styleVars/styleVars";
-import { secondary_color } from "../styleVars/styleVars";
+} from "../../styleVars/styleVars";
+import { secondary_color } from "../../styleVars/styleVars";
 
 export const Component = styled.div`
   background: rgba(${secondary_color}, 0.2);
