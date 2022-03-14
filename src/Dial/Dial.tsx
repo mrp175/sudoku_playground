@@ -4,11 +4,10 @@ import { MouseInput } from "../utils/handleMouseInput";
 import {
   handleBoundaries,
   initializeDialPos,
-  handleRangeBias,
-  mapNumberRange,
   addGenericEventListener,
+  DialState,
 } from "../utils/dial";
-import { DialState } from "../utils/dial";
+import { handleRangeBias, mapNumberRange } from "../utils/utils";
 import { DialType, NewMouseState, MouseState } from "../types/types";
 import {
   Component,

@@ -56,7 +56,7 @@ function placeDigit(
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
     if (context.illuminateCells) colorCell(row, col, refs);
-    drawNumberToCell(value, row, col, textRefs, "white");
+    drawNumberToCell(value, row, col, textRefs, "255, 255, 255", context);
     return true;
   }
   return false;

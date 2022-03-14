@@ -1,22 +1,43 @@
-import { CanvasArr } from "../types/types";
+import { AppContextType, CanvasArr } from "../types/types";
+import { mapRangeWithBias } from "../utils/utils";
 
 export function drawNumberToCell(
   value: number,
   row: number,
   col: number,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  color: string
+  color: string,
+  context: AppContextType
 ) {
   if (value === null) return;
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
-  ctx.fillStyle = color;
+  ctx.fillStyle = `rgb(${color})`;
   ctx.textAlign = "center";
   ctx.font = "bold 30pt Courier";
   ctx.textBaseline = "middle";
   ctx.textAlign = "center";
-  ctx.shadowColor = color;
-  ctx.shadowBlur = 2;
+  // let shadowBlurOpacity = mapRangeWithBias(
+  //   context.textFadeSpeed,
+  //   255,
+  //   10,
+  //   1,
+  //   0.5,
+  //   0.4,
+  //   "log"
+  // );
+  // ctx.shadowColor = `rgba(${color}, ${shadowBlurOpacity})`;
+  ctx.shadowColor = `rgba(${color})`;
+  let shadowBlurAmount = mapRangeWithBias(
+    context.textFadeSpeed,
+    255,
+    10,
+    3,
+    1,
+    0.6,
+    "log"
+  );
+  ctx.shadowBlur = shadowBlurAmount;
   ctx.fillText(value + "", canvas.width / 2, canvas.height / 2 + 2);
   ctx.closePath();
 }

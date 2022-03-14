@@ -5,7 +5,7 @@ import Slider from "@mui/material/Slider";
 import { primary_color } from "../styleVars/styleVars";
 import { AppContext } from "../App/App";
 import { AppContextPropNames } from "../types/types";
-import { handleRangeBias, mapNumberRange } from "../utils/dial";
+import { handleRangeBias, mapNumberRange } from "../utils/utils";
 
 function valueLabelFormat(value: number) {
   const units = ["KB", "MB", "GB", "TB"];

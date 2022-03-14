@@ -27,7 +27,7 @@ export function refreshCells(
       fadeOutColor(canvas, ctx, context);
       [canvas, ctx] = numbers[i];
       fadeOutCanvas(canvas, ctx, context);
-      drawPlacedNumbers(numbers, originalBoard, currentBoard, i);
+      drawPlacedNumbers(numbers, originalBoard, currentBoard, i, context);
     }
   }
 }
@@ -70,11 +70,12 @@ function drawPlacedNumbers(
   refs: CAC[],
   originalBoard: Board,
   currentBoard: Board,
-  index: number
+  index: number,
+  context: AppContextType
 ) {
   const [row, col] = indexToRowCol(index);
   const value = currentBoard[row][col] as number;
   if (originalBoard[row][col])
-    drawNumberToCell(value, row, col, refs, "rgb(54, 224, 173)");
-  else drawNumberToCell(value, row, col, refs, "white");
+    drawNumberToCell(value, row, col, refs, "54, 224, 173", context);
+  else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
 }
