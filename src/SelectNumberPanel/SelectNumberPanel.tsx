@@ -24,9 +24,11 @@ export default function SelectNumberPanel() {
   function createGridElements(gridRefs: GridRefs) {
     const elements: JSX.Element[] = [];
     const current = gridRefs.current;
+    let className = "selected";
     for (let i = 1; i <= 9; i += 1) {
       elements.push(
         <div
+          className={i === 1 ? className : ""}
           key={"gridEl" + i}
           ref={(el) => current?.push(el!)}
           onClick={(e) => handleClick(e, gridRefs)}
