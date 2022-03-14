@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 import Board from "../Board/Board";
-import Controls from "../ControlPanel/Visuals/Visuals";
 import { AppContextType, MouseContextType } from "../types/types";
 import { ComponentWrapper, GridContainer } from "./App.styled";
 import TitleBar from "../TitleBar/TitleBar";
 import { Grid } from "./App.styled";
 import ControlPanel from "../ControlPanel/ControlPanel";
 import { Refs, BoardRef } from "../types/types";
+import SelectNumberPanel from "../SelectNumberPanel/SelectNumberPanel";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -53,6 +53,7 @@ function App() {
             <TitleBar />
             <GridContainer>
               <Grid theme={{ orientation: "landscape" }}>
+                <SelectNumberPanel />
                 <Board />
                 <ControlPanel />
               </Grid>

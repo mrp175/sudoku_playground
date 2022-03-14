@@ -14,8 +14,8 @@ export const Grid = styled.div`
   display: grid;
   ${(props) =>
     props.theme.orientation === "landscape"
-      ? "grid-template-columns: auto 1fr"
-      : "grid-template-rows: auto 1fr"};
+      ? "grid-template-columns: auto auto auto"
+      : "grid-template-rows: auto auto auto"};
   grid-gap: 75px;
 `;
 
