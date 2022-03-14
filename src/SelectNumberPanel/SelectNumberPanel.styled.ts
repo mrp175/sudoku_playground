@@ -16,6 +16,7 @@ export const Component = styled.div`
   display: grid;
   grid-template-rows: repeat(9, 1fr);
   grid-gap: 2px;
+  position: relative;
   /* overflow: hidden; */
 
   & > div {
@@ -25,7 +26,7 @@ export const Component = styled.div`
     font-weight: bold;
     font-size: 40px;
     background: rgb(${background_alt_color});
-    border-radius: 4px;
+    border-radius: ${border_radius};
     display: grid;
     align-items: center;
     justify-items: center;
@@ -41,9 +42,16 @@ export const Component = styled.div`
                           supported by Chrome, Edge, Opera and Firefox */
     transition: 0.3s ease;
     &:hover {
+      z-index: 1;
       background: rgb(${secondary_color});
       transition: 0.1s ease;
-      box-shadow: 0px 0px 15px 0px rgba(${secondary_color}, 0.6);
+      box-shadow: 0px 0px 15px 0px rgba(${secondary_color}, 1);
+    }
+
+    &.selected {
+      background: rgb(${secondary_color});
+      transition: 0.1s ease;
+      box-shadow: 0px 0px 15px 0px rgba(${secondary_color}, 1);
     }
   }
 `;

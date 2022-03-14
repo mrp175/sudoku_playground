@@ -8,7 +8,7 @@ export const title_bar_height =
   title_bar.text_padding * 2 +
   title_bar.padding * 2 +
   "px";
-export const border_radius = "20px";
+export const border_radius = "4px";
 export const box_shadow = "0px 0px 15px 0px rgba(0, 0, 0, 0.4)";
 export const font = "bold 30pt Roboto";
 export const font_size = "30px";

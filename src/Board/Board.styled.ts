@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { border_radius, primary_color } from "../styleVars/styleVars";
+import { primary_color, border_radius } from "../styleVars/styleVars";
 
 type Props = {
   theme: {
@@ -26,6 +26,7 @@ export const BoardGrid = styled.div`
   background: rgba(${primary_color}, 0.2);
   max-width: 736px;
   padding: 0;
+  position: relative;
 `;
 
 export const Canvas = styled.canvas`
@@ -54,4 +55,10 @@ export const Cell = styled.div`
   border-radius: 4px;
   overflow: hidden;
   background: rgba(16, 32, 39);
+  transition: 0.3s ease;
+  &:hover {
+    transition: 0.1s ease;
+    z-index: 1;
+    box-shadow: 0px 0px 15px 0px rgb(${primary_color});
+  }
 `;
