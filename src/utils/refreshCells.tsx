@@ -7,7 +7,7 @@ import {
 } from "../types/types";
 import { indexToRowCol } from "./utils";
 import { drawNumberToCell } from "./drawToCells";
-import { mouseHover } from "./mouseHover";
+import { mouseHover, showTextOnHover } from "./mouseHover";
 
 export function refreshCells(
   colorRefs: Refs,
@@ -22,10 +22,11 @@ export function refreshCells(
   if (colors && numbers) {
     for (let i = 0; i < colors.length; i += 1) {
       let [canvas, ctx] = colors[i];
-      mouseHover(canvas, ctx, mouse);
       fadeOutColor(canvas, ctx, context);
+      mouseHover(canvas, ctx, mouse);
       [canvas, ctx] = numbers[i];
       fadeOutCanvas(canvas, ctx, context);
+      showTextOnHover(canvas, ctx, mouse, 1);
       drawPlacedNumbers(numbers, originalBoard, currentBoard, i, context);
     }
   }

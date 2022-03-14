@@ -42,6 +42,25 @@ export function drawNumberToCell(
   ctx.closePath();
 }
 
+export function drawNumberToCellAltInputs(
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D,
+  value: number,
+  color: String
+) {
+  ctx.beginPath();
+  ctx.fillStyle = `rgb(${color})`;
+  ctx.textAlign = "center";
+  ctx.font = "bold 30pt Courier";
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+  ctx.shadowColor = `rgba(${color})`;
+  let shadowBlurAmount = 2;
+  ctx.shadowBlur = shadowBlurAmount;
+  ctx.fillText(value + "", canvas.width / 2, canvas.height / 2 + 2);
+  ctx.closePath();
+}
+
 function getCanvasAndContext(refs: CanvasArr, row: number, col: number) {
   const index = row * 9 + col;
   return refs[index];
