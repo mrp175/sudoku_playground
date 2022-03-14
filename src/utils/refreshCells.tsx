@@ -4,14 +4,16 @@ import {
   CAC,
   AppContextType,
   MouseContextType,
+  CellBloomRefs,
 } from "../types/types";
-import { indexToRowCol } from "./utils";
+import { indexToRowCol, mapNumberRange } from "./utils";
 import { drawNumberToCell } from "./drawToCells";
 import { mouseHover, showTextOnHover } from "./mouseHover";
 
 export function refreshCells(
   colorRefs: Refs,
   numberRefs: Refs,
+  cellBloomRefs: CellBloomRefs,
   originalBoard: Board,
   currentBoard: Board,
   context: AppContextType,
@@ -24,6 +26,7 @@ export function refreshCells(
       let [canvas, ctx] = colors[i];
       fadeOutColor(canvas, ctx, context);
       mouseHover(canvas, ctx, mouse);
+      fadeOutBloom(i, cellBloomRefs, context);
       [canvas, ctx] = numbers[i];
       fadeOutCanvas(canvas, ctx, context);
       showTextOnHover(canvas, ctx, mouse, 1);
@@ -78,4 +81,22 @@ function drawPlacedNumbers(
   if (originalBoard[row][col])
     drawNumberToCell(value, row, col, refs, "54, 224, 173", context);
   else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
+}
+
+function fadeOutBloom(
+  index: number,
+  cellBloomRefs: CellBloomRefs,
+  context: AppContextType
+) {
+  const colorFadeSpeed = mapNumberRange(
+    context.colorFadeSpeed,
+    0,
+    0.92,
+    1,
+    0.1
+  );
+  const current = cellBloomRefs.current;
+  const cell = current[index];
+  const currentOpacity = +cell.style.opacity;
+  cell.style.opacity = currentOpacity - colorFadeSpeed + "";
 }

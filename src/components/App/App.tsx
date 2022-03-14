@@ -1,6 +1,10 @@
 import React, { useMemo, useRef, useState } from "react";
 import Board from "../Board/Board";
-import { AppContextType, MouseContextType } from "../../types/types";
+import {
+  AppContextType,
+  CellBloomRefs,
+  MouseContextType,
+} from "../../types/types";
 import { ComponentWrapper, GridContainer } from "./App.styled";
 import TitleBar from "../TitleBar/TitleBar";
 import { Grid } from "./App.styled";
@@ -40,7 +44,7 @@ function handleMouseMove(
 }
 
 export const BoardContext = React.createContext<React.MutableRefObject<
-  [BoardRef, Refs, Refs] | null
+  [BoardRef, Refs, Refs, CellBloomRefs] | null
 > | null>(null);
 
 export const BoardPresetsContext = React.createContext<
@@ -50,7 +54,9 @@ export const BoardPresetsContext = React.createContext<
 function App() {
   const contextRef = useRef(context);
   const mouseContextRef = useRef(mouseContext);
-  const boardContextRef = useRef<[BoardRef, Refs, Refs] | null>(null);
+  const boardContextRef = useRef<[BoardRef, Refs, Refs, CellBloomRefs] | null>(
+    null
+  );
 
   return (
     // <CombineProviders components={[AppContext, MouseContext, BoardContext]}></CombineProviders>

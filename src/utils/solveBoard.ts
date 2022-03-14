@@ -7,6 +7,7 @@ export async function solveBoard(
   board: Board,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  cellBloomRefs: HTMLDivElement[],
   context: AppContextType
 ): Promise<Board | false> {
   if (context.isRunning === false) {
@@ -19,8 +20,16 @@ export async function solveBoard(
   const [row, col] = nextCell;
 
   for (let i = 1; i <= 9; i += 1) {
-    if (placeDigit(i, row, col, board, refs, textRefs, context)) {
-      const current = await solveBoard(board, refs, textRefs, context);
+    if (
+      placeDigit(i, row, col, board, refs, textRefs, cellBloomRefs, context)
+    ) {
+      const current = await solveBoard(
+        board,
+        refs,
+        textRefs,
+        cellBloomRefs,
+        context
+      );
       if (current) return board;
     }
   }
@@ -51,11 +60,13 @@ function placeDigit(
   board: Board,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  cellBloomRefs: HTMLDivElement[],
   context: AppContextType
 ) {
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
-    if (context.illuminateCells) colorCell(row, col, refs);
+    if (context.illuminateCells)
+      colorCell(row, col, refs, cellBloomRefs, context);
     drawNumberToCell(value, row, col, textRefs, "255, 255, 255", context);
     return true;
   }

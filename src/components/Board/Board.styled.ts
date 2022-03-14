@@ -26,6 +26,8 @@ export const BoardGrid = styled.div`
   max-width: 736px;
   padding: 0;
   position: relative;
+  align-items: center;
+  justify-items: center;
 `;
 
 export const Canvas = styled.canvas`
@@ -34,6 +36,9 @@ export const Canvas = styled.canvas`
   position: absolute;
   left: 0;
   top: 0;
+  border-radius: 4px;
+  height: 80px;
+  width: 80px;
 `;
 
 export const Centered = styled.div`
@@ -52,7 +57,6 @@ export const Cell = styled.div`
   align-items: center;
   justify-items: center;
   border-radius: 4px;
-  overflow: hidden;
   background: rgba(16, 32, 39);
   transition: 0.3s ease;
   &:hover {
@@ -60,4 +64,16 @@ export const Cell = styled.div`
     z-index: 1;
     box-shadow: 0px 0px 15px 0px rgb(${primary_color});
   }
+`;
+
+export const BloomBoxShadow = styled.div`
+  position: absolute;
+  border-radius: 4px;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 15px 0px rgb(${primary_color});
+  opacity: 0;
 `;

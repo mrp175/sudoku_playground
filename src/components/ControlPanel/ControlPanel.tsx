@@ -16,7 +16,8 @@ export default function ControlPanel() {
 
   function playPause() {
     if (appContext?.current && boardContext?.current) {
-      const [boardRef, cellColorRefs, cellTextRefs] = boardContext.current;
+      const [boardRef, cellColorRefs, cellTextRefs, cellBloomRefs] =
+        boardContext.current;
       if (!appContext.current.isRunning) {
         appContext.current.isRunning = true;
         setIsRunning(true);
@@ -24,6 +25,7 @@ export default function ControlPanel() {
           boardRef.current,
           cellColorRefs.current,
           cellTextRefs.current,
+          cellBloomRefs.current,
           appContext.current
         );
       } else {

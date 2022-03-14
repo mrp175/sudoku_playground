@@ -1,5 +1,9 @@
 import { AppContextType, CanvasArr } from "../types/types";
-import { mapRangeWithBias } from "../utils/utils";
+import {
+  mapRangeWithBias,
+  RowColToIndex,
+  mapNumberRange,
+} from "../utils/utils";
 
 export function drawNumberToCell(
   value: number,
@@ -83,8 +87,15 @@ const color = "rgb(60, 224, 175)";
 export function colorCell(
   row: number,
   col: number,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][]
+  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
+  cellBloomRefs: HTMLDivElement[],
+  appContext: AppContextType
 ) {
+  const bloomAmount =
+    Math.floor(mapNumberRange(appContext.colorFadeSpeed, 0, 0.92, 0, 1) * 100) /
+    100;
+  const index = RowColToIndex(row, col);
+  cellBloomRefs[index].style.opacity = bloomAmount + "";
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
   // ctx.fillStyle = colors[value - 1];
