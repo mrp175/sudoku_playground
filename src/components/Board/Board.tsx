@@ -79,5 +79,3 @@ export default function Board() {
     </>
   );
 }
-
-// 2 4

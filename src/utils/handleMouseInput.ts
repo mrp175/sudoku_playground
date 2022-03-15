@@ -8,8 +8,13 @@ const handleMouseDown: HandleMouseInput = function (
 ) {
   e.preventDefault();
   this.mouse.isDown = true;
-  this.mouse.y.start = e.clientY;
-  this.mouse.x.start = e.clientX;
+  if (e instanceof TouchEvent) {
+    this.mouse.y.start = e.changedTouches[0].clientY;
+    this.mouse.x.start = e.changedTouches[0].clientX;
+  } else {
+    this.mouse.y.start = e.clientY;
+    this.mouse.x.start = e.clientX;
+  }
   if (callback) {
     callback(this.mouse, parentRef);
   }
@@ -22,8 +27,15 @@ const handleMouseMove: HandleMouseInput = function (
   callback?
 ) {
   if (this.mouse.isDown) {
-    this.mouse.x.distanceTravelled = e.clientX - this.mouse.x.start;
-    this.mouse.y.distanceTravelled = this.mouse.y.start - e.clientY;
+    if (e instanceof TouchEvent) {
+      this.mouse.x.distanceTravelled =
+        e.changedTouches[0].clientX - this.mouse.x.start;
+      this.mouse.y.distanceTravelled =
+        this.mouse.y.start - e.changedTouches[0].clientY;
+    } else {
+      this.mouse.x.distanceTravelled = e.clientX - this.mouse.x.start;
+      this.mouse.y.distanceTravelled = this.mouse.y.start - e.clientY;
+    }
     if (callback) {
       callback(this.mouse, parentRef);
     }
@@ -37,8 +49,13 @@ const handleMouseUp: HandleMouseInput = function (
   callback?
 ) {
   if (this.mouse.isDown) {
-    this.mouse.x.end = e.clientX;
-    this.mouse.y.end = e.clientY;
+    if (e instanceof TouchEvent) {
+      this.mouse.x.end = e.changedTouches[0].clientX;
+      this.mouse.y.end = e.changedTouches[0].clientY;
+    } else {
+      this.mouse.x.end = e.clientX;
+      this.mouse.y.end = e.clientY;
+    }
     if (callback) {
       callback(this.mouse, parentRef);
     }

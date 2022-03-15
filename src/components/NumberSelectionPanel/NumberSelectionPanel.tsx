@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Component } from "./SelectNumberPanel.styled";
+import { Component } from "./NumberSelectionPanel.styled";
 
 type GridRefs = React.MutableRefObject<HTMLDivElement[]>;
 
-export default function SelectNumberPanel() {
+export default function NumberSelectionPanel() {
   const [selected, setSelected] = useState(0);
   const gridElementsRef = useRef<HTMLDivElement[]>([]);
   const [gridElements, setGridElements] = useState<JSX.Element[]>([]);

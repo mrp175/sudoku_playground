@@ -74,6 +74,6 @@ export const BloomBoxShadow = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  box-shadow: 0px 0px 15px 0px rgb(${primary_color});
+  box-shadow: 0px 0px 15px 0px rgba(${primary_color}, 1);
   opacity: 0;
 `;

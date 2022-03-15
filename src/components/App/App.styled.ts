@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { title_bar_height } from "../../styleVars/styleVars";
 
 export const ComponentWrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 150vh;
+  width: 150vw;
   position: absolute;
   left: 0;
   top: 0;

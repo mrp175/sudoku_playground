@@ -10,7 +10,7 @@ import TitleBar from "../TitleBar/TitleBar";
 import { Grid } from "./App.styled";
 import ControlPanel from "../ControlPanel/ControlPanel";
 import { Refs, BoardRef, Board as BoardType } from "../../types/types";
-import SelectNumberPanel from "../SelectNumberPanel/SelectNumberPanel";
+import NumberSelectionPanel from "../NumberSelectionPanel/NumberSelectionPanel";
 import CombineProviders from "../CombineProviders/CombineProviders";
 import { setBoardPresets } from "../../utils/setBoardPresets";
 import { boards } from "../../utils/boards";
@@ -68,7 +68,7 @@ function App() {
               <TitleBar />
               <GridContainer>
                 <Grid theme={{ orientation: "landscape" }}>
-                  <SelectNumberPanel />
+                  <NumberSelectionPanel />
                   <Board />
                   <ControlPanel />
                 </Grid>

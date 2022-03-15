@@ -41,7 +41,7 @@ export interface MouseState {
 }
 
 export type HandleMouseInput = (
-  e: MouseEvent,
+  e: MouseEvent | TouchEvent,
   parentRef?: HTMLDivElement | undefined,
   callback?:
     | ((
@@ -68,3 +68,11 @@ export type AppContextPropNames =
 export type BoardPresetsRefType = React.MutableRefObject<Board[] | null>;
 
 export type CellBloomRefs = React.MutableRefObject<HTMLDivElement[]>;
+export type SetTouchState = React.Dispatch<
+  React.SetStateAction<{
+    disatnceTravelled: number;
+  }>
+>;
+export type TouchState = {
+  disatnceTravelled: number;
+};

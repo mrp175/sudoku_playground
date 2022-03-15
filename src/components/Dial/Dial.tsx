@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useState, useContext, useMemo } from "react";
 import { MouseInput } from "../../utils/handleMouseInput";
 import {
   handleBoundaries,
@@ -32,7 +32,8 @@ export default function Dial({
 }: DialType) {
   const knobRef = useRef<HTMLDivElement>(null);
   const [dialPos, setDialPos] = useState<number>(0);
-  const mouse = new MouseInput();
+  const mouse = useMemo(() => new MouseInput(), []);
+  const touchState = useMemo(() => new MouseInput(), []);
   const initDialVal = initializeDialPos(init, min, max);
   const dial = new DialState(initDialVal);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -106,8 +107,22 @@ export default function Dial({
       addGenericEventListener(window, "mouseup", (e: MouseEvent) =>
         mouse.handleUp(e, knob, handleMouseUp)
       );
+      addGenericEventListener(knob, "touchstart", (e: MouseEvent) =>
+        mouse.handleDown(e, knob)
+      );
+      addGenericEventListener(window, "touchmove", (e: MouseEvent) => {
+        mouse.handleMove(e, knob, handleMouseMove);
+      });
+      addGenericEventListener(window, "touchend", (e: MouseEvent) =>
+        mouse.handleUp(e, knob, handleMouseUp)
+      );
     }
   }, []);
+
+  function touch(e: TouchEvent) {
+    e.preventDefault();
+    console.log(e.changedTouches[0]);
+  }
 
   useEffect(
     function () {
