@@ -42,6 +42,7 @@ export const Component = styled.div`
                           supported by Chrome, Edge, Opera and Firefox */
     transition: 0.3s ease;
     &:hover {
+      cursor: pointer;
       z-index: 1;
       background: rgb(${secondary_color});
       transition: 0.1s ease;

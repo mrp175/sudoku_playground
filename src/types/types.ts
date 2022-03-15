@@ -1,3 +1,5 @@
+import { NumberLiteralType } from "typescript";
+
 export type CAC = [HTMLCanvasElement, CanvasRenderingContext2D];
 export type Refs = React.MutableRefObject<CAC[]>;
 export type Board = (number | null)[][];
@@ -10,6 +12,7 @@ export type AppContextType = {
   textFadeSpeed: number;
   speed: number;
   fadeRefreshRate: number;
+  selectedNumber: number;
 };
 export type MouseContextType = {
   position: { x: number; y: number };

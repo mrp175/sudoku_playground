@@ -25,6 +25,7 @@ const context = {
   colorFadeSpeed: 0.757,
   textFadeSpeed: 44.947,
   fadeRefreshRate: 60,
+  selectedNumber: 1,
 };
 
 export const MouseContext =

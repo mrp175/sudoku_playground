@@ -1,5 +1,6 @@
 import { drawNumberToCell, colorCell } from "./drawToCells";
 import { AppContextType } from "../types/types";
+import { deepCopyBoard } from "./utils";
 
 type Board = (number | null)[][];
 
@@ -39,6 +40,15 @@ export async function solveBoard(
   board[row][col] = null;
   return false;
 }
+
+// function createRandomStack (board: Board) {
+//   const newBoard: (number | null)[][] = deepCopyBoard(board);
+//   const result = [];
+//   for (let i = 0; i < 81; i += 1) {
+//     const random = Math.floor(Math.random() * board.length);
+
+//   }
+// }
 
 function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));

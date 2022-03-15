@@ -29,7 +29,7 @@ export function refreshCells(
       fadeOutBloom(i, cellBloomRefs, context);
       [canvas, ctx] = numbers[i];
       fadeOutCanvas(canvas, ctx, context);
-      showTextOnHover(canvas, ctx, mouse, 1);
+      showTextOnHover(canvas, ctx, mouse, context.selectedNumber);
       drawPlacedNumbers(numbers, originalBoard, currentBoard, i, context);
     }
   }
