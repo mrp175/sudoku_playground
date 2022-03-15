@@ -9,16 +9,20 @@ export async function solveBoard(
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   cellBloomRefs: HTMLDivElement[],
-  context: AppContextType
+  context: AppContextType,
+  availableCellsArray: [number, number][],
+  index = 0
 ): Promise<Board | false> {
   if (context.isRunning === false) {
     return board;
   }
   await timeout(1000 / context.speed);
 
-  const nextCell = findNextCell(board);
-  if (!nextCell) return board;
-  const [row, col] = nextCell;
+  if (index === availableCellsArray.length) {
+    console.log(board);
+    return board;
+  }
+  const [row, col] = availableCellsArray[index];
 
   for (let i = 1; i <= 9; i += 1) {
     if (
@@ -29,7 +33,9 @@ export async function solveBoard(
         refs,
         textRefs,
         cellBloomRefs,
-        context
+        context,
+        availableCellsArray,
+        index + 1
       );
       if (current) return board;
     }
@@ -54,14 +60,22 @@ function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function findNextCell(board: Board) {
-  for (let i = 0; i < 9; i += 1) {
-    for (let j = 0; j < 9; j += 1) {
-      if (board[i][j] === null) return [i, j];
-    }
-  }
-  return false;
-}
+// function findNextCell(board: Board, goForwards: boolean) {
+//   if (goForwards) {
+//     for (let i = 0; i < 9; i += 1) {
+//       for (let j = 0; j < 9; j += 1) {
+//         if (board[i][j] === null) return [i, j];
+//       }
+//     }
+//   } else {
+//     for (let i = 8; i >= 0; i -= 1) {
+//       for (let j = 8; j >= 0; j -= 1) {
+//         if (board[i][j] === null) return [i, j];
+//       }
+//     }
+//   }
+//   return false;
+// }
 
 function placeDigit(
   value: number,

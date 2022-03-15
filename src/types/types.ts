@@ -13,7 +13,31 @@ export type AppContextType = {
   speed: number;
   fadeRefreshRate: number;
   selectedNumber: number;
+  traversalDirection: TraversalDirections;
 };
+
+export type TraversalDirections =
+  | "down"
+  | "left"
+  | "up"
+  | "right"
+  | "spiral"
+  | "spiralReverse"
+  | "twoHorizontal"
+  | "twoVertical"
+  | "random";
+
+export type TraversalTextFields =
+  | "down"
+  | "right"
+  | "up"
+  | "left"
+  | "spiral"
+  | "reverse spiral"
+  | "two horizontal"
+  | "two vertical"
+  | "random";
+
 export type MouseContextType = {
   position: { x: number; y: number };
 };

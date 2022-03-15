@@ -6,6 +6,7 @@ import Dial from "../Dial/Dial";
 import MuiButton from "../MuiButton/MuiButton";
 import { AppContext, BoardContext, BoardPresetsContext } from "../App/App";
 import { solveBoard } from "../../utils/solveBoard";
+import { createAvailableIndexes } from "../../utils/traversalTypes/createAvailableCellsArray";
 import { deepCopyBoard } from "../../utils/utils";
 
 export default function ControlPanel() {
@@ -20,13 +21,18 @@ export default function ControlPanel() {
         boardContext.current;
       if (!appContext.current.isRunning) {
         appContext.current.isRunning = true;
+        const availableCellIndexes = createAvailableIndexes(
+          boardRef.current,
+          appContext.current.traversalDirection
+        );
         setIsRunning(true);
         solveBoard(
           boardRef.current,
           cellColorRefs.current,
           cellTextRefs.current,
           cellBloomRefs.current,
-          appContext.current
+          appContext.current,
+          availableCellIndexes
         );
       } else {
         appContext.current.isRunning = false;
@@ -38,7 +44,7 @@ export default function ControlPanel() {
   function resetBoard() {
     let current = boardContext?.current;
     if (current) {
-      current[0].current = deepCopyBoard(boardPresetsContext![1]);
+      current[0].current = deepCopyBoard(boardPresetsContext![2]);
     }
   }
 

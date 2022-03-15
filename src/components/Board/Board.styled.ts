@@ -23,7 +23,7 @@ export const BoardGrid = styled.div`
   border-radius: ${border_radius};
   grid-gap: 2px;
   background: rgba(${primary_color}, 0.2);
-  max-width: 736px;
+  /* max-width: 736px; */
   padding: 0;
   position: relative;
   align-items: center;

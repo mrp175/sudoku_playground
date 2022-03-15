@@ -11,14 +11,13 @@ import { Grid } from "./App.styled";
 import ControlPanel from "../ControlPanel/ControlPanel";
 import { Refs, BoardRef, Board as BoardType } from "../../types/types";
 import NumberSelectionPanel from "../NumberSelectionPanel/NumberSelectionPanel";
-import CombineProviders from "../CombineProviders/CombineProviders";
 import { setBoardPresets } from "../../utils/setBoardPresets";
 import { boards } from "../../utils/boards";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
 
-const context = {
+const context: AppContextType = {
   isRunning: false,
   speed: 23.8,
   illuminateCells: true,
@@ -26,6 +25,7 @@ const context = {
   textFadeSpeed: 44.947,
   fadeRefreshRate: 60,
   selectedNumber: 1,
+  traversalDirection: "down",
 };
 
 export const MouseContext =

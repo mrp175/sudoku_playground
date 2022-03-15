@@ -7,9 +7,12 @@ import {
 } from "../../styleVars/styleVars";
 
 export const Component = styled.div`
+  display: grid;
+  grid-template-columns: 250px auto;
   background: rgb(${background_alt_color});
   box-shadow: ${box_shadow};
   padding: ${title_bar.padding}px 25px;
+  position: relative;
 `;
 
 export const Title = styled.div`

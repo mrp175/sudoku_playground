@@ -14,6 +14,14 @@ export const emptyBoard = [
   [b, b, b, b, b, b, b, b, b],
 ];
 
+const emptyBoardIndexes: [number, number][] = [];
+
+for (let i = 0; i < 9; i += 1) {
+  for (let j = 0; j < 9; j += 1) {
+    emptyBoardIndexes.push([j, i]);
+  }
+}
+
 export const hardOne = [
   [8, b, b, b, b, b, b, b, b],
   [b, b, 3, 6, b, b, b, b, b],
@@ -39,3 +47,4 @@ export const _075 = [
 ];
 
 export const boards = [emptyBoard, hardOne, _075];
+export { emptyBoardIndexes };

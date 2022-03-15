@@ -1,11 +1,12 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { AppContext, BoardContext, MouseContext } from "../App/App";
 import { CellBloomRefs, Refs } from "../../types/types";
-import { hardOne } from "../../utils/boards";
+import { _075 as hardOne } from "../../utils/boards";
 import { BoardGrid, Centered } from "./Board.styled";
-import { handleResize, deepCopyBoard } from "../../utils/utils";
+import { handleResize } from "../../utils/handleResize";
 import { createSubGrid } from "../../utils/createBoard";
 import { refreshCells } from "../../utils/refreshCells";
+import { deepCopyBoard } from "../../utils/utils";
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -37,6 +38,7 @@ export default function Board() {
       1
     );
   }, []);
+
   useEffect(() => {
     if (boardContext) {
       boardContext.current = [
@@ -64,7 +66,7 @@ export default function Board() {
           mouse
         );
       }
-      setTimeout(() => refreshTimeout(), 1000 / refreshRate);
+      setTimeout(() => refreshTimeout(), 1000 / 60);
     }
     refreshTimeout();
   }, []);
