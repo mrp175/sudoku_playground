@@ -41,6 +41,33 @@ export const Canvas = styled.canvas`
   width: 80px;
 `;
 
+export const Number = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 4px;
+  height: 80px;
+  width: 80px;
+  opacity: 1;
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  line-height: 80px;
+`;
+
+export const Highlight = styled.div`
+  position: absolute;
+  border-radius: 4px;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 15px 0px rgba(${primary_color}, 1);
+  background: rgb(${primary_color});
+  opacity: 0;
+`;
+
 export const Cell = styled.div`
   align-self: center;
   justify-self: center;
@@ -53,21 +80,4 @@ export const Cell = styled.div`
   border-radius: 4px;
   background: rgba(16, 32, 39);
   transition: 0.3s ease;
-  &:hover {
-    transition: 0.1s ease;
-    z-index: 1;
-    box-shadow: 0px 0px 15px 0px rgb(${primary_color});
-  }
-`;
-
-export const BloomBoxShadow = styled.div`
-  position: absolute;
-  border-radius: 4px;
-  z-index: 5;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0px 0px 15px 0px rgba(${primary_color}, 1);
-  opacity: 0;
 `;

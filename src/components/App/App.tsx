@@ -1,10 +1,6 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import Board from "../Board/Board";
-import {
-  AppContextType,
-  CellBloomRefs,
-  MouseContextType,
-} from "../../types/types";
+import { AppContextType, MouseContextType } from "../../types/types";
 import { ComponentWrapper, GridContainer } from "./App.styled";
 import TitleBar from "../TitleBar/TitleBar";
 import { Grid } from "./App.styled";
@@ -13,7 +9,11 @@ import { Refs, BoardRef, Board as BoardType } from "../../types/types";
 import NumberSelectionPanel from "../NumberSelectionPanel/NumberSelectionPanel";
 import { setBoardPresets } from "../../utils/setBoardPresets";
 import { boards } from "../../utils/boards";
-import { StateSetState } from "../../types/types";
+import {
+  StateSetState,
+  CellColorsRef,
+  CellNumbersRef,
+} from "../../types/types";
 import { setAppOrientation } from "../../utils/handleResize";
 
 export const AppContext =
@@ -49,7 +49,7 @@ function handleMouseMove(
 }
 
 export const BoardContext = React.createContext<React.MutableRefObject<
-  [BoardRef, Refs, Refs, CellBloomRefs] | null
+  [BoardRef, CellColorsRef, CellNumbersRef] | null
 > | null>(null);
 
 export const BoardPresetsContext = React.createContext<
@@ -64,9 +64,9 @@ export const OrientationContext = React.createContext<string | null>(null);
 function App() {
   const contextRef = useRef(context);
   const mouseContextRef = useRef(mouseContext);
-  const boardContextRef = useRef<[BoardRef, Refs, Refs, CellBloomRefs] | null>(
-    null
-  );
+  const boardContextRef = useRef<
+    [BoardRef, CellColorsRef, CellNumbersRef] | null
+  >(null);
   const [isRunning, setIsRunning] = useState(running);
   const [orientation, setOrientation] = useState("landscape");
   console.log(orientation);

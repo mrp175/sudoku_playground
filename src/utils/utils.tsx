@@ -6,7 +6,7 @@ export function indexToRowCol(index: number): [number, number] {
   return [row, col];
 }
 
-export function RowColToIndex(row: number, col: number): number {
+export function rowColToIndex(row: number, col: number): number {
   return row * 9 + col;
 }
 

@@ -1,29 +1,29 @@
 import { MouseContextType } from "../types/types";
-import { colorCanvas, drawNumberToCellAltInputs } from "./drawToCells";
 
 export function mouseHover(
-  canvas: HTMLCanvasElement,
-  ctx: CanvasRenderingContext2D,
+  colorDiv: HTMLDivElement,
+  numberDivs: HTMLDivElement[],
+  selectedNumber: number,
   mouse: MouseContextType
 ) {
-  const boundingRect = canvas.getBoundingClientRect();
+  const boundingRect = colorDiv.getBoundingClientRect();
   const { left, top, bottom, right } = boundingRect;
   const { x, y } = mouse.position;
   if (x >= left && x <= right && y >= top && y <= bottom) {
-    colorCanvas(canvas, ctx);
+    colorDiv.style.opacity = "1";
+    numberDivs[selectedNumber - 1].style.opacity = "1";
   }
 }
 
-export function showTextOnHover(
-  canvas: HTMLCanvasElement,
-  ctx: CanvasRenderingContext2D,
-  mouse: MouseContextType,
-  value: number
-) {
-  const boundingRect = canvas.getBoundingClientRect();
-  const { left, top, bottom, right } = boundingRect;
-  const { x, y } = mouse.position;
-  if (x >= left && x <= right && y >= top && y <= bottom) {
-    drawNumberToCellAltInputs(canvas, ctx, value, "255, 255, 255");
-  }
-}
+// export function showTextOnHover(
+//   div: HTMLDivElement,
+//   mouse: MouseContextType,
+//   value: number
+// ) {
+//   const boundingRect = canvas.getBoundingClientRect();
+//   const { left, top, bottom, right } = boundingRect;
+//   const { x, y } = mouse.position;
+//   if (x >= left && x <= right && y >= top && y <= bottom) {
+//     div.opacity
+//   }
+// }

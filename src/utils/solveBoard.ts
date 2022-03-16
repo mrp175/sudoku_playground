@@ -1,4 +1,4 @@
-import { drawNumberToCell, colorCell } from "./drawToCells";
+import { drawNumberToCell, iluminateCell } from "./drawToCells";
 import { AppContextType, SetState } from "../types/types";
 import { deepCopyBoard } from "./utils";
 
@@ -6,9 +6,8 @@ type Board = (number | null)[][];
 
 export async function solveBoard(
   board: Board,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  cellBloomRefs: HTMLDivElement[],
+  colorCells: HTMLDivElement[],
+  numberCells: HTMLDivElement[][],
   context: AppContextType,
   availableCellsArray: [number, number][],
   setIsRunning: SetState<boolean>,
@@ -27,14 +26,11 @@ export async function solveBoard(
   const [row, col] = availableCellsArray[index];
 
   for (let i = 1; i <= 9; i += 1) {
-    if (
-      placeDigit(i, row, col, board, refs, textRefs, cellBloomRefs, context)
-    ) {
+    if (placeDigit(i, row, col, board, colorCells, numberCells, context)) {
       const current = await solveBoard(
         board,
-        refs,
-        textRefs,
-        cellBloomRefs,
+        colorCells,
+        numberCells,
         context,
         availableCellsArray,
         setIsRunning,
@@ -85,16 +81,14 @@ function placeDigit(
   row: number,
   col: number,
   board: Board,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  cellBloomRefs: HTMLDivElement[],
+  colorCells: HTMLDivElement[],
+  numberCells: HTMLDivElement[][],
   context: AppContextType
 ) {
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
-    if (context.illuminateCells)
-      colorCell(row, col, refs, cellBloomRefs, context);
-    drawNumberToCell(value, row, col, textRefs, "255, 255, 255", context);
+    if (context.illuminateCells) iluminateCell(row, col, colorCells);
+    // drawNumberToCell(value, row, col, numberCells, "255, 255, 255");
     return true;
   }
   return false;

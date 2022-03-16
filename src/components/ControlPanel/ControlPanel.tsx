@@ -27,8 +27,7 @@ export default function ControlPanel() {
 
   function playPause() {
     if (appContext?.current && boardContext?.current) {
-      const [boardRef, cellColorRefs, cellTextRefs, cellBloomRefs] =
-        boardContext.current;
+      const [boardRef, cellColorsRef, cellNumbersRef] = boardContext.current;
       if (!appContext.current.isRunning) {
         appContext.current.isRunning = true;
         const availableCellIndexes = createAvailableIndexes(
@@ -38,9 +37,8 @@ export default function ControlPanel() {
         setIsRunning(true);
         solveBoard(
           boardRef.current,
-          cellColorRefs.current,
-          cellTextRefs.current,
-          cellBloomRefs.current,
+          cellColorsRef.current,
+          cellNumbersRef.current,
           appContext.current,
           availableCellIndexes,
           setIsRunning

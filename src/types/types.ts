@@ -93,8 +93,8 @@ export type AppContextPropNames =
   | "fadeRefreshRate";
 
 export type BoardPresetsRefType = React.MutableRefObject<Board[] | null>;
-
-export type CellBloomRefs = React.MutableRefObject<HTMLDivElement[]>;
+export type CellColorsRef = React.MutableRefObject<HTMLDivElement[]>;
+export type CellNumbersRef = React.MutableRefObject<HTMLDivElement[][]>;
 export type SetTouchState = React.Dispatch<
   React.SetStateAction<{
     disatnceTravelled: number;
