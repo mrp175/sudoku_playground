@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { AppContext } from "../App/App";
+import { AppContext, OrientationContext } from "../App/App";
 import { Component } from "./NumberSelectionPanel.styled";
 
 type GridRefs = React.MutableRefObject<HTMLDivElement[]>;
@@ -9,6 +9,7 @@ export default function NumberSelectionPanel() {
   const gridElementsRef = useRef<HTMLDivElement[]>([]);
   const [gridElements, setGridElements] = useState<JSX.Element[]>([]);
   const appContext = useContext(AppContext);
+  const orientation = useContext(OrientationContext);
 
   function handleClick(e: React.MouseEvent, gridRefs: GridRefs) {
     const current = gridRefs.current;
@@ -57,5 +58,5 @@ export default function NumberSelectionPanel() {
     }
   }, []);
 
-  return <Component>{gridElements}</Component>;
+  return <Component theme={{ orientation }}>{gridElements}</Component>;
 }

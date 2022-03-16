@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useContext } from "react";
 import { AppContext, BoardContext, MouseContext } from "../App/App";
 import { CellBloomRefs, Refs } from "../../types/types";
 import { _075 as hardOne } from "../../utils/boards";
-import { BoardGrid, Centered } from "./Board.styled";
+import { BoardGrid } from "./Board.styled";
 import { handleResize } from "../../utils/handleResize";
 import { createSubGrid } from "../../utils/createBoard";
 import { refreshCells } from "../../utils/refreshCells";
@@ -73,11 +73,9 @@ export default function Board() {
 
   return (
     <>
-      <Centered>
-        <BoardGrid theme={{ height: width }} ref={gridRef}>
-          {subGrid}
-        </BoardGrid>
-      </Centered>
+      <BoardGrid theme={{ height: width }} ref={gridRef}>
+        {subGrid}
+      </BoardGrid>
     </>
   );
 }

@@ -13,7 +13,10 @@ export const Component = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  ${(props) =>
+    props.theme.orientation === "landscape"
+      ? "grid-template-rows: 1fr 1fr 1fr"
+      : "grid-template-columns: 1fr 1fr 1fr"};
   grid-gap: 2px;
   overflow: hidden;
 
@@ -25,5 +28,10 @@ export const Component = styled.div`
     align-items: center;
     justify-items: center;
     align-content: center;
+
+    &.portrait {
+      width: 100%;
+      height: 250px;
+    }
   }
 `;

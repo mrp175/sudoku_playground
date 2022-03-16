@@ -65,7 +65,7 @@ export default function NonLinearSlider({
   }, []);
 
   return (
-    <Box sx={{ width: 250, margin: "15px" }}>
+    <Box sx={{ width: 200, margin: "15px" }}>
       <Slider
         sx={{
           color: `rgba(${primary_color}, 1)`,

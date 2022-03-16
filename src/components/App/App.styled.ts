@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { title_bar_height } from "../../styleVars/styleVars";
 
 export const ComponentWrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   position: absolute;
   left: 0;
@@ -14,9 +14,8 @@ export const Grid = styled.div`
   display: grid;
   ${(props) =>
     props.theme.orientation === "landscape"
-      ? "grid-template-columns: auto auto auto"
-      : "grid-template-rows: auto auto auto"};
-  grid-gap: 75px;
+      ? "grid-template-columns: auto auto auto; grid-gap: 75px;"
+      : "grid-template-rows: auto auto auto; grid-gap: 25px;"}
 `;
 
 export const GridContainer = styled.div`
@@ -24,5 +23,5 @@ export const GridContainer = styled.div`
   align-items: center;
   justify-items: center;
   padding: 20px;
-  height: calc(100vh - ${title_bar_height});
+  min-height: calc(100vh - ${title_bar_height});
 `;

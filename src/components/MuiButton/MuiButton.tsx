@@ -23,7 +23,7 @@ export default function DisableElevation({
         sx={{
           margin: 0,
           transition: "0.2s ease",
-          width: 250,
+          width: 200,
           fontWeight: "900",
           fontSize: "16px",
           padding: "20px",

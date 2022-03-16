@@ -1,4 +1,4 @@
-import { Refs } from "../types/types";
+import { Refs, SetState } from "../types/types";
 
 export function handleResize(
   ref: React.RefObject<HTMLDivElement>,
@@ -25,4 +25,9 @@ export function handleResize(
 function resizeCell(canvas: HTMLCanvasElement, width: number) {
   canvas.width = width / 9;
   canvas.height = width / 9;
+}
+
+export function setAppOrientation(setOrientation: SetState<string>) {
+  if (window.innerWidth < 1450) setOrientation("portrait");
+  else setOrientation("landscape");
 }

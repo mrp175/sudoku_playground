@@ -41,12 +41,6 @@ export const Canvas = styled.canvas`
   width: 80px;
 `;
 
-export const Centered = styled.div`
-  align-items: center;
-  justify-items: center;
-  padding: 0;
-`;
-
 export const Cell = styled.div`
   align-self: center;
   justify-self: center;

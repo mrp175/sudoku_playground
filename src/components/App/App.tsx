@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import Board from "../Board/Board";
 import {
   AppContextType,
@@ -14,6 +14,7 @@ import NumberSelectionPanel from "../NumberSelectionPanel/NumberSelectionPanel";
 import { setBoardPresets } from "../../utils/setBoardPresets";
 import { boards } from "../../utils/boards";
 import { StateSetState } from "../../types/types";
+import { setAppOrientation } from "../../utils/handleResize";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -58,8 +59,7 @@ export const BoardPresetsContext = React.createContext<
 export const IsRunningContext =
   React.createContext<StateSetState<boolean> | null>(null);
 
-export const OrientationContext =
-  React.createContext<StateSetState<string> | null>(null);
+export const OrientationContext = React.createContext<string | null>(null);
 
 function App() {
   const contextRef = useRef(context);
@@ -69,6 +69,10 @@ function App() {
   );
   const [isRunning, setIsRunning] = useState(running);
   const [orientation, setOrientation] = useState("landscape");
+  console.log(orientation);
+  useEffect(function () {
+    window.addEventListener("resize", (e) => setAppOrientation(setOrientation));
+  }, []);
 
   return (
     // <CombineProviders components={[AppContext, MouseContext, BoardContext]}></CombineProviders>
@@ -77,15 +81,13 @@ function App() {
         <BoardContext.Provider value={boardContextRef}>
           <BoardPresetsContext.Provider value={boards}>
             <IsRunningContext.Provider value={[isRunning, setIsRunning]}>
-              <OrientationContext.Provider
-                value={[orientation, setOrientation]}
-              >
+              <OrientationContext.Provider value={orientation}>
                 <ComponentWrapper
                   onMouseMove={handleMouseMove(mouseContextRef)}
                 >
                   <TitleBar />
                   <GridContainer>
-                    <Grid theme={{ orientation: "landscape" }}>
+                    <Grid theme={{ orientation }}>
                       <NumberSelectionPanel />
                       <Board />
                       <ControlPanel />

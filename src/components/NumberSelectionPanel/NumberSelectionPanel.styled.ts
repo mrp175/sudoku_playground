@@ -14,7 +14,11 @@ export const Component = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: repeat(9, 1fr);
+  ${(props) =>
+    props.theme.orientation === "landscape"
+      ? "grid-template-rows: repeat(9, 1fr)"
+      : "grid-template-columns: repeat(9, 1fr)"};
+
   grid-gap: 2px;
   position: relative;
   /* overflow: hidden; */

@@ -9,6 +9,7 @@ import {
   BoardContext,
   BoardPresetsContext,
   IsRunningContext,
+  OrientationContext,
 } from "../App/App";
 import { solveBoard } from "../../utils/solveBoard";
 import { createAvailableIndexes } from "../../utils/traversalTypes/createAvailableCellsArray";
@@ -22,6 +23,7 @@ export default function ControlPanel() {
   const [isRunning, setIsRunning] = useContext(
     IsRunningContext
   ) as StateSetState<boolean>;
+  const orientation = useContext(OrientationContext) as string;
 
   function playPause() {
     if (appContext?.current && boardContext?.current) {
@@ -58,8 +60,8 @@ export default function ControlPanel() {
   }
 
   return (
-    <Component>
-      <div>
+    <Component theme={{ orientation }}>
+      <div className={orientation}>
         <MuiButton onClick={playPause} color={primary_color} isDisabled={false}>
           {isRunning ? "PAUSE" : "SOLVE BOARD"}
         </MuiButton>
@@ -71,7 +73,7 @@ export default function ControlPanel() {
           RESET BOARD
         </MuiButton>
       </div>
-      <div>
+      <div className={orientation}>
         <Dial
           min={0}
           max={100}
@@ -83,7 +85,7 @@ export default function ControlPanel() {
           waveformId="1"
         />
       </div>
-      <div>
+      <div className={orientation}>
         <Slider
           textLabel="Color Fade Duration"
           appContextPropName="colorFadeSpeed"
