@@ -104,7 +104,5 @@ export type TouchState = {
   disatnceTravelled: number;
 };
 
-export type StateSetState<T> = [
-  T,
-  React.Dispatch<React.SetStateAction<boolean>>
-];
+export type StateSetState<T> = [T, React.Dispatch<React.SetStateAction<T>>];
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;

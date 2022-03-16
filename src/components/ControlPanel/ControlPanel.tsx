@@ -40,7 +40,8 @@ export default function ControlPanel() {
           cellTextRefs.current,
           cellBloomRefs.current,
           appContext.current,
-          availableCellIndexes
+          availableCellIndexes,
+          setIsRunning
         );
       } else {
         appContext.current.isRunning = false;

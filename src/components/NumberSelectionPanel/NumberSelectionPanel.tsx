@@ -18,7 +18,6 @@ export default function NumberSelectionPanel() {
     setSelected(function (state) {
       current[state].classList.remove("selected");
       const newState = +currentlySelected - 1;
-      console.log(newState);
       return newState;
     });
   }

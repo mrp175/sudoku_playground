@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {
   background_alt_color,
+  box_shadow,
   primary_color,
 } from "../../../styleVars/styleVars";
 
@@ -30,7 +31,7 @@ export const Select = styled.select`
   text-shadow: 0px 0px 2px rgb(${primary_color});
   background: none;
   border: none;
-  width: 150px;
+  width: 135px;
   outline: none;
   cursor: pointer;
   height: 100%;

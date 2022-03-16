@@ -1,5 +1,5 @@
 import { drawNumberToCell, colorCell } from "./drawToCells";
-import { AppContextType } from "../types/types";
+import { AppContextType, SetState } from "../types/types";
 import { deepCopyBoard } from "./utils";
 
 type Board = (number | null)[][];
@@ -11,6 +11,7 @@ export async function solveBoard(
   cellBloomRefs: HTMLDivElement[],
   context: AppContextType,
   availableCellsArray: [number, number][],
+  setIsRunning: SetState<boolean>,
   index = 0
 ): Promise<Board | false> {
   if (context.isRunning === false) {
@@ -19,7 +20,8 @@ export async function solveBoard(
   await timeout(1000 / context.speed);
 
   if (index === availableCellsArray.length) {
-    console.log(board);
+    setIsRunning(false);
+    context.isRunning = false;
     return board;
   }
   const [row, col] = availableCellsArray[index];
@@ -35,6 +37,7 @@ export async function solveBoard(
         cellBloomRefs,
         context,
         availableCellsArray,
+        setIsRunning,
         index + 1
       );
       if (current) return board;

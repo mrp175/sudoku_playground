@@ -58,6 +58,9 @@ export const BoardPresetsContext = React.createContext<
 export const IsRunningContext =
   React.createContext<StateSetState<boolean> | null>(null);
 
+export const OrientationContext =
+  React.createContext<StateSetState<string> | null>(null);
+
 function App() {
   const contextRef = useRef(context);
   const mouseContextRef = useRef(mouseContext);
@@ -65,6 +68,7 @@ function App() {
     null
   );
   const [isRunning, setIsRunning] = useState(running);
+  const [orientation, setOrientation] = useState("landscape");
 
   return (
     // <CombineProviders components={[AppContext, MouseContext, BoardContext]}></CombineProviders>
@@ -73,16 +77,22 @@ function App() {
         <BoardContext.Provider value={boardContextRef}>
           <BoardPresetsContext.Provider value={boards}>
             <IsRunningContext.Provider value={[isRunning, setIsRunning]}>
-              <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
-                <TitleBar />
-                <GridContainer>
-                  <Grid theme={{ orientation: "landscape" }}>
-                    <NumberSelectionPanel />
-                    <Board />
-                    <ControlPanel />
-                  </Grid>
-                </GridContainer>
-              </ComponentWrapper>
+              <OrientationContext.Provider
+                value={[orientation, setOrientation]}
+              >
+                <ComponentWrapper
+                  onMouseMove={handleMouseMove(mouseContextRef)}
+                >
+                  <TitleBar />
+                  <GridContainer>
+                    <Grid theme={{ orientation: "landscape" }}>
+                      <NumberSelectionPanel />
+                      <Board />
+                      <ControlPanel />
+                    </Grid>
+                  </GridContainer>
+                </ComponentWrapper>
+              </OrientationContext.Provider>
             </IsRunningContext.Provider>
           </BoardPresetsContext.Provider>
         </BoardContext.Provider>
