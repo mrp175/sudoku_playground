@@ -1,6 +1,10 @@
-import { useContext } from "react";
-import { TraversalDirections, TraversalTextFields } from "../../../types/types";
-import { AppContext } from "../../App/App";
+import { useState, useContext, useEffect } from "react";
+import {
+  TraversalDirections,
+  TraversalTextFields,
+  StateSetState,
+} from "../../../types/types";
+import { AppContext, IsRunningContext } from "../../App/App";
 import {
   Component,
   Option,
@@ -9,6 +13,9 @@ import {
   DividingLine,
 } from "./TraversalSelection.styled";
 export default function TraversalSelection() {
+  const [isRunning, setIsRunning] = useContext(
+    IsRunningContext
+  ) as StateSetState<boolean>;
   const traversalNameMap = {
     down: "down",
     right: "right",
@@ -26,8 +33,9 @@ export default function TraversalSelection() {
     const current = appContext?.current!;
     current.traversalDirection = traversalNameMap[key] as TraversalDirections;
   }
+
   return (
-    <Component>
+    <Component className={isRunning ? "disabled" : ""}>
       <Text>Traversal Type</Text>
       <DividingLine />
       <Select onChange={(e) => handleChange(e.target.value)}>

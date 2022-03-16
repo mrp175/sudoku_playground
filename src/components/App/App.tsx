@@ -13,12 +13,15 @@ import { Refs, BoardRef, Board as BoardType } from "../../types/types";
 import NumberSelectionPanel from "../NumberSelectionPanel/NumberSelectionPanel";
 import { setBoardPresets } from "../../utils/setBoardPresets";
 import { boards } from "../../utils/boards";
+import { StateSetState } from "../../types/types";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
 
+const running = false;
+
 const context: AppContextType = {
-  isRunning: false,
+  isRunning: running,
   speed: 23.8,
   illuminateCells: true,
   colorFadeSpeed: 0.757,
@@ -52,12 +55,16 @@ export const BoardPresetsContext = React.createContext<
   (number | null)[][][] | null
 >(null);
 
+export const IsRunningContext =
+  React.createContext<StateSetState<boolean> | null>(null);
+
 function App() {
   const contextRef = useRef(context);
   const mouseContextRef = useRef(mouseContext);
   const boardContextRef = useRef<[BoardRef, Refs, Refs, CellBloomRefs] | null>(
     null
   );
+  const [isRunning, setIsRunning] = useState(running);
 
   return (
     // <CombineProviders components={[AppContext, MouseContext, BoardContext]}></CombineProviders>
@@ -65,16 +72,18 @@ function App() {
       <MouseContext.Provider value={mouseContextRef}>
         <BoardContext.Provider value={boardContextRef}>
           <BoardPresetsContext.Provider value={boards}>
-            <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
-              <TitleBar />
-              <GridContainer>
-                <Grid theme={{ orientation: "landscape" }}>
-                  <NumberSelectionPanel />
-                  <Board />
-                  <ControlPanel />
-                </Grid>
-              </GridContainer>
-            </ComponentWrapper>
+            <IsRunningContext.Provider value={[isRunning, setIsRunning]}>
+              <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
+                <TitleBar />
+                <GridContainer>
+                  <Grid theme={{ orientation: "landscape" }}>
+                    <NumberSelectionPanel />
+                    <Board />
+                    <ControlPanel />
+                  </Grid>
+                </GridContainer>
+              </ComponentWrapper>
+            </IsRunningContext.Provider>
           </BoardPresetsContext.Provider>
         </BoardContext.Provider>
       </MouseContext.Provider>

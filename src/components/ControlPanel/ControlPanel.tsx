@@ -4,16 +4,24 @@ import Slider from "../Slider/Slider";
 import { primary_color, secondary_color } from "../../styleVars/styleVars";
 import Dial from "../Dial/Dial";
 import MuiButton from "../MuiButton/MuiButton";
-import { AppContext, BoardContext, BoardPresetsContext } from "../App/App";
+import {
+  AppContext,
+  BoardContext,
+  BoardPresetsContext,
+  IsRunningContext,
+} from "../App/App";
 import { solveBoard } from "../../utils/solveBoard";
 import { createAvailableIndexes } from "../../utils/traversalTypes/createAvailableCellsArray";
 import { deepCopyBoard } from "../../utils/utils";
+import { StateSetState } from "../../types/types";
 
 export default function ControlPanel() {
   const appContext = useContext(AppContext);
   const boardContext = useContext(BoardContext);
   const boardPresetsContext = useContext(BoardPresetsContext);
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useContext(
+    IsRunningContext
+  ) as StateSetState<boolean>;
 
   function playPause() {
     if (appContext?.current && boardContext?.current) {

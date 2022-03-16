@@ -4,24 +4,6 @@ import {
   primary_color,
 } from "../../../styleVars/styleVars";
 
-export const Select = styled.select`
-  font-size: 16px;
-  color: rgb(${primary_color});
-  margin: 10px;
-  text-shadow: 0px 0px 2px rgb(${primary_color});
-  background: rgb(${background_alt_color});
-  border: none;
-  width: 150px;
-  outline: none;
-`;
-
-export const Option = styled.option`
-  font-size: 16px;
-  color: rgb(${primary_color});
-  margin: 10px;
-  text-shadow: 0px 0px 2px rgb(${primary_color});
-`;
-
 export const Component = styled.div`
   display: grid;
   grid-template-columns: 1fr 2px auto;
@@ -33,6 +15,33 @@ export const Component = styled.div`
   margin: 0;
   height: 100%;
   align-items: center;
+  transition: 0.3s ease;
+
+  &.disabled {
+    pointer-events: none;
+    filter: grayscale(100%);
+  }
+`;
+
+export const Select = styled.select`
+  font-size: 16px;
+  color: rgb(${primary_color});
+  margin: 10px;
+  text-shadow: 0px 0px 2px rgb(${primary_color});
+  background: none;
+  border: none;
+  width: 150px;
+  outline: none;
+  cursor: pointer;
+  height: 100%;
+`;
+
+export const Option = styled.option`
+  font-size: 16px;
+  color: rgb(${primary_color});
+  margin: 10px;
+  background: rgb(${background_alt_color});
+  cursor: pointer;
 `;
 
 export const Text = styled.div`
