@@ -4,38 +4,32 @@ import {
   CAC,
   AppContextType,
   MouseContextType,
-  CellBloomRefs,
+  BloomCellsRef,
 } from "../types/types";
 import { indexToRowCol, mapNumberRange } from "./utils";
-import { drawNumberToCell } from "./drawToCells";
+import { drawNumberToCell, getPendingAnimations } from "./drawToCells";
 import { mouseHover, showTextOnHover } from "./mouseHover";
 
 export function refreshCells(
   colorRefs: Refs,
   numberRefs: Refs,
-  cellBloomRefs: CellBloomRefs,
+  cellBloomRefs: BloomCellsRef,
   originalBoard: Board,
-  currentBoard: Board,
+  currentBoardRef: React.MutableRefObject<Board>,
   context: AppContextType,
   mouse: MouseContextType
 ): void {
-  const colors = colorRefs.current;
-  const numbers = numberRefs.current;
-  if (colors && numbers) {
-    for (let i = 0; i < colors.length; i += 1) {
-      let [canvas, ctx] = colors[i];
-      fadeOutColor(canvas, ctx, context);
-      mouseHover(canvas, ctx, mouse);
-      fadeOutBloom(i, cellBloomRefs, context);
-      [canvas, ctx] = numbers[i];
-      fadeOutCanvas(canvas, ctx, context);
-      showTextOnHover(canvas, ctx, mouse, context.selectedNumber);
-      drawPlacedNumbers(numbers, originalBoard, currentBoard, i, context);
-    }
-  }
+  getPendingAnimations(
+    currentBoardRef,
+    originalBoard,
+    colorRefs,
+    cellBloomRefs,
+    numberRefs,
+    context
+  );
 }
 
-function fadeOutColor(
+export function fadeOutColor(
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D,
   context: AppContextType
@@ -54,7 +48,7 @@ function fadeOutColor(
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function fadeOutCanvas(
+export function fadeOutCanvas(
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D,
   context: AppContextType
@@ -69,7 +63,7 @@ function fadeOutCanvas(
   ctx.putImageData(imageData, 0, 0);
 }
 
-function drawPlacedNumbers(
+export function drawPlacedNumbers(
   refs: CAC[],
   originalBoard: Board,
   currentBoard: Board,
@@ -83,9 +77,9 @@ function drawPlacedNumbers(
   else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
 }
 
-function fadeOutBloom(
+export function fadeOutBloom(
   index: number,
-  cellBloomRefs: CellBloomRefs,
+  cellBloomRefs: BloomCellsRef,
   context: AppContextType
 ) {
   const colorFadeSpeed = mapNumberRange(

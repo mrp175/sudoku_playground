@@ -4,6 +4,9 @@ import { deepCopyBoard } from "./utils";
 
 type Board = (number | null)[][];
 
+let count = 0;
+let totalOperations = 0;
+
 export async function solveBoard(
   board: Board,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
@@ -14,14 +17,28 @@ export async function solveBoard(
   setIsRunning: SetState<boolean>,
   index = 0
 ): Promise<Board | false> {
+  context.currentHead = availableCellsArray[index];
   if (context.isRunning === false) {
     return board;
   }
-  await timeout(1000 / context.speed);
+  if (context.speed <= 120) {
+    count = 0;
+    await timeout(1000 / context.speed);
+  } else {
+    if (count >= context.speed / 120) {
+      await timeout(1000 / 120);
+      count = 0;
+    }
+    count += 1;
+  }
+  totalOperations += 1;
 
   if (index === availableCellsArray.length) {
     setIsRunning(false);
     context.isRunning = false;
+    console.log(totalOperations);
+    totalOperations = 0;
+    console.log(new Date().getTime());
     return board;
   }
   const [row, col] = availableCellsArray[index];
@@ -59,7 +76,7 @@ export async function solveBoard(
 //   }
 // }
 
-function timeout(ms: number) {
+export function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -93,9 +110,9 @@ function placeDigit(
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
     if (context.illuminateCells)
-      colorCell(row, col, refs, cellBloomRefs, context);
-    drawNumberToCell(value, row, col, textRefs, "255, 255, 255", context);
-    return true;
+      // colorCell(row, col, refs, cellBloomRefs, context);
+      // drawNumberToCell(value, row, col, textRefs, "255, 255, 255", context);
+      return true;
   }
   return false;
 }

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { AppContext, BoardContext, MouseContext } from "../App/App";
-import { CellBloomRefs, Refs } from "../../types/types";
-import { _075 as hardOne } from "../../utils/boards";
+import { BloomCellsRef, Refs } from "../../types/types";
+import { hardOne } from "../../utils/boards";
 import { BoardGrid } from "./Board.styled";
 import { handleResize } from "../../utils/handleResize";
 import { createSubGrid } from "../../utils/createBoard";
@@ -18,7 +18,7 @@ export default function Board() {
   const context = useContext(AppContext);
   const mouseContext = useContext(MouseContext);
   const boardContext = useContext(BoardContext);
-  const cellBloomRefs: CellBloomRefs = useRef([]);
+  const cellBloomRefs: BloomCellsRef = useRef([]);
 
   useEffect(
     () =>
@@ -51,24 +51,20 @@ export default function Board() {
   });
 
   useEffect(function () {
-    function refreshTimeout() {
-      const refreshRate = context?.current.fadeRefreshRate || 30;
-      const current = context?.current;
-      const mouse = mouseContext?.current;
-      if (current && mouse) {
-        refreshCells(
-          cellColorRefs,
-          cellNumberRefs,
-          cellBloomRefs,
-          hardOne,
-          boardRef.current,
-          current,
-          mouse
-        );
-      }
-      setTimeout(() => refreshTimeout(), 1000 / 60);
+    const refreshRate = context?.current.fadeRefreshRate || 30;
+    const current = context?.current;
+    const mouse = mouseContext?.current;
+    if (current && mouse) {
+      refreshCells(
+        cellColorRefs,
+        cellNumberRefs,
+        cellBloomRefs,
+        hardOne,
+        boardRef,
+        current,
+        mouse
+      );
     }
-    refreshTimeout();
   }, []);
 
   return (

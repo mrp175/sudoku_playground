@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import Board from "../Board/Board";
 import {
   AppContextType,
-  CellBloomRefs,
+  BloomCellsRef,
   MouseContextType,
 } from "../../types/types";
 import { ComponentWrapper, GridContainer } from "./App.styled";
@@ -23,13 +23,14 @@ const running = false;
 
 const context: AppContextType = {
   isRunning: running,
-  speed: 23.8,
+  speed: 152.36,
   illuminateCells: true,
   colorFadeSpeed: 0.757,
   textFadeSpeed: 44.947,
   fadeRefreshRate: 60,
   selectedNumber: 1,
   traversalDirection: "down",
+  currentHead: [0, 0],
 };
 
 export const MouseContext =
@@ -49,7 +50,7 @@ function handleMouseMove(
 }
 
 export const BoardContext = React.createContext<React.MutableRefObject<
-  [BoardRef, Refs, Refs, CellBloomRefs] | null
+  [BoardRef, Refs, Refs, BloomCellsRef] | null
 > | null>(null);
 
 export const BoardPresetsContext = React.createContext<
@@ -64,12 +65,11 @@ export const OrientationContext = React.createContext<string | null>(null);
 function App() {
   const contextRef = useRef(context);
   const mouseContextRef = useRef(mouseContext);
-  const boardContextRef = useRef<[BoardRef, Refs, Refs, CellBloomRefs] | null>(
+  const boardContextRef = useRef<[BoardRef, Refs, Refs, BloomCellsRef] | null>(
     null
   );
   const [isRunning, setIsRunning] = useState(running);
   const [orientation, setOrientation] = useState("landscape");
-  console.log(orientation);
   useEffect(function () {
     window.addEventListener("resize", (e) => setAppOrientation(setOrientation));
   }, []);

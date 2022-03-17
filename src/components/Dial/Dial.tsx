@@ -53,8 +53,8 @@ export default function Dial({
     const current = appContext?.current;
     if (current) {
       let mapped = mapNumberRange(dialVal, -130, 130, 0, 1);
-      mapped = handleRangeBias(mapped, 0.6, "log");
-      mapped = mapNumberRange(mapped, 0, 1, 1, 380);
+      mapped = handleRangeBias(mapped, 0.85, "log");
+      mapped = mapNumberRange(mapped, 0, 1, 1, 90000);
       mapped = Math.round((mapped + Number.EPSILON) * 100) / 100;
       current.speed = mapped;
     }

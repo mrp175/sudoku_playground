@@ -1,10 +1,10 @@
-import { CellBloomRefs, Refs } from "../types/types";
+import { BloomCellsRef, Refs } from "../types/types";
 import { Cell, Canvas, BloomBoxShadow } from "../components/Board/Board.styled";
 
 export function createSubGrid(
   cellColorRefs: Refs,
   cellNumberRefs: Refs,
-  cellBloomRefs: CellBloomRefs,
+  cellBloomRefs: BloomCellsRef,
   board: (number | null)[][]
 ) {
   const result = [];

@@ -50,12 +50,13 @@ export default function ControlPanel() {
         setIsRunning(false);
       }
     }
+    console.log(new Date().getTime());
   }
 
   function resetBoard() {
     let current = boardContext?.current;
     if (current) {
-      current[0].current = deepCopyBoard(boardPresetsContext![2]);
+      current[0].current = deepCopyBoard(boardPresetsContext![1]);
     }
   }
 

@@ -1,9 +1,26 @@
-import { AppContextType, CanvasArr } from "../types/types";
+import {
+  AppContextType,
+  CanvasArr,
+  CellColorsRef,
+  CellNumbersRef,
+  BloomCellsRef,
+  Board,
+} from "../types/types";
 import {
   mapRangeWithBias,
   RowColToIndex,
   mapNumberRange,
+  deepCopyBoard,
+  indexToRowCol,
 } from "../utils/utils";
+import { primary_color } from "../styleVars/styleVars";
+import {
+  fadeOutColor,
+  fadeOutCanvas,
+  fadeOutBloom,
+  drawPlacedNumbers,
+} from "./refreshCells";
+import { timeout } from "./solveBoard";
 
 export function drawNumberToCell(
   value: number,
@@ -81,7 +98,6 @@ export function createColors() {
   return result;
 }
 
-const colors = createColors();
 const color = "rgb(60, 224, 175)";
 
 export function colorCell(
@@ -99,7 +115,7 @@ export function colorCell(
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
   // ctx.fillStyle = colors[value - 1];
-  ctx.fillStyle = color;
+  ctx.fillStyle = `rgb(${primary_color})`;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.closePath();
 }
@@ -112,4 +128,76 @@ export function colorCanvas(
   ctx.fillStyle = color;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.closePath();
+}
+
+export async function getPendingAnimations(
+  boardRef: React.MutableRefObject<Board>,
+  originalBoard: Board,
+  cellColorRefs: CellColorsRef,
+  bloomCellsRef: BloomCellsRef,
+  cellNumberRefs: CellNumbersRef,
+  appContext: AppContextType
+) {
+  const board = boardRef.current;
+  const startingBoard = deepCopyBoard(board);
+  const pendingAnimations: [number, number, number | null][] = [];
+  await timeout(100 / 60);
+  for (let i = 0; i < board.length; i += 1) {
+    for (let j = 0; j < board[0].length; j += 1) {
+      if (startingBoard[i][j] !== board[i][j]) {
+        pendingAnimations.push([i, j, board[i][j]]);
+      }
+    }
+  }
+  const colors = cellColorRefs.current;
+  const numbers = cellNumberRefs.current;
+  if (colors) {
+    for (let i = 0; i < colors.length; i += 1) {
+      let [canvas, ctx] = colors[i];
+      fadeOutColor(canvas, ctx, appContext);
+      // mouseHover(canvas, ctx, mouse);
+      fadeOutBloom(i, bloomCellsRef, appContext);
+      [canvas, ctx] = numbers[i];
+      fadeOutCanvas(canvas, ctx, appContext);
+      const [row, col] = indexToRowCol(i);
+      const value = board[row][col] as number;
+      // showTextOnHover(canvas, ctx, mouse, context.selectedNumber);
+      drawPlacedNumbers(numbers, originalBoard, board, i, appContext);
+      // if (numbers[i] !== null)
+      //   drawNumberToCellAltInputs(canvas, ctx, value, `rgb(255, 255, 255)`);
+    }
+  }
+  drawPendingAnimations(
+    cellColorRefs,
+    cellNumberRefs,
+    bloomCellsRef,
+    pendingAnimations,
+    appContext
+  );
+  getPendingAnimations(
+    boardRef,
+    originalBoard,
+    cellColorRefs,
+    bloomCellsRef,
+    cellNumberRefs,
+    appContext
+  );
+}
+
+function drawPendingAnimations(
+  cellColorsRef: CellColorsRef,
+  cellNumbersRef: CellNumbersRef,
+  bloomCellsRef: BloomCellsRef,
+  pendingAnimations: [number, number, number | null][],
+  appContext: AppContextType
+) {
+  const colorCells = cellColorsRef.current;
+  const numberCells = cellNumbersRef.current;
+  const bloomCells = bloomCellsRef.current;
+  for (let i = 0; i < pendingAnimations.length; i += 1) {
+    const [row, col, value] = pendingAnimations[i];
+    if (value !== null) {
+      colorCell(row, col, cellColorsRef.current, bloomCells, appContext);
+    }
+  }
 }

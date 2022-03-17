@@ -14,6 +14,7 @@ export type AppContextType = {
   fadeRefreshRate: number;
   selectedNumber: number;
   traversalDirection: TraversalDirections;
+  currentHead: [number, number];
 };
 
 export type TraversalDirections =
@@ -94,7 +95,7 @@ export type AppContextPropNames =
 
 export type BoardPresetsRefType = React.MutableRefObject<Board[] | null>;
 
-export type CellBloomRefs = React.MutableRefObject<HTMLDivElement[]>;
+export type BloomCellsRef = React.MutableRefObject<HTMLDivElement[]>;
 export type SetTouchState = React.Dispatch<
   React.SetStateAction<{
     disatnceTravelled: number;
@@ -106,3 +107,7 @@ export type TouchState = {
 
 export type StateSetState<T> = [T, React.Dispatch<React.SetStateAction<T>>];
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+export type CellColorsRef = React.MutableRefObject<
+  [HTMLCanvasElement, CanvasRenderingContext2D][]
+>;
+export type CellNumbersRef = CellColorsRef;
