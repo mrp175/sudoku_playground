@@ -5,7 +5,11 @@ import {
   BloomCellsRef,
   MouseContextType,
 } from "../../types/types";
-import { ComponentWrapper, GridContainer } from "./App.styled";
+import {
+  ComponentWrapper,
+  GridContainer,
+  PreventHorizontalScroll,
+} from "./App.styled";
 import TitleBar from "../TitleBar/TitleBar";
 import { Grid } from "./App.styled";
 import ControlPanel from "../ControlPanel/ControlPanel";
@@ -14,7 +18,7 @@ import NumberSelectionPanel from "../NumberSelectionPanel/NumberSelectionPanel";
 import { setBoardPresets } from "../../utils/setBoardPresets";
 import { boards } from "../../utils/boards";
 import { StateSetState } from "../../types/types";
-import { setAppOrientation } from "../../utils/handleResize";
+import { getOrientation } from "../../utils/handleResize";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -63,6 +67,8 @@ export const IsRunningContext =
 export const OrientationContext = React.createContext<string | null>(null);
 
 function App() {
+  const padding = 20;
+  const gridAspectRatio = 0.55;
   const contextRef = useRef(context);
   const mouseContextRef = useRef(mouseContext);
   const boardContextRef = useRef<[BoardRef, Refs, Refs, BloomCellsRef] | null>(
@@ -70,9 +76,75 @@ function App() {
   );
   const [isRunning, setIsRunning] = useState(running);
   const [orientation, setOrientation] = useState("landscape");
-  useEffect(function () {
-    window.addEventListener("resize", (e) => setAppOrientation(setOrientation));
+  const [screenDimensions, setScreenDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
+  const [scale, setScale] = useState(1);
+  const appWrapperRef = useRef<HTMLDivElement>(null);
+  const gridDimensions = {
+    landscape: {
+      width: 1366,
+      height: 736,
+    },
+    portrait: {
+      width: 738,
+      height: 1118,
+    },
+  };
+
+  useEffect(() => {
+    const current = appWrapperRef.current;
+    if (current) {
+      setScreenDimensions({
+        width: current.clientWidth,
+        height: current.clientHeight,
+      });
+    }
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      const current = appWrapperRef.current;
+      if (current) {
+        setScreenDimensions({
+          width: current.clientWidth,
+          height: current.clientHeight,
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    let currentOrientation = "landscape";
+    if (window.innerWidth < 1430 || window.innerHeight < 830) {
+      currentOrientation = getOrientation(
+        screenDimensions.width,
+        screenDimensions.height,
+        gridAspectRatio
+      );
+    }
+    // if (window.innerHeight < 600) {
+    //   currentOrientation = "portrait";
+    // }
+    setOrientation(currentOrientation);
+  }, [screenDimensions]);
+
+  useEffect(() => {
+    let scale = 1;
+    if (
+      orientation === "portrait" &&
+      screenDimensions.width < 738 + padding * 2
+    ) {
+      scale = (screenDimensions.width - padding * 2) / 738;
+    } else if (
+      orientation === "landscape" &&
+      screenDimensions.height < 736 + padding * 2
+    ) {
+      scale = (screenDimensions.height - padding * 2) / 736;
+    }
+    setScale(scale);
+  }, [screenDimensions, orientation]);
 
   return (
     // <CombineProviders components={[AppContext, MouseContext, BoardContext]}></CombineProviders>
@@ -86,12 +158,25 @@ function App() {
                   onMouseMove={handleMouseMove(mouseContextRef)}
                 >
                   <TitleBar />
-                  <GridContainer>
-                    <Grid theme={{ orientation }}>
-                      <NumberSelectionPanel />
-                      <Board />
-                      <ControlPanel />
-                    </Grid>
+                  <GridContainer
+                    theme={{ orientation, scale }}
+                    ref={appWrapperRef}
+                  >
+                    <PreventHorizontalScroll
+                      theme={{ scale, orientation, dimensions: gridDimensions }}
+                    >
+                      <Grid
+                        theme={{
+                          orientation,
+                          scale,
+                          dimensions: gridDimensions,
+                        }}
+                      >
+                        <NumberSelectionPanel />
+                        <Board />
+                        <ControlPanel />
+                      </Grid>
+                    </PreventHorizontalScroll>
                   </GridContainer>
                 </ComponentWrapper>
               </OrientationContext.Provider>

@@ -27,7 +27,12 @@ function resizeCell(canvas: HTMLCanvasElement, width: number) {
   canvas.height = width / 9;
 }
 
-export function setAppOrientation(setOrientation: SetState<string>) {
-  if (window.innerWidth < 1450) setOrientation("portrait");
-  else setOrientation("landscape");
+export function getOrientation(
+  screenWidth: number,
+  screenHeight: number,
+  targetRatio: number
+) {
+  const currentRatio = screenHeight / screenWidth;
+  if (currentRatio < targetRatio) return "landscape";
+  return "portrait";
 }

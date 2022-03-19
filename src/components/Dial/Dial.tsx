@@ -121,7 +121,6 @@ export default function Dial({
 
   function touch(e: TouchEvent) {
     e.preventDefault();
-    console.log(e.changedTouches[0]);
   }
 
   useEffect(
