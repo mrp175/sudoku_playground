@@ -9,6 +9,7 @@ import {
   ComponentWrapper,
   GridContainer,
   PreventHorizontalScroll,
+  PreventVerticalScroll,
 } from "./App.styled";
 import TitleBar from "../TitleBar/TitleBar";
 import { Grid } from "./App.styled";
@@ -163,17 +164,25 @@ function App() {
                     <PreventHorizontalScroll
                       theme={{ scale, orientation, dimensions: gridDimensions }}
                     >
-                      <Grid
+                      <PreventVerticalScroll
                         theme={{
-                          orientation,
                           scale,
+                          orientation,
                           dimensions: gridDimensions,
                         }}
                       >
-                        <NumberSelectionPanel />
-                        <Board />
-                        <ControlPanel />
-                      </Grid>
+                        <Grid
+                          theme={{
+                            orientation,
+                            scale,
+                            dimensions: gridDimensions,
+                          }}
+                        >
+                          <NumberSelectionPanel />
+                          <Board />
+                          <ControlPanel />
+                        </Grid>
+                      </PreventVerticalScroll>
                     </PreventHorizontalScroll>
                   </GridContainer>
                 </ComponentWrapper>

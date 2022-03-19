@@ -48,4 +48,17 @@ export const PreventHorizontalScroll = styled.div`
       }px;`;
     }
   }}
+  ${(props) =>
+    props.theme.orientation === "landscape" ? "overflow: hidden;" : ""}
+`;
+
+export const PreventVerticalScroll = styled.div`
+  ${(props) => {
+    const { orientation, scale, dimensions } = props.theme;
+    if (orientation === "portrait" && scale < 1) {
+      return `height: ${dimensions.portrait.height * scale}px;
+      overflow: hidden;
+  `;
+    }
+  }}
 `;
