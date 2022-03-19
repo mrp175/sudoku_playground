@@ -11,7 +11,7 @@ export default function TitleBar() {
   return (
     <Component>
       <Title>SUDOKU PLAYGROUND</Title>
-      {/* <TraversalSelection /> */}
+      <TraversalSelection />
     </Component>
   );
 }
