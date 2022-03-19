@@ -24,7 +24,7 @@ export const Component = styled.div`
   /* overflow: hidden; */
 
   & > div {
-    font-family: "Courier", Courier, monospace;
+    font-family: "Arial", Courier, monospace;
     width: 80px;
     height: 80px;
     font-weight: bold;
