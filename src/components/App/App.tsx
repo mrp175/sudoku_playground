@@ -19,6 +19,7 @@ import { setBoardPresets } from "../../utils/setBoardPresets";
 import { boards } from "../../utils/boards";
 import { StateSetState } from "../../types/types";
 import { getOrientation } from "../../utils/handleResize";
+import { detectBrowser } from "../../utils/utils";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -124,9 +125,6 @@ function App() {
         gridAspectRatio
       );
     }
-    // if (window.innerHeight < 600) {
-    //   currentOrientation = "portrait";
-    // }
     setOrientation(currentOrientation);
   }, [screenDimensions]);
 

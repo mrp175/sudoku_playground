@@ -98,22 +98,13 @@ export default function Dial({
     setDialPos(dial.value);
     const knob = knobRef.current;
     if (knob) {
-      addGenericEventListener(knob, "mousedown", (e: MouseEvent) =>
+      addGenericEventListener(knob, "pointerdown", (e: PointerEvent) =>
         mouse.handleDown(e, knob)
       );
-      addGenericEventListener(window, "mousemove", (e: MouseEvent) => {
+      addGenericEventListener(window, "pointermove", (e: PointerEvent) => {
         mouse.handleMove(e, knob, handleMouseMove);
       });
-      addGenericEventListener(window, "mouseup", (e: MouseEvent) =>
-        mouse.handleUp(e, knob, handleMouseUp)
-      );
-      addGenericEventListener(knob, "touchstart", (e: MouseEvent) =>
-        mouse.handleDown(e, knob)
-      );
-      addGenericEventListener(window, "touchmove", (e: MouseEvent) => {
-        mouse.handleMove(e, knob, handleMouseMove);
-      });
-      addGenericEventListener(window, "touchend", (e: MouseEvent) =>
+      addGenericEventListener(window, "pointerup", (e: PointerEvent) =>
         mouse.handleUp(e, knob, handleMouseUp)
       );
     }

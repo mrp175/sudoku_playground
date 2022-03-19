@@ -10,6 +10,7 @@ export const Component = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  touch-action: none;
 `;
 
 export const Knob = styled.div`

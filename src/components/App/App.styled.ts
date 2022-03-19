@@ -43,7 +43,6 @@ export const PreventHorizontalScroll = styled.div`
       return `height: ${dimensions.portrait.height * scale}px;`;
     }
     if (orientation === "landscape" && scale < 1) {
-      console.log(dimensions.landscape.width * scale);
       return `width: ${dimensions.landscape.width * scale}px; height: ${
         dimensions.landscape.height * scale
       }px;`;

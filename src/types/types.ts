@@ -69,7 +69,7 @@ export interface MouseState {
 }
 
 export type HandleMouseInput = (
-  e: MouseEvent | TouchEvent,
+  e: MouseEvent,
   parentRef?: HTMLDivElement | undefined,
   callback?:
     | ((
