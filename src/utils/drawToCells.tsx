@@ -35,7 +35,7 @@ export function drawNumberToCell(
   ctx.beginPath();
   ctx.fillStyle = `rgb(${color})`;
   ctx.textAlign = "center";
-  ctx.font = "bold 30pt Courier";
+  ctx.font = "bold 30pt Arial";
   ctx.textBaseline = "middle";
   ctx.textAlign = "center";
   // let shadowBlurOpacity = mapRangeWithBias(
