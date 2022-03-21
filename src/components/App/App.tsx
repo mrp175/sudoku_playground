@@ -21,6 +21,7 @@ import { boards } from "../../utils/boards";
 import { StateSetState } from "../../types/types";
 import { getOrientation } from "../../utils/handleResize";
 import { detectBrowser } from "../../utils/utils";
+import BoardSelectionMenu from "../BoardSelectionMenu/BoardSelectionMenu";
 
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -185,6 +186,7 @@ function App() {
                       </PreventVerticalScroll>
                     </PreventHorizontalScroll>
                   </GridContainer>
+                  <BoardSelectionMenu />
                 </ComponentWrapper>
               </OrientationContext.Provider>
             </IsRunningContext.Provider>
