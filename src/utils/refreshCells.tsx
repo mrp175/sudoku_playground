@@ -44,7 +44,7 @@ export function fadeOutColor(
   //   ctx.fillStyle = "white";
   // if (pixelData[0] <= r + 5 || pixelData[1] <= g + 5 || pixelData[2] <= b + 5)
   //   ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-  if (pixelData[1] <= g + 5) ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+  if (pixelData[1] <= g + 6) ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
