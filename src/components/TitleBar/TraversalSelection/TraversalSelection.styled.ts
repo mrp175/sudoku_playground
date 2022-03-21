@@ -20,7 +20,7 @@ export const Component = styled.div`
 
   &.disabled {
     pointer-events: none;
-    filter: grayscale(100%);
+    filter: grayscale(100%) brightness(50%);
   }
 `;
 
