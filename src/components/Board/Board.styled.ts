@@ -56,7 +56,6 @@ export const Cell = styled.div`
   &:hover {
     transition: 0.1s ease;
     z-index: 1;
-    box-shadow: 0px 0px 15px 0px rgb(${primary_color});
     cursor: pointer;
   }
 `;

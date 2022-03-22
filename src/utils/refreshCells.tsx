@@ -62,9 +62,11 @@ function drawPlacedNumbers(
 ) {
   const [row, col] = indexToRowCol(index);
   const value = currentBoard[row][col] as number;
-  if (originalBoard[row][col])
-    drawNumberToCell(value, row, col, refs, "54, 224, 173", context);
-  else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
+  if (index !== context.mouseHoverIndex) {
+    if (originalBoard[row][col])
+      drawNumberToCell(value, row, col, refs, "54, 224, 173", context);
+    else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
+  }
 }
 
 function fadeOutBloom(
