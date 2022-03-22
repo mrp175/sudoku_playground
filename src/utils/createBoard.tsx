@@ -18,6 +18,7 @@ export function createSubGrid(boardContext: BoardContextType) {
           }}
         />
         <Canvas
+          id={`C${i}`}
           ref={(el) => {
             colorCells.push([el!, el?.getContext("2d")!]);
           }}

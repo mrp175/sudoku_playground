@@ -14,6 +14,7 @@ export type AppContextType = {
   fadeRefreshRate: number;
   selectedNumber: number;
   traversalDirection: TraversalDirections;
+  mouseHoverIndex: number | null;
   currentHead: [number, number];
 };
 
@@ -40,7 +41,7 @@ export type TraversalTextFields =
   | "random";
 
 export type MouseContextType = {
-  position: { x: number; y: number };
+  position: { x: number | null; y: number | null };
 };
 
 export type DialType = {
@@ -124,4 +125,4 @@ export type BoardContextType = {
   selectedCells: UserSelectedCells;
 };
 export type UserSelectedCells = { [index: string]: number };
-export type MousePosition = { x: number; y: number };
+export type MousePosition = { position: { x: number; y: number } };

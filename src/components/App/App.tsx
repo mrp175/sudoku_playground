@@ -15,6 +15,7 @@ import ManageScreenDimensions from "../Utils/ManageScreenDimensions";
 import { gridDimensions } from "../../styleVars/styleVars";
 import { handleMouseMove } from "../../utils/utils";
 import { MouseContext, OrientationContext } from "../Providers/appContexts";
+import SetMousePosition from "../SetMousePosition/SetMousePosition";
 
 function App() {
   const [screenDimensions, setScreenDimensions] = useState({
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <>
+      <SetMousePosition />
       <OrientationContext.Provider value={orientation}>
         <ManageScreenDimensions
           orientation={orientation}
@@ -64,7 +66,7 @@ function App() {
               </PreventVerticalScroll>
             </PreventHorizontalScroll>
           </GridContainer>
-          {/* <BoardSelectionMenu /> */}
+          <BoardSelectionMenu />
         </ComponentWrapper>
       </OrientationContext.Provider>
     </>

@@ -23,12 +23,15 @@ export const appContext: AppContextType = {
   fadeRefreshRate: 60,
   selectedNumber: 1,
   traversalDirection: "down",
+  mouseHoverIndex: null,
   currentHead: [0, 0],
 };
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
 
-export const mouseContext = { position: { x: 0, y: 0 } };
+export const mouseContext: MouseContextType = {
+  position: { x: null, y: null },
+};
 export const MouseContext =
   React.createContext<React.MutableRefObject<MouseContextType> | null>(null);
 

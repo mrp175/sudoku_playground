@@ -1,16 +1,26 @@
-import { Board, CAC, AppContextType, BoardContextType } from "../types/types";
-import { deepCopyBoard, indexToRowCol, mapNumberRange } from "./utils";
+import {
+  Board,
+  CAC,
+  AppContextType,
+  BoardContextType,
+  MouseContextType,
+} from "../types/types";
+import { deepCopyBoard, indexToRowCol, mapNumberRange, timeout } from "./utils";
 import { drawNumberToCell, drawPendingAnimations } from "./drawToCells";
-import { timeout } from "./utils";
+import { handleMouseHover, highlightCellOnHover } from "./mouseHover";
+import { mouseContext } from "../components/Providers/appContexts";
 
 export async function refreshCells(
   boardContext: BoardContextType,
-  appContext: AppContextType
+  appContext: AppContextType,
+  mouseContext: MouseContextType
 ) {
   const pendingAnimations = await getPendingAnimations(boardContext);
-  refreshAllCells(boardContext, appContext);
+  refreshAllCells(boardContext, appContext, mouseContext);
+  if (appContext.mouseHoverIndex !== null)
+    highlightCellOnHover(boardContext, appContext);
   drawPendingAnimations(boardContext, appContext, pendingAnimations);
-  refreshCells(boardContext, appContext);
+  refreshCells(boardContext, appContext, mouseContext);
 }
 
 function fadeOutColor(
@@ -91,16 +101,21 @@ async function getPendingAnimations(boardContext: BoardContextType) {
 
 function refreshAllCells(
   boardContext: BoardContextType,
-  appContext: AppContextType
+  appContext: AppContextType,
+  mouseContext: MouseContextType
 ) {
   const { originalBoard, board, colorCells, bloomCells, numberCells } =
     boardContext;
+  let hoveringOverCell = false;
   for (let i = 0; i < colorCells.length; i += 1) {
     let [canvas, ctx] = colorCells[i];
     fadeOutColor(canvas, ctx, appContext);
     fadeOutBloom(i, bloomCells, appContext);
+    if (handleMouseHover(canvas, mouseContext, appContext, i) === true)
+      hoveringOverCell = true;
     [canvas, ctx] = numberCells[i];
     fadeOutNumbers(canvas, ctx, appContext);
     drawPlacedNumbers(numberCells, originalBoard, board, i, appContext);
   }
+  if (!hoveringOverCell) appContext.mouseHoverIndex = null;
 }

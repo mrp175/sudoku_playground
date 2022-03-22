@@ -3,6 +3,7 @@ import {
   AppContext,
   BoardContext,
   BoardPresetsContext,
+  MouseContext,
 } from "../Providers/appContexts";
 import { BoardGrid } from "./Board.styled";
 import { handleResize } from "../../utils/handleResize";
@@ -17,6 +18,7 @@ export default function Board() {
   const appContext = useContext(AppContext);
   const boardContext = useContext(BoardContext);
   const boardPresetsContext = useContext(BoardPresetsContext);
+  const mouseContext = useContext(MouseContext);
 
   useEffect(() => {
     if (boardContext && boardContext.current && boardPresetsContext) {
@@ -35,7 +37,11 @@ export default function Board() {
   }, []);
 
   useEffect(function () {
-    refreshCells(boardContext?.current!, appContext?.current!);
+    refreshCells(
+      boardContext?.current!,
+      appContext?.current!,
+      mouseContext?.current!
+    );
   }, []);
 
   return (
