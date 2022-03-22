@@ -66,7 +66,8 @@ export function colorCell(
   col: number,
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   cellBloomRefs: HTMLDivElement[],
-  appContext: AppContextType
+  appContext: AppContextType,
+  color: string
 ) {
   const bloomAmount =
     Math.floor(mapNumberRange(appContext.colorFadeSpeed, 0, 0.92, 0, 1) * 100) /
@@ -75,7 +76,7 @@ export function colorCell(
   cellBloomRefs[index].style.opacity = bloomAmount + "";
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
-  ctx.fillStyle = `rgb(${primary_color})`;
+  ctx.fillStyle = `rgb(${color})`;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.closePath();
 }
@@ -100,7 +101,7 @@ export function drawPendingAnimations(
     const [row, col, value] = pendingAnimations[i];
     if (value !== null) {
       console.log("coloring cell");
-      colorCell(row, col, colorCells, bloomCells, appContext);
+      colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
     }
   }
 }

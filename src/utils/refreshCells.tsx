@@ -4,11 +4,13 @@ import {
   AppContextType,
   BoardContextType,
   MouseContextType,
+  UserSelectedCells,
 } from "../types/types";
 import { deepCopyBoard, indexToRowCol, mapNumberRange, timeout } from "./utils";
 import { drawNumberToCell, drawPendingAnimations } from "./drawToCells";
 import { handleMouseHover, highlightCellOnHover } from "./mouseHover";
 import { mouseContext } from "../components/Providers/appContexts";
+import { secondary_color } from "../styleVars/styleVars";
 
 export async function refreshCells(
   boardContext: BoardContextType,
@@ -57,13 +59,23 @@ function drawPlacedNumbers(
   refs: CAC[],
   originalBoard: Board,
   currentBoard: Board,
+  selectedCells: UserSelectedCells,
   index: number,
   context: AppContextType
 ) {
   const [row, col] = indexToRowCol(index);
   const value = currentBoard[row][col] as number;
   if (index !== context.mouseHoverIndex) {
-    if (originalBoard[row][col])
+    if (selectedCells[index])
+      drawNumberToCell(
+        selectedCells[index],
+        row,
+        col,
+        refs,
+        secondary_color,
+        context
+      );
+    else if (originalBoard[row][col])
       drawNumberToCell(value, row, col, refs, "54, 224, 173", context);
     else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
   }
@@ -106,8 +118,14 @@ function refreshAllCells(
   appContext: AppContextType,
   mouseContext: MouseContextType
 ) {
-  const { originalBoard, board, colorCells, bloomCells, numberCells } =
-    boardContext;
+  const {
+    originalBoard,
+    board,
+    colorCells,
+    bloomCells,
+    numberCells,
+    selectedCells,
+  } = boardContext;
   let hoveringOverCell = false;
   for (let i = 0; i < colorCells.length; i += 1) {
     let [canvas, ctx] = colorCells[i];
@@ -117,7 +135,14 @@ function refreshAllCells(
       hoveringOverCell = true;
     [canvas, ctx] = numberCells[i];
     fadeOutNumbers(canvas, ctx, appContext);
-    drawPlacedNumbers(numberCells, originalBoard, board, i, appContext);
+    drawPlacedNumbers(
+      numberCells,
+      originalBoard,
+      board,
+      selectedCells,
+      i,
+      appContext
+    );
   }
   if (!hoveringOverCell) appContext.mouseHoverIndex = null;
 }

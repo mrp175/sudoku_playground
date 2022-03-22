@@ -1,3 +1,4 @@
+import { primary_color, secondary_color } from "../styleVars/styleVars";
 import {
   AppContextType,
   BoardContextType,
@@ -5,7 +6,6 @@ import {
   MousePosition,
 } from "../types/types";
 import {
-  colorCanvas,
   colorCell,
   drawNumberToCell,
   drawNumberToCellAltInputs,
@@ -51,7 +51,7 @@ export function highlightCellOnHover(
   const { selectedNumber, mouseHoverIndex } = appContext;
   if (mouseHoverIndex !== null) {
     const [row, col] = indexToRowCol(mouseHoverIndex);
-    colorCell(row, col, colorCells, bloomCells, appContext);
+    colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
     drawNumberToCell(
       selectedNumber,
       row,
@@ -60,5 +60,18 @@ export function highlightCellOnHover(
       "255, 255, 255",
       appContext
     );
+  }
+}
+
+export function onMouseUp(
+  boardContext: BoardContextType,
+  appContext: AppContextType
+) {
+  const { colorCells, bloomCells, selectedCells } = boardContext;
+  const { mouseHoverIndex, selectedNumber } = appContext;
+  if (mouseHoverIndex !== null) {
+    const [row, col] = indexToRowCol(mouseHoverIndex);
+    colorCell(row, col, colorCells, bloomCells, appContext, secondary_color);
+    selectedCells[mouseHoverIndex] = selectedNumber;
   }
 }
