@@ -24,15 +24,14 @@ export default function Providers({
   const mouseContextRef = useRef(mouseContext);
   const boardContextRef = useRef(boardContext);
   const [isRunning, setIsRunning] = useState(defaultRunningState);
+
   return (
     <AppContext.Provider value={appContextRef}>
       <MouseContext.Provider value={mouseContextRef}>
         <BoardContext.Provider value={boardContextRef}>
           <BoardPresetsContext.Provider value={boards}>
             <IsRunningContext.Provider value={[isRunning, setIsRunning]}>
-              <OrientationContext.Provider value={"landscape"}>
-                {children}
-              </OrientationContext.Provider>
+              {children}
             </IsRunningContext.Provider>
           </BoardPresetsContext.Provider>
         </BoardContext.Provider>
