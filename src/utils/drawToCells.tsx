@@ -99,6 +99,7 @@ export function drawPendingAnimations(
   for (let i = 0; i < pendingAnimations.length; i += 1) {
     const [row, col, value] = pendingAnimations[i];
     if (value !== null) {
+      console.log("coloring cell");
       colorCell(row, col, colorCells, bloomCells, appContext);
     }
   }

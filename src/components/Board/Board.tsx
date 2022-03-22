@@ -20,7 +20,9 @@ export default function Board() {
 
   useEffect(() => {
     if (boardContext && boardContext.current && boardPresetsContext) {
-      boardContext.current.board = deepCopyBoard(boardPresetsContext[1]);
+      const current = boardContext.current;
+      current.board = deepCopyBoard(boardPresetsContext[1]);
+      current.originalBoard = deepCopyBoard(boardPresetsContext[1]);
       setSubGrid(createSubGrid(boardContext?.current!));
     }
   }, []);

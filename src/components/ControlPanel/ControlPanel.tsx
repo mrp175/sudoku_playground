@@ -45,7 +45,6 @@ export default function ControlPanel() {
         setIsRunning(false);
       }
     }
-    console.log(new Date().getTime());
   }
 
   function resetBoard() {

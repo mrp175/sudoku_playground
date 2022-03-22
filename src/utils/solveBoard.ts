@@ -14,7 +14,6 @@ export async function solveBoard(
   index = 0
 ): Promise<Board | false> {
   const { board } = boardContext;
-
   if (appContext.isRunning === false) return board;
 
   if (appContext.speed <= 120) {

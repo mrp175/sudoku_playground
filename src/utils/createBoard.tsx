@@ -9,7 +9,6 @@ export function createSubGrid(boardContext: BoardContextType) {
     const row = Math.floor(i / 9);
     const col = i % 9;
     let val: number | null | string = board[row][col];
-    console.log(val);
     if (val === null) val = "";
     result.push(
       <Cell key={`${row},${col}`}>

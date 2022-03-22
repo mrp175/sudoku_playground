@@ -1,5 +1,5 @@
 import { Board, CAC, AppContextType, BoardContextType } from "../types/types";
-import { indexToRowCol, mapNumberRange } from "./utils";
+import { deepCopyBoard, indexToRowCol, mapNumberRange } from "./utils";
 import { drawNumberToCell, drawPendingAnimations } from "./drawToCells";
 import { timeout } from "./utils";
 
@@ -7,9 +7,8 @@ export async function refreshCells(
   boardContext: BoardContextType,
   appContext: AppContextType
 ) {
+  const pendingAnimations = await getPendingAnimations(boardContext);
   refreshAllCells(boardContext, appContext);
-  const pendingAnimations = getPendingAnimations(boardContext);
-  await timeout(1000 / 60);
   drawPendingAnimations(boardContext, appContext, pendingAnimations);
   refreshCells(boardContext, appContext);
 }
@@ -75,12 +74,14 @@ function fadeOutBloom(
   cell.style.opacity = currentOpacity - colorFadeSpeed + "";
 }
 
-function getPendingAnimations(boardContext: BoardContextType) {
-  const { originalBoard, board } = boardContext;
+async function getPendingAnimations(boardContext: BoardContextType) {
+  const { board } = boardContext;
+  const startingBoard = deepCopyBoard(board);
   const pendingAnimations: [number, number, number | null][] = [];
+  await timeout(100 / 60);
   for (let i = 0; i < board.length; i += 1) {
     for (let j = 0; j < board[0].length; j += 1) {
-      if (originalBoard[i][j] !== board[i][j]) {
+      if (startingBoard[i][j] !== board[i][j]) {
         pendingAnimations.push([i, j, board[i][j]]);
       }
     }
