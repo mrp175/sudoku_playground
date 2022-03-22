@@ -1,9 +1,14 @@
 import { useRef, useState, useEffect, useContext } from "react";
-import { AppContext, BoardContext } from "../Providers/appContexts";
+import {
+  AppContext,
+  BoardContext,
+  BoardPresetsContext,
+} from "../Providers/appContexts";
 import { BoardGrid } from "./Board.styled";
 import { handleResize } from "../../utils/handleResize";
 import { createSubGrid } from "../../utils/createBoard";
 import { refreshCells } from "../../utils/refreshCells";
+import { deepCopyBoard } from "../../utils/utils";
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -11,9 +16,13 @@ export default function Board() {
   const [subGrid, setSubGrid] = useState<JSX.Element[]>([]);
   const appContext = useContext(AppContext);
   const boardContext = useContext(BoardContext);
+  const boardPresetsContext = useContext(BoardPresetsContext);
 
   useEffect(() => {
-    setSubGrid(createSubGrid(boardContext?.current!));
+    if (boardContext && boardContext.current && boardPresetsContext) {
+      boardContext.current.board = deepCopyBoard(boardPresetsContext[1]);
+      setSubGrid(createSubGrid(boardContext?.current!));
+    }
   }, []);
 
   useEffect(() => {

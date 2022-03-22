@@ -4,10 +4,12 @@ import { Cell, Canvas, BloomBoxShadow } from "../components/Board/Board.styled";
 export function createSubGrid(boardContext: BoardContextType) {
   const result = [];
   const { board, colorCells, numberCells, bloomCells } = boardContext;
+
   for (let i = 0; i < 9 * 9; i += 1) {
     const row = Math.floor(i / 9);
     const col = i % 9;
     let val: number | null | string = board[row][col];
+    console.log(val);
     if (val === null) val = "";
     result.push(
       <Cell key={`${row},${col}`}>
