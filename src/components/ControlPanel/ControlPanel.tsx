@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Component } from "./ControlPanel.styled";
 import Slider from "../Slider/Slider";
 import { primary_color, secondary_color } from "../../styleVars/styleVars";
@@ -10,7 +10,7 @@ import {
   BoardPresetsContext,
   IsRunningContext,
   OrientationContext,
-} from "../App/App";
+} from "../Providers/appContexts";
 import { solveBoard } from "../../utils/solveBoard";
 import { createAvailableIndexes } from "../../utils/traversalTypes/createAvailableCellsArray";
 import { deepCopyBoard } from "../../utils/utils";
@@ -26,21 +26,16 @@ export default function ControlPanel() {
   const orientation = useContext(OrientationContext) as string;
 
   function playPause() {
-    if (appContext?.current && boardContext?.current) {
-      const [boardRef, cellColorRefs, cellTextRefs, cellBloomRefs] =
-        boardContext.current;
-      if (!appContext.current.isRunning) {
+    if (appContext && appContext.current) {
+      if (appContext.current.isRunning === false) {
         appContext.current.isRunning = true;
         const availableCellIndexes = createAvailableIndexes(
-          boardRef.current,
+          boardContext?.current!,
           appContext.current.traversalDirection
         );
         setIsRunning(true);
         solveBoard(
-          boardRef.current,
-          cellColorRefs.current,
-          cellTextRefs.current,
-          cellBloomRefs.current,
+          boardContext?.current!,
           appContext.current,
           availableCellIndexes,
           setIsRunning
@@ -54,10 +49,8 @@ export default function ControlPanel() {
   }
 
   function resetBoard() {
-    let current = boardContext?.current;
-    if (current) {
-      current[0].current = deepCopyBoard(boardPresetsContext![1]);
-    }
+    const current = boardContext?.current!;
+    current.board = deepCopyBoard(boardPresetsContext![1]);
   }
 
   return (

@@ -1,35 +1,20 @@
-import {
-  Refs,
-  Board,
-  CAC,
-  AppContextType,
-  MouseContextType,
-  BloomCellsRef,
-} from "../types/types";
+import { Board, CAC, AppContextType, BoardContextType } from "../types/types";
 import { indexToRowCol, mapNumberRange } from "./utils";
-import { drawNumberToCell, getPendingAnimations } from "./drawToCells";
-import { mouseHover, showTextOnHover } from "./mouseHover";
+import { drawNumberToCell, drawPendingAnimations } from "./drawToCells";
+import { timeout } from "./utils";
 
-export function refreshCells(
-  colorRefs: Refs,
-  numberRefs: Refs,
-  cellBloomRefs: BloomCellsRef,
-  originalBoard: Board,
-  currentBoardRef: React.MutableRefObject<Board>,
-  context: AppContextType,
-  mouse: MouseContextType
-): void {
-  getPendingAnimations(
-    currentBoardRef,
-    originalBoard,
-    colorRefs,
-    cellBloomRefs,
-    numberRefs,
-    context
-  );
+export async function refreshCells(
+  boardContext: BoardContextType,
+  appContext: AppContextType
+) {
+  refreshAllCells(boardContext, appContext);
+  const pendingAnimations = getPendingAnimations(boardContext);
+  await timeout(1000 / 60);
+  drawPendingAnimations(boardContext, appContext, pendingAnimations);
+  refreshCells(boardContext, appContext);
 }
 
-export function fadeOutColor(
+function fadeOutColor(
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D,
   context: AppContextType
@@ -40,15 +25,11 @@ export function fadeOutColor(
   const g = 32;
   const b = 39;
   ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${1 - tailLength})`;
-  // if (pixelData[0] >= 250 || pixelData[1] >= 250 || pixelData[2] >= 250)
-  //   ctx.fillStyle = "white";
-  // if (pixelData[0] <= r + 5 || pixelData[1] <= g + 5 || pixelData[2] <= b + 5)
-  //   ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
   if (pixelData[1] <= g + 6) ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-export function fadeOutCanvas(
+function fadeOutNumbers(
   canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D,
   context: AppContextType
@@ -63,7 +44,7 @@ export function fadeOutCanvas(
   ctx.putImageData(imageData, 0, 0);
 }
 
-export function drawPlacedNumbers(
+function drawPlacedNumbers(
   refs: CAC[],
   originalBoard: Board,
   currentBoard: Board,
@@ -77,9 +58,9 @@ export function drawPlacedNumbers(
   else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
 }
 
-export function fadeOutBloom(
+function fadeOutBloom(
   index: number,
-  cellBloomRefs: BloomCellsRef,
+  bloomCells: HTMLDivElement[],
   context: AppContextType
 ) {
   const colorFadeSpeed = mapNumberRange(
@@ -89,8 +70,36 @@ export function fadeOutBloom(
     1,
     0.1
   );
-  const current = cellBloomRefs.current;
-  const cell = current[index];
+  const cell = bloomCells[index];
   const currentOpacity = +cell.style.opacity;
   cell.style.opacity = currentOpacity - colorFadeSpeed + "";
+}
+
+function getPendingAnimations(boardContext: BoardContextType) {
+  const { originalBoard, board } = boardContext;
+  const pendingAnimations: [number, number, number | null][] = [];
+  for (let i = 0; i < board.length; i += 1) {
+    for (let j = 0; j < board[0].length; j += 1) {
+      if (originalBoard[i][j] !== board[i][j]) {
+        pendingAnimations.push([i, j, board[i][j]]);
+      }
+    }
+  }
+  return pendingAnimations;
+}
+
+function refreshAllCells(
+  boardContext: BoardContextType,
+  appContext: AppContextType
+) {
+  const { originalBoard, board, colorCells, bloomCells, numberCells } =
+    boardContext;
+  for (let i = 0; i < colorCells.length; i += 1) {
+    let [canvas, ctx] = colorCells[i];
+    fadeOutColor(canvas, ctx, appContext);
+    fadeOutBloom(i, bloomCells, appContext);
+    [canvas, ctx] = numberCells[i];
+    fadeOutNumbers(canvas, ctx, appContext);
+    drawPlacedNumbers(numberCells, originalBoard, board, i, appContext);
+  }
 }

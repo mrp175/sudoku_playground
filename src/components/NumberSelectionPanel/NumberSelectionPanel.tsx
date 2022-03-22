@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { AppContext, OrientationContext } from "../App/App";
+import { AppContext, OrientationContext } from "../Providers/appContexts";
 import { Component } from "./NumberSelectionPanel.styled";
 
 type GridRefs = React.MutableRefObject<HTMLDivElement[]>;

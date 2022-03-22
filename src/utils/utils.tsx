@@ -1,4 +1,4 @@
-import { Refs, Board } from "../types/types";
+import { Refs, Board, MouseContextType } from "../types/types";
 
 export function indexToRowCol(index: number): [number, number] {
   const row = Math.floor(index / 9);
@@ -77,4 +77,19 @@ export function detectBrowser() {
     browserName = "No browser detection";
   }
   return browserName;
+}
+
+export function handleMouseMove(
+  mouseRef: React.MutableRefObject<MouseContextType> | null
+) {
+  return function (e: any) {
+    const current = mouseRef?.current;
+    if (current) {
+      current.position = { x: e.clientX, y: e.clientY };
+    }
+  };
+}
+
+export function timeout(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

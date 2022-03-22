@@ -1,23 +1,19 @@
-import { Refs, SetState } from "../types/types";
+import { BoardContextType } from "../types/types";
 
 export function handleResize(
   ref: React.RefObject<HTMLDivElement>,
-  cellColorRefs: Refs,
-  cellNumberRefs: Refs,
+  boardContext: BoardContextType,
   setWidth: React.Dispatch<React.SetStateAction<number>>
 ) {
+  const { colorCells, numberCells } = boardContext!;
   const container = ref.current;
   if (container) {
     let width = container.offsetWidth;
     if (width > 800) width = 800;
     setWidth(width);
-    const refs = cellColorRefs.current;
-    const textRefs = cellNumberRefs.current;
-    if (refs && textRefs) {
-      for (let i = 0; i < refs.length; i += 1) {
-        resizeCell(refs[i][0], width);
-        resizeCell(textRefs[i][0], width);
-      }
+    for (let i = 0; i < colorCells.length; i += 1) {
+      resizeCell(colorCells[i][0], width);
+      resizeCell(numberCells[i][0], width);
     }
   }
 }

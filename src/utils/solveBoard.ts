@@ -1,58 +1,45 @@
 import { drawNumberToCell, colorCell } from "./drawToCells";
-import { AppContextType, SetState } from "../types/types";
-import { deepCopyBoard } from "./utils";
+import { AppContextType, BoardContextType, SetState } from "../types/types";
+import { deepCopyBoard, timeout } from "./utils";
 
 type Board = (number | null)[][];
 
 let count = 0;
-let totalOperations = 0;
 
 export async function solveBoard(
-  board: Board,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  cellBloomRefs: HTMLDivElement[],
-  context: AppContextType,
+  boardContext: BoardContextType,
+  appContext: AppContextType,
   availableCellsArray: [number, number][],
   setIsRunning: SetState<boolean>,
   index = 0
 ): Promise<Board | false> {
-  context.currentHead = availableCellsArray[index];
-  if (context.isRunning === false) {
-    return board;
-  }
-  if (context.speed <= 120) {
+  const { board } = boardContext;
+
+  if (appContext.isRunning === false) return board;
+
+  if (appContext.speed <= 120) {
     count = 0;
-    await timeout(1000 / context.speed);
+    await timeout(1000 / appContext.speed);
   } else {
-    if (count >= context.speed / 120) {
+    if (count >= appContext.speed / 120) {
       await timeout(1000 / 120);
       count = 0;
     }
     count += 1;
   }
-  totalOperations += 1;
 
   if (index === availableCellsArray.length) {
     setIsRunning(false);
-    context.isRunning = false;
-    console.log(totalOperations);
-    totalOperations = 0;
-    console.log(new Date().getTime());
+    appContext.isRunning = false;
     return board;
   }
   const [row, col] = availableCellsArray[index];
 
   for (let i = 1; i <= 9; i += 1) {
-    if (
-      placeDigit(i, row, col, board, refs, textRefs, cellBloomRefs, context)
-    ) {
+    if (placeDigit(i, row, col, board)) {
       const current = await solveBoard(
-        board,
-        refs,
-        textRefs,
-        cellBloomRefs,
-        context,
+        boardContext,
+        appContext,
         availableCellsArray,
         setIsRunning,
         index + 1
@@ -60,59 +47,14 @@ export async function solveBoard(
       if (current) return board;
     }
   }
-
-  // await timeout(1000 / context.speed);
-  // colorCell(row, col, refs);
   board[row][col] = null;
   return false;
 }
 
-// function createRandomStack (board: Board) {
-//   const newBoard: (number | null)[][] = deepCopyBoard(board);
-//   const result = [];
-//   for (let i = 0; i < 81; i += 1) {
-//     const random = Math.floor(Math.random() * board.length);
-
-//   }
-// }
-
-export function timeout(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-// function findNextCell(board: Board, goForwards: boolean) {
-//   if (goForwards) {
-//     for (let i = 0; i < 9; i += 1) {
-//       for (let j = 0; j < 9; j += 1) {
-//         if (board[i][j] === null) return [i, j];
-//       }
-//     }
-//   } else {
-//     for (let i = 8; i >= 0; i -= 1) {
-//       for (let j = 8; j >= 0; j -= 1) {
-//         if (board[i][j] === null) return [i, j];
-//       }
-//     }
-//   }
-//   return false;
-// }
-
-function placeDigit(
-  value: number,
-  row: number,
-  col: number,
-  board: Board,
-  refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  textRefs: [HTMLCanvasElement, CanvasRenderingContext2D][],
-  cellBloomRefs: HTMLDivElement[],
-  context: AppContextType
-) {
+function placeDigit(value: number, row: number, col: number, board: Board) {
   board[row][col] = value;
   if (isCellValid(row, col, board)) {
-    if (context.illuminateCells)
-      // colorCell(row, col, refs, cellBloomRefs, context);
-      // drawNumberToCell(value, row, col, textRefs, "255, 255, 255", context);
-      return true;
+    return true;
   }
   return false;
 }

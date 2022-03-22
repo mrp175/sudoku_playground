@@ -1,10 +1,10 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
   TraversalDirections,
   TraversalTextFields,
   StateSetState,
 } from "../../../types/types";
-import { AppContext, IsRunningContext } from "../../App/App";
+import { AppContext, IsRunningContext } from "../../Providers/appContexts";
 import {
   Component,
   Option,

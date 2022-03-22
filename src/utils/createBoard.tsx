@@ -1,16 +1,9 @@
-import { BloomCellsRef, Refs } from "../types/types";
+import { BoardContextType } from "../types/types";
 import { Cell, Canvas, BloomBoxShadow } from "../components/Board/Board.styled";
 
-export function createSubGrid(
-  cellColorRefs: Refs,
-  cellNumberRefs: Refs,
-  cellBloomRefs: BloomCellsRef,
-  board: (number | null)[][]
-) {
+export function createSubGrid(boardContext: BoardContextType) {
   const result = [];
-  const colors = cellColorRefs.current;
-  const numbers = cellNumberRefs.current;
-  const bloom = cellBloomRefs.current;
+  const { board, colorCells, numberCells, bloomCells } = boardContext;
   for (let i = 0; i < 9 * 9; i += 1) {
     const row = Math.floor(i / 9);
     const col = i % 9;
@@ -20,17 +13,17 @@ export function createSubGrid(
       <Cell key={`${row},${col}`}>
         <BloomBoxShadow
           ref={(el) => {
-            bloom.push(el!);
+            bloomCells.push(el!);
           }}
         />
         <Canvas
           ref={(el) => {
-            colors.push([el!, el?.getContext("2d")!]);
+            colorCells.push([el!, el?.getContext("2d")!]);
           }}
         />
         <Canvas
           ref={(el) => {
-            numbers.push([el!, el?.getContext("2d")!]);
+            numberCells.push([el!, el?.getContext("2d")!]);
           }}
         />
       </Cell>

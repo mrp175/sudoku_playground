@@ -21,3 +21,15 @@ export const primary_color_alpha = "0.4";
 export const secondary_color = "255, 181, 84";
 // export const font_family =
 //   '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;';
+export const padding = 20;
+export const gridAspectRatio = 0.55;
+export const gridDimensions = {
+  landscape: {
+    width: 1366,
+    height: 736,
+  },
+  portrait: {
+    width: 738,
+    height: 1118,
+  },
+};

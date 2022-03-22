@@ -107,7 +107,21 @@ export type TouchState = {
 
 export type StateSetState<T> = [T, React.Dispatch<React.SetStateAction<T>>];
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+export type UseRefMutable<T> = React.MutableRefObject<T>;
+export type UseRef<T> = React.RefObject<T>;
 export type CellColorsRef = React.MutableRefObject<
   [HTMLCanvasElement, CanvasRenderingContext2D][]
 >;
 export type CellNumbersRef = CellColorsRef;
+export type CanvasAndCtxTuple = [HTMLCanvasElement, CanvasRenderingContext2D];
+export type CellBloom = HTMLDivElement;
+export type BoardContextType = {
+  originalBoard: Board;
+  board: Board;
+  colorCells: CanvasAndCtxTuple[];
+  bloomCells: CellBloom[];
+  numberCells: CanvasAndCtxTuple[];
+  selectedCells: UserSelectedCells;
+};
+export type UserSelectedCells = { [index: string]: number };
+export type MousePosition = { x: number; y: number };

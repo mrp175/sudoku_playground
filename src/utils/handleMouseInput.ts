@@ -1,4 +1,9 @@
-import { MouseState, HandleMouseInput, NewMouseState } from "../types/types";
+import {
+  MouseState,
+  HandleMouseInput,
+  NewMouseState,
+  MouseContextType,
+} from "../types/types";
 
 const handleMouseDown: HandleMouseInput = function (
   this: NewMouseState,

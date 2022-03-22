@@ -1,4 +1,8 @@
-import { Board, TraversalDirections } from "../../types/types";
+import {
+  Board,
+  BoardContextType,
+  TraversalDirections,
+} from "../../types/types";
 import { convertToVerticalIndexes } from "./verticalTraversal";
 import { convertToHorizontalIndexes } from "./horizontalTraversal";
 import { convertToSpiralIndexes } from "./spiralTraversal";
@@ -6,7 +10,7 @@ import { convertToTwoVerticalIndexes } from "./twoVerticalTraversal";
 import { convertToTwoHorizontalIndexes } from "./twoHorizontalTraversal";
 import { convertToRandomIndexes } from "./randomTraversal";
 
-export function createIndexPositions(
+function createIndexPositions(
   board: Board,
   createIndexesFunc: (board: (number | null)[][]) => [number, number][],
   goForwards: boolean
@@ -22,9 +26,10 @@ export function createIndexPositions(
 }
 
 export function createAvailableIndexes(
-  board: Board,
+  boardContext: BoardContextType,
   traversalType: TraversalDirections
 ) {
+  const { board } = boardContext;
   let result: [number, number][] = [];
   if (traversalType === "down")
     result = createIndexPositions(board, convertToVerticalIndexes, true);

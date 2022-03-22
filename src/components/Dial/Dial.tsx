@@ -18,7 +18,7 @@ import {
   Text,
   Canvas,
 } from "./Dial.styled";
-import { AppContext } from "../App/App";
+import { AppContext } from "../Providers/appContexts";
 
 export default function Dial({
   min,
