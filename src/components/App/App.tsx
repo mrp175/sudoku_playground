@@ -16,6 +16,7 @@ import { gridDimensions } from "../../styleVars/styleVars";
 import { handleMouseMove } from "../../utils/utils";
 import { MouseContext, OrientationContext } from "../Providers/appContexts";
 import SetMousePosition from "../SetMousePosition/SetMousePosition";
+import VerticalCarousel from "../CarouselOld/VerticalCarousel/VerticalCarousel";
 
 function App() {
   const [screenDimensions, setScreenDimensions] = useState({
@@ -67,6 +68,7 @@ function App() {
             </PreventHorizontalScroll>
           </GridContainer>
           {/* <BoardSelectionMenu /> */}
+          <VerticalCarousel />
         </ComponentWrapper>
       </OrientationContext.Provider>
     </>
