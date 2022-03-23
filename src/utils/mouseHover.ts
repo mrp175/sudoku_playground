@@ -4,6 +4,7 @@ import {
   BoardContextType,
   MouseContextType,
   MousePosition,
+  SetState,
 } from "../types/types";
 import {
   colorCell,
@@ -65,13 +66,17 @@ export function highlightCellOnHover(
 
 export function onMouseUp(
   boardContext: BoardContextType,
-  appContext: AppContextType
+  appContext: AppContextType,
+  setUserSelectionExists: SetState<boolean>
 ) {
-  const { colorCells, bloomCells, selectedCells } = boardContext;
+  const { board, colorCells, bloomCells, selectedCells } = boardContext;
   const { mouseHoverIndex, selectedNumber } = appContext;
   if (mouseHoverIndex !== null) {
     const [row, col] = indexToRowCol(mouseHoverIndex);
     colorCell(row, col, colorCells, bloomCells, appContext, secondary_color);
     selectedCells[mouseHoverIndex] = selectedNumber;
+    appContext.userSelectionExists = true;
+    setUserSelectionExists(true);
+    board[row][col] = selectedNumber;
   }
 }

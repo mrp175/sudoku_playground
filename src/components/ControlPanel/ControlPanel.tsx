@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Component } from "./ControlPanel.styled";
 import Slider from "../Slider/Slider";
 import { primary_color, secondary_color } from "../../styleVars/styleVars";
@@ -10,60 +10,80 @@ import {
   BoardPresetsContext,
   IsRunningContext,
   OrientationContext,
+  ResetStateContext,
 } from "../Providers/appContexts";
-import { solveBoard } from "../../utils/solveBoard";
-import { createAvailableIndexes } from "../../utils/traversalTypes/createAvailableCellsArray";
-import { deepCopyBoard } from "../../utils/utils";
-import { StateSetState } from "../../types/types";
+import {
+  AppContextType,
+  BoardContextType,
+  StateSetState,
+} from "../../types/types";
+import {
+  playPause,
+  resetBoard,
+  clearUserInput,
+} from "../../utils/playPauseReset";
 
 export default function ControlPanel() {
-  const appContext = useContext(AppContext);
-  const boardContext = useContext(BoardContext);
-  const boardPresetsContext = useContext(BoardPresetsContext);
+  const appContextRef = useContext(AppContext);
+  const boardContextRef = useContext(BoardContext);
+  const boardPresetsContextRef = useContext(BoardPresetsContext);
   const [isRunning, setIsRunning] = useContext(
     IsRunningContext
   ) as StateSetState<boolean>;
   const orientation = useContext(OrientationContext) as string;
+  const resetState = useContext(ResetStateContext);
+  const [buttonText, setButtonText] = useState("RESET BOARD");
+  const [userSelectionExists, setUserSelectionExists] =
+    resetState?.userSelectionExists as StateSetState<boolean>;
+  const [hasRun, setHasRun] = resetState?.hasRun as StateSetState<boolean>;
 
-  function playPause() {
-    if (appContext && appContext.current) {
-      if (appContext.current.isRunning === false) {
-        appContext.current.isRunning = true;
-        const availableCellIndexes = createAvailableIndexes(
-          boardContext?.current!,
-          appContext.current.traversalDirection
-        );
-        setIsRunning(true);
-        solveBoard(
-          boardContext?.current!,
-          appContext.current,
-          availableCellIndexes,
-          setIsRunning
-        );
-      } else {
-        appContext.current.isRunning = false;
-        setIsRunning(false);
-      }
-    }
+  function returnPlayPause() {
+    const boardContext = boardContextRef?.current as BoardContextType;
+    const appContext = appContextRef?.current as AppContextType;
+    return playPause(boardContext, appContext, setHasRun, setIsRunning);
   }
 
-  function resetBoard() {
-    const current = boardContext?.current!;
-    current.board = deepCopyBoard(boardPresetsContext![1]);
+  function returnResetBoard() {
+    const boardContext = boardContextRef?.current as BoardContextType;
+    const appContext = appContextRef?.current as AppContextType;
+    return resetBoard(boardContext, appContext, setHasRun);
   }
+
+  function returnClearUserInput() {
+    const boardContext = boardContextRef?.current as BoardContextType;
+    const appContext = appContextRef?.current as AppContextType;
+    return clearUserInput(boardContext, appContext, setUserSelectionExists);
+  }
+
+  useEffect(
+    function () {
+      if (hasRun) setButtonText("RESET BOARD");
+      else if (userSelectionExists) setButtonText("CLEAR USER INPUT");
+      else setButtonText("RESET BOARD");
+    },
+    [hasRun, userSelectionExists]
+  );
 
   return (
     <Component theme={{ orientation }}>
       <div className={orientation}>
-        <MuiButton onClick={playPause} color={primary_color} isDisabled={false}>
+        <MuiButton
+          onClick={returnPlayPause}
+          color={primary_color}
+          isDisabled={false}
+        >
           {isRunning ? "PAUSE" : "SOLVE BOARD"}
         </MuiButton>
         <MuiButton
-          onClick={resetBoard}
+          onClick={
+            buttonText === "CLEAR USER INPUT"
+              ? returnClearUserInput
+              : returnResetBoard
+          }
           color={secondary_color}
           isDisabled={isRunning}
         >
-          RESET BOARD
+          {buttonText}
         </MuiButton>
       </div>
       <div className={orientation}>

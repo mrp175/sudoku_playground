@@ -1,4 +1,10 @@
-import { Refs, Board, MouseContextType } from "../types/types";
+import {
+  Refs,
+  Board,
+  MouseContextType,
+  AppContextType,
+  BoardContextType,
+} from "../types/types";
 
 export function indexToRowCol(index: number): [number, number] {
   const row = Math.floor(index / 9);

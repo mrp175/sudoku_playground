@@ -4,6 +4,7 @@ import {
   MouseContextType,
   StateSetState,
   BoardContextType,
+  ResetStateContextType,
 } from "../../types/types";
 
 export const defaultRunningState = false;
@@ -14,8 +15,16 @@ export const IsRunningContext =
 //   return <EditModeContext.Provder value={false}>{children}</EditModeContext.Provder>;
 // }
 
+export const resetState: ResetStateContextType = {
+  hasRun: null,
+  userSelectionExists: null,
+};
+export const ResetStateContext =
+  React.createContext<ResetStateContextType | null>(null);
+
 export const appContext: AppContextType = {
   isRunning: defaultRunningState,
+  reset: "complete",
   speed: 152.36,
   illuminateCells: true,
   colorFadeSpeed: 0.757,
@@ -24,7 +33,8 @@ export const appContext: AppContextType = {
   selectedNumber: 1,
   traversalDirection: "down",
   mouseHoverIndex: null,
-  currentHead: [0, 0],
+  userSelectionExists: false,
+  hasRun: false,
 };
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);

@@ -4,8 +4,8 @@ import {
   MouseContext,
   BoardContext,
   IsRunningContext,
-  OrientationContext,
   BoardPresetsContext,
+  ResetStateContext,
 } from "./appContexts";
 import {
   defaultRunningState,
@@ -24,6 +24,10 @@ export default function Providers({
   const mouseContextRef = useRef(mouseContext);
   const boardContextRef = useRef(boardContext);
   const [isRunning, setIsRunning] = useState(defaultRunningState);
+  const resetStateContext = {
+    hasRun: useState(false),
+    userSelectionExists: useState(false),
+  };
 
   return (
     <AppContext.Provider value={appContextRef}>
@@ -31,7 +35,9 @@ export default function Providers({
         <BoardContext.Provider value={boardContextRef}>
           <BoardPresetsContext.Provider value={boards}>
             <IsRunningContext.Provider value={[isRunning, setIsRunning]}>
-              {children}
+              <ResetStateContext.Provider value={resetStateContext}>
+                {children}
+              </ResetStateContext.Provider>
             </IsRunningContext.Provider>
           </BoardPresetsContext.Provider>
         </BoardContext.Provider>

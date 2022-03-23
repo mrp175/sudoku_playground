@@ -9,7 +9,6 @@ import {
 import { deepCopyBoard, indexToRowCol, mapNumberRange, timeout } from "./utils";
 import { drawNumberToCell, drawPendingAnimations } from "./drawToCells";
 import { handleMouseHover, highlightCellOnHover } from "./mouseHover";
-import { mouseContext } from "../components/Providers/appContexts";
 import { secondary_color } from "../styleVars/styleVars";
 
 export async function refreshCells(

@@ -7,6 +7,7 @@ export type BoardRef = React.MutableRefObject<Board>;
 export type CanvasArr = [HTMLCanvasElement, CanvasRenderingContext2D][];
 export type AppContextType = {
   isRunning: boolean;
+  reset: string;
   illuminateCells: boolean;
   colorFadeSpeed: number;
   textFadeSpeed: number;
@@ -15,7 +16,8 @@ export type AppContextType = {
   selectedNumber: number;
   traversalDirection: TraversalDirections;
   mouseHoverIndex: number | null;
-  currentHead: [number, number];
+  userSelectionExists: boolean;
+  hasRun: boolean;
 };
 
 export type TraversalDirections =
@@ -126,3 +128,7 @@ export type BoardContextType = {
 };
 export type UserSelectedCells = { [index: string]: number };
 export type MousePosition = { position: { x: number; y: number } };
+export type ResetStateContextType = {
+  hasRun: StateSetState<boolean> | null;
+  userSelectionExists: StateSetState<boolean> | null;
+};

@@ -4,6 +4,7 @@ import {
   BoardContext,
   BoardPresetsContext,
   MouseContext,
+  ResetStateContext,
 } from "../Providers/appContexts";
 import { BoardGrid } from "./Board.styled";
 import { handleResize } from "../../utils/handleResize";
@@ -19,6 +20,7 @@ export default function Board() {
   const boardContext = useContext(BoardContext);
   const boardPresetsContext = useContext(BoardPresetsContext);
   const mouseContext = useContext(MouseContext);
+  const resetState = useContext(ResetStateContext);
 
   useEffect(() => {
     if (boardContext && boardContext.current && boardPresetsContext) {

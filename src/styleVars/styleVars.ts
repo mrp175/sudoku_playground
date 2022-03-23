@@ -18,7 +18,7 @@ export const background_alt_color = "16, 32, 39";
 export const primary_color = "54, 224, 173";
 export const primary_color_alpha = "0.4";
 // export const secondary_color = "223, 52, 55";
-export const secondary_color = "255, 181, 84";
+export const secondary_color = "255, 171, 61";
 // export const font_family =
 //   '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;';
 export const padding = 20;
