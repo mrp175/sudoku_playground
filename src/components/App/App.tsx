@@ -66,7 +66,7 @@ function App() {
               </PreventVerticalScroll>
             </PreventHorizontalScroll>
           </GridContainer>
-          <BoardSelectionMenu />
+          {/* <BoardSelectionMenu /> */}
         </ComponentWrapper>
       </OrientationContext.Provider>
     </>

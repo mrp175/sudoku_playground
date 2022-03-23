@@ -1,7 +1,7 @@
 {
-  "name": "sudoku_solver",
+  "name": "sudoku_playgroun",
   "version": "0.1.0",
-  "homepage": "https://mrp175.github.io/sudoku_solver",
+  "homepage": "https://mrp175.github.io/sudoku_playground",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.2",
