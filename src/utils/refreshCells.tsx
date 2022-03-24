@@ -21,7 +21,7 @@ export async function refreshCells(
   if (appContext.mouseHoverIndex !== null)
     highlightCellOnHover(boardContext, appContext);
   drawPendingAnimations(boardContext, appContext, pendingAnimations);
-  // refreshCells(boardContext, appContext, mouseContext);
+  refreshCells(boardContext, appContext, mouseContext);
 }
 
 function fadeOutColor(

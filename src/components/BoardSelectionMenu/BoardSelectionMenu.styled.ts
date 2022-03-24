@@ -15,7 +15,7 @@ export const Component = styled.div`
   z-index: 999;
   background: rgba(${background_color}, 0.9);
   backdrop-filter: blur(5px);
-  transition: 0.5s;
+  transition: 0.8s;
   transition-timing-function: cubic-bezier(0.55, -0.01, 0, 1.08);
   ${(props) =>
     !props.theme.isOpen ? "transform: translateY(calc(100% - 44px))" : ""};

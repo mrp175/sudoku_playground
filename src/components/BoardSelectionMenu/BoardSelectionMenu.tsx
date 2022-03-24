@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Component, Panel, Text } from "./BoardSelectionMenu.styled";
 import VerticalCarousel from "./VerticalCarousel/VerticalCarousel";
 import Selection from "./Selection/Selection";
@@ -9,10 +9,13 @@ import {
   createPresetBoard,
   convertPuzzleStringToIndexArray,
 } from "../../utils/generatePresetBoards";
+import { AppContext, BoardContext } from "../Providers/appContexts";
 
 export default function BoardSelectionMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [presets, setPresets] = useState<Presets>({});
+  const boardContextRef = useContext(BoardContext);
+  const appContextRef = useContext(AppContext);
   const presetsRef = useRef<PresetsRef>({});
   const difficulties = ["easy", "medium", "hard", "expert"];
 
@@ -28,7 +31,9 @@ export default function BoardSelectionMenu() {
         difficulties[i],
         setPresets,
         presetsRef.current,
-        setIsOpen
+        setIsOpen,
+        appContextRef?.current!,
+        boardContextRef?.current!
       );
     }
   }, []);

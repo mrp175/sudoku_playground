@@ -1,16 +1,18 @@
+import { primary_color, primary_color_alpha } from "../styleVars/styleVars";
 import {
-  primary_color,
-  background_alt_color,
-  primary_color_alpha,
-} from "../styleVars/styleVars";
-import { Presets, SetState, UseRefMutable, PresetsRef } from "../types/types";
+  Presets,
+  SetState,
+  PresetsRef,
+  AppContextType,
+  BoardContextType,
+} from "../types/types";
 import { indexToRowCol } from "./utils";
 import {
   CanvasContainer,
   Canvas,
-  BoxShadowHover,
 } from "../components/BoardSelectionMenu/Selection/Selection.styled";
 import RippleEffect from "../components/BoardSelectionMenu/Selection/RippleEffect/RippleEffect";
+import { animateBoardChange } from "./animateBoardChange";
 
 export function createPresetBoard(
   canvas: HTMLCanvasElement,
@@ -59,13 +61,18 @@ export function createCanvasElements(
   difficulty: string,
   setPresets: SetState<Presets>,
   presetsRef: PresetsRef,
-  setIsOpen: SetState<boolean>
+  setIsOpen: SetState<boolean>,
+  appContext: AppContextType,
+  boardContext: BoardContextType
 ) {
   const canvasElements: JSX.Element[] = [];
   const currentRefs: HTMLCanvasElement[] = [];
   for (let i = 0; i < puzzleStrings.length; i += 1) {
     const canvas = (
-      <CanvasContainer key={"C" + i} onClick={() => onClick(setIsOpen)}>
+      <CanvasContainer
+        key={"C" + i}
+        onClick={() => onClick(setIsOpen, appContext, boardContext)}
+      >
         <Canvas key={"C" + i} ref={(el) => currentRefs.push(el!)} />
         <RippleEffect />
       </CanvasContainer>
@@ -80,8 +87,15 @@ export function createCanvasElements(
   presetsRef[difficulty] = currentRefs;
 }
 
-function onClick(setIsOpen: SetState<boolean>) {
+function onClick(
+  setIsOpen: SetState<boolean>,
+  appContext: AppContextType,
+  boardContext: BoardContextType
+) {
   setTimeout(function () {
     setIsOpen(false);
   }, 150);
+  setTimeout(function () {
+    animateBoardChange(boardContext, appContext);
+  }, 900);
 }
