@@ -18,13 +18,12 @@ export const Component = styled.div`
   transition-timing-function: cubic-bezier(0.55, -0.01, 0, 1.08);
   ${(props) =>
     !props.theme.isOpen ? "transform: translateY(calc(100% - 44px))" : ""};
-  border: 5px solid green;
 `;
 
 export const Text = styled.div`
   text-align: center;
-  font-size: 16px;
-  line-height: 40px;
+  font-size: 18px;
+  line-height: 44px;
   color: rgb(${primary_color});
   height: 0px;
   text-shadow: 0px 0px 2px rgb(${primary_color});
@@ -37,6 +36,5 @@ export const Panel = styled.div`
   grid-template-rows: 44px 1fr;
   width: 100vw;
   aspect-ratio: 2 / 1;
-  border-top: 5px solid red;
-  max-height: calc(100vh - 100px);
+  height: 100vh;
 `;

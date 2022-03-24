@@ -14,9 +14,12 @@ import BoardSelectionMenu from "../BoardSelectionMenu/BoardSelectionMenu";
 import ManageScreenDimensions from "../Utils/ManageScreenDimensions";
 import { gridDimensions } from "../../styleVars/styleVars";
 import { handleMouseMove } from "../../utils/utils";
-import { MouseContext, OrientationContext } from "../Providers/appContexts";
+import {
+  MouseContext,
+  OrientationContext,
+  ScreenDimensionsContext,
+} from "../Providers/appContexts";
 import SetMousePosition from "../SetMousePosition/SetMousePosition";
-import VerticalCarousel from "../CarouselOld/VerticalCarousel/VerticalCarousel";
 
 function App() {
   const [screenDimensions, setScreenDimensions] = useState({
@@ -31,46 +34,47 @@ function App() {
   return (
     <>
       <SetMousePosition />
-      <OrientationContext.Provider value={orientation}>
-        <ManageScreenDimensions
-          orientation={orientation}
-          setOrientation={setOrientation}
-          screenDimensions={screenDimensions}
-          setScreenDimensions={setScreenDimensions}
-          appWrapperRef={appWrapperRef}
-          setScale={setScale}
-        />
-        <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
-          <TitleBar />
-          <GridContainer theme={{ orientation, scale }} ref={appWrapperRef}>
-            <PreventHorizontalScroll
-              theme={{ scale, orientation, dimensions: gridDimensions }}
-            >
-              <PreventVerticalScroll
-                theme={{
-                  scale,
-                  orientation,
-                  dimensions: gridDimensions,
-                }}
+      <ScreenDimensionsContext.Provider value={screenDimensions}>
+        <OrientationContext.Provider value={orientation}>
+          <ManageScreenDimensions
+            orientation={orientation}
+            setOrientation={setOrientation}
+            screenDimensions={screenDimensions}
+            setScreenDimensions={setScreenDimensions}
+            appWrapperRef={appWrapperRef}
+            setScale={setScale}
+          />
+          <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
+            <TitleBar />
+            <GridContainer theme={{ orientation, scale }} ref={appWrapperRef}>
+              <PreventHorizontalScroll
+                theme={{ scale, orientation, dimensions: gridDimensions }}
               >
-                <Grid
+                <PreventVerticalScroll
                   theme={{
-                    orientation,
                     scale,
+                    orientation,
                     dimensions: gridDimensions,
                   }}
                 >
-                  <NumberSelectionPanel />
-                  <Board />
-                  <ControlPanel />
-                </Grid>
-              </PreventVerticalScroll>
-            </PreventHorizontalScroll>
-          </GridContainer>
-          {/* <BoardSelectionMenu /> */}
-          <VerticalCarousel />
-        </ComponentWrapper>
-      </OrientationContext.Provider>
+                  <Grid
+                    theme={{
+                      orientation,
+                      scale,
+                      dimensions: gridDimensions,
+                    }}
+                  >
+                    <NumberSelectionPanel />
+                    <Board />
+                    <ControlPanel />
+                  </Grid>
+                </PreventVerticalScroll>
+              </PreventHorizontalScroll>
+            </GridContainer>
+            <BoardSelectionMenu />
+          </ComponentWrapper>
+        </OrientationContext.Provider>
+      </ScreenDimensionsContext.Provider>
     </>
   );
 }

@@ -73,3 +73,8 @@ export const OrientationContext = React.createContext<string | null>(null);
 // ) {
 //   return <Context.Provider value={value}>{children}</Context.Provider>;
 // }
+
+export const ScreenDimensionsContext = React.createContext<{
+  width: number;
+  height: number;
+} | null>(null);
