@@ -28,6 +28,8 @@ export const Text = styled.div`
   height: 0px;
   text-shadow: 0px 0px 2px rgb(${primary_color});
   cursor: pointer;
+  height: 44px;
+  background: rgb(${background_alt_color});
 `;
 
 export const Panel = styled.div`

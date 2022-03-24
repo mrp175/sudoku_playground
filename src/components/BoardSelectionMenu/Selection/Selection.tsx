@@ -1,19 +1,9 @@
 import { Component } from "./Selection.styled";
 
-export default function Selection() {
-  return (
-    <Component>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </Component>
-  );
+export default function Selection({
+  children,
+}: {
+  children: JSX.Element | JSX.Element[];
+}) {
+  return <Component>{children}</Component>;
 }

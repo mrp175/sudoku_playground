@@ -1,4 +1,4 @@
-import { NumberLiteralType } from "typescript";
+import { JsxAttributeLike, NumberLiteralType } from "typescript";
 
 export type CAC = [HTMLCanvasElement, CanvasRenderingContext2D];
 export type Refs = React.MutableRefObject<CAC[]>;
@@ -131,4 +131,10 @@ export type MousePosition = { position: { x: number; y: number } };
 export type ResetStateContextType = {
   hasRun: StateSetState<boolean> | null;
   userSelectionExists: StateSetState<boolean> | null;
+};
+export type Presets = {
+  [key: string]: JSX.Element | JSX.Element[];
+};
+export type PresetsRef = {
+  [key: string]: HTMLCanvasElement[];
 };
