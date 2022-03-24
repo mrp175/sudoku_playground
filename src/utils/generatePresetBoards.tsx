@@ -23,7 +23,7 @@ export function createPresetBoard(
   const cellHeight = height / 9;
   ctx.strokeStyle = `rgba(${primary_color}, ${primary_color_alpha})`;
   ctx.beginPath();
-  for (let i = 0; i < height; i += cellHeight) {
+  for (let i = cellHeight; i < height; i += cellHeight) {
     const pos = Math.floor(i);
     ctx.moveTo(pos, 0);
     ctx.lineTo(pos, height);

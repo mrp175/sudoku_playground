@@ -16,6 +16,8 @@ export const Component = styled.div`
   grid-gap: 50px;
   padding: 25px;
   overflow-y: scroll;
+  /* -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%); */
 
   & > div {
     height: 400px;

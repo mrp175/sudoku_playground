@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {
   background_alt_color,
+  background_color,
   box_shadow,
   primary_color,
 } from "../../styleVars/styleVars";
@@ -12,7 +13,7 @@ export const Component = styled.div`
   width: 100%;
   box-shadow: ${box_shadow};
   z-index: 999;
-  background: rgba(${background_alt_color}, 0.6);
+  background: rgba(${background_color}, 0.9);
   backdrop-filter: blur(5px);
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.55, -0.01, 0, 1.08);

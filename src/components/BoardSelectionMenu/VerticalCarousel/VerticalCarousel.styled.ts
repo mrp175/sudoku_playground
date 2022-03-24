@@ -49,6 +49,10 @@ export const Button = styled.button`
     cursor: pointer;
     background: rgba(${primary_color}, 0.1);
   }
+
+  &.selected {
+    background: rgba(${primary_color}, 0.1);
+  }
 `;
 
 export const SelectionContainer = styled.div`
