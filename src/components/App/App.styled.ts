@@ -35,7 +35,7 @@ export const GridContainer = styled.div`
     if (props.theme.orientation === "landscape" && props.theme.scale < 1)
       return "padding-bottom: 0px;";
   }}
-  height: calc(100vh - ${title_bar_height});
+  height: calc(100vh - 88px);
 `;
 
 export const PreventHorizontalScroll = styled.div`
@@ -55,7 +55,6 @@ export const PreventHorizontalScroll = styled.div`
     } else if (orientation === "landscape") {
       return `overflow: hidden;
       margin-left: -20px;
-      margin-top: -20px;
       padding: 20px;`;
     }
   }}
