@@ -27,7 +27,8 @@ export default function BoardSelectionMenu() {
         puzzleStrings[i],
         difficulties[i],
         setPresets,
-        presetsRef.current
+        presetsRef.current,
+        setIsOpen
       );
     }
   }, []);

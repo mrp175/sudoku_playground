@@ -8,7 +8,9 @@ import { indexToRowCol } from "./utils";
 import {
   CanvasContainer,
   Canvas,
+  BoxShadowHover,
 } from "../components/BoardSelectionMenu/Selection/Selection.styled";
+import RippleEffect from "../components/BoardSelectionMenu/Selection/RippleEffect/RippleEffect";
 
 export function createPresetBoard(
   canvas: HTMLCanvasElement,
@@ -18,8 +20,8 @@ export function createPresetBoard(
 ) {
   canvas.height = height;
   canvas.width = height;
-  ctx.fillStyle = `rgb(${background_alt_color})`;
-  ctx.fillRect(0, 0, height, height);
+  // ctx.fillStyle = `rgb(${background_alt_color})`;
+  // ctx.fillRect(0, 0, height, height);
   const cellHeight = height / 9;
   ctx.strokeStyle = `rgba(${primary_color}, ${primary_color_alpha})`;
   ctx.beginPath();
@@ -56,14 +58,16 @@ export function createCanvasElements(
   puzzleStrings: string[],
   difficulty: string,
   setPresets: SetState<Presets>,
-  presetsRef: PresetsRef
+  presetsRef: PresetsRef,
+  setIsOpen: SetState<boolean>
 ) {
   const canvasElements: JSX.Element[] = [];
   const currentRefs: HTMLCanvasElement[] = [];
   for (let i = 0; i < puzzleStrings.length; i += 1) {
     const canvas = (
-      <CanvasContainer>
+      <CanvasContainer key={"C" + i} onClick={() => onClick(setIsOpen)}>
         <Canvas key={"C" + i} ref={(el) => currentRefs.push(el!)} />
+        <RippleEffect />
       </CanvasContainer>
     );
     canvasElements.push(canvas);
@@ -74,4 +78,10 @@ export function createCanvasElements(
     return newState;
   });
   presetsRef[difficulty] = currentRefs;
+}
+
+function onClick(setIsOpen: SetState<boolean>) {
+  setTimeout(function () {
+    setIsOpen(false);
+  }, 150);
 }

@@ -25,6 +25,7 @@ export default function VerticalCarousel({
     for (let i = 0; i < difficulties.length; i += 1) {
       const button = (
         <Button
+          key={"b" + i}
           onClick={() => handleClick(i)}
           ref={(el) => buttonsRef.push(el!)}
         >
