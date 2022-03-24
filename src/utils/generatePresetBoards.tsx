@@ -5,6 +5,7 @@ import {
   PresetsRef,
   AppContextType,
   BoardContextType,
+  Difficulty,
 } from "../types/types";
 import { indexToRowCol } from "./utils";
 import {
@@ -56,9 +57,17 @@ export function convertPuzzleStringToIndexArray(str: string) {
   return result;
 }
 
+export function convertPuzzleStringToObject(str: string) {
+  const result: { [key: string]: number } = {};
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] !== "0") result[`${i}`] = +str[i];
+  }
+  return result;
+}
+
 export function createCanvasElements(
   puzzleStrings: string[],
-  difficulty: string,
+  difficulty: Difficulty,
   setPresets: SetState<Presets>,
   presetsRef: PresetsRef,
   setIsOpen: SetState<boolean>,
@@ -71,7 +80,9 @@ export function createCanvasElements(
     const canvas = (
       <CanvasContainer
         key={"C" + i}
-        onClick={() => onClick(setIsOpen, appContext, boardContext)}
+        onClick={() =>
+          onClick(setIsOpen, appContext, boardContext, i, difficulty)
+        }
       >
         <Canvas key={"C" + i} ref={(el) => currentRefs.push(el!)} />
         <RippleEffect />
@@ -90,12 +101,14 @@ export function createCanvasElements(
 function onClick(
   setIsOpen: SetState<boolean>,
   appContext: AppContextType,
-  boardContext: BoardContextType
+  boardContext: BoardContextType,
+  index: number,
+  difficulty: Difficulty
 ) {
   setTimeout(function () {
     setIsOpen(false);
   }, 150);
   setTimeout(function () {
-    animateBoardChange(boardContext, appContext);
+    animateBoardChange(boardContext, appContext, index, difficulty);
   }, 900);
 }

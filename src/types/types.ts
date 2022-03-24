@@ -138,3 +138,4 @@ export type Presets = {
 export type PresetsRef = {
   [key: string]: HTMLCanvasElement[];
 };
+export type Difficulty = "easy" | "medium" | "hard" | "expert";

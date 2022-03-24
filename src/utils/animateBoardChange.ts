@@ -1,7 +1,9 @@
 import { primary_color } from "../styleVars/styleVars";
-import { BoardContextType, AppContextType } from "../types/types";
+import { BoardContextType, AppContextType, PresetsRef } from "../types/types";
 import { colorCell } from "./drawToCells";
-import { timeout } from "./utils";
+import { deepCopyBoard, RowColToIndex, timeout } from "./utils";
+import { puzzleStringsObj } from "../puzzleStrings/puzzelStrings";
+import { convertPuzzleStringToObject } from "./generatePresetBoards";
 
 type Node = [number, number, number];
 type Queue = Node[];
@@ -53,16 +55,24 @@ function addToResult(
 
 export async function animateBoardChange(
   boardContext: BoardContextType,
-  appContext: AppContextType
+  appContext: AppContextType,
+  index: number,
+  difficulty: "easy" | "medium" | "hard" | "expert"
 ) {
+  const puzzleString = puzzleStringsObj[difficulty][index];
+  const puzzleObj = convertPuzzleStringToObject(puzzleString);
   const animationFrames = createAnimationIndexes([4, 4]);
   const { board } = boardContext;
   const { colorCells, bloomCells } = boardContext;
   for (let frame of animationFrames) {
     for (let cell of frame) {
       const [row, col] = cell;
+      const i = RowColToIndex(row, col);
+      if (puzzleObj[i]) board[row][col] = puzzleObj[i];
+      else board[row][col] = null;
       colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
     }
-    await timeout(1000 / 30);
+    await timeout(1000 / 60);
   }
+  boardContext.originalBoard = deepCopyBoard(board);
 }

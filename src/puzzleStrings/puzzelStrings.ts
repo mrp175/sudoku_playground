@@ -86,3 +86,10 @@ export const puzzleStrings = [
   hardPuzzles,
   expertPuzzles,
 ];
+
+export const puzzleStringsObj = {
+  easy: easyPuzzles,
+  medium: mediumPuzzles,
+  hard: hardPuzzles,
+  expert: expertPuzzles,
+};

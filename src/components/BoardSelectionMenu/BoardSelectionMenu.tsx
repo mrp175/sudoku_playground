@@ -3,7 +3,7 @@ import { Component, Panel, Text } from "./BoardSelectionMenu.styled";
 import VerticalCarousel from "./VerticalCarousel/VerticalCarousel";
 import Selection from "./Selection/Selection";
 import { puzzleStrings } from "../../puzzleStrings/puzzelStrings";
-import { Presets, PresetsRef } from "../../types/types";
+import { Difficulty, Presets, PresetsRef } from "../../types/types";
 import {
   createCanvasElements,
   createPresetBoard,
@@ -17,7 +17,7 @@ export default function BoardSelectionMenu() {
   const boardContextRef = useContext(BoardContext);
   const appContextRef = useContext(AppContext);
   const presetsRef = useRef<PresetsRef>({});
-  const difficulties = ["easy", "medium", "hard", "expert"];
+  const difficulties: Difficulty[] = ["easy", "medium", "hard", "expert"];
 
   function handleClick() {
     if (isOpen) setIsOpen(false);
