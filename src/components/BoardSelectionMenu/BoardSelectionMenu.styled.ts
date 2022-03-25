@@ -21,7 +21,7 @@ export const Component = styled.div`
     !props.theme.isOpen ? "transform: translateY(calc(100% - 44px))" : ""};
 `;
 
-export const Text = styled.div`
+export const Button = styled.div`
   text-align: center;
   font-size: 18px;
   line-height: 44px;
@@ -31,6 +31,24 @@ export const Text = styled.div`
   cursor: pointer;
   height: 44px;
   background: rgb(${background_alt_color});
+
+  &.disabled {
+    pointer-events: none;
+    cursor: auto;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+  }
+`;
+
+export const Text = styled.div`
+  transition: 0.3s ease;
+  &.disabled {
+    filter: grayscale(100%) brightness(50%);
+  }
 `;
 
 export const Panel = styled.div`

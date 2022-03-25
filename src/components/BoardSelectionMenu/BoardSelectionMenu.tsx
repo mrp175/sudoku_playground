@@ -1,15 +1,24 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Component, Panel, Text } from "./BoardSelectionMenu.styled";
+import { Component, Panel, Button, Text } from "./BoardSelectionMenu.styled";
 import VerticalCarousel from "./VerticalCarousel/VerticalCarousel";
 import Selection from "./Selection/Selection";
 import { puzzleStrings } from "../../puzzleStrings/puzzelStrings";
-import { Difficulty, Presets, PresetsRef } from "../../types/types";
+import {
+  Difficulty,
+  Presets,
+  PresetsRef,
+  StateSetState,
+} from "../../types/types";
 import {
   createCanvasElements,
   createPresetBoard,
   convertPuzzleStringToIndexArray,
 } from "../../utils/generatePresetBoards";
-import { AppContext, BoardContext } from "../Providers/appContexts";
+import {
+  AppContext,
+  BoardContext,
+  IsRunningContext,
+} from "../Providers/appContexts";
 
 export default function BoardSelectionMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,8 +27,10 @@ export default function BoardSelectionMenu() {
   const appContextRef = useContext(AppContext);
   const presetsRef = useRef<PresetsRef>({});
   const difficulties: Difficulty[] = ["easy", "medium", "hard", "expert"];
+  const [isRunning] = useContext(IsRunningContext) as StateSetState<boolean>;
 
   function handleClick() {
+    if (isRunning) return;
     if (isOpen) setIsOpen(false);
     else setIsOpen(true);
   }
@@ -61,7 +72,9 @@ export default function BoardSelectionMenu() {
   return (
     <Component theme={{ isOpen }}>
       <Panel>
-        <Text onClick={handleClick}>Select Board</Text>
+        <Button onClick={handleClick} className={isRunning ? "disabled" : ""}>
+          <Text className={isRunning ? "disabled" : ""}>Select Board</Text>
+        </Button>
         <VerticalCarousel>
           <Selection>
             <div></div>
