@@ -5,6 +5,7 @@ import {
   mapNumberRange,
 } from "../utils/utils";
 import { primary_color } from "../styleVars/styleVars";
+import { NumberLiteralType } from "typescript";
 
 export function drawNumberToCell(
   value: number,
@@ -102,5 +103,16 @@ export function drawPendingAnimations(
     if (value !== null) {
       colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
     }
+  }
+}
+
+export function animateBoardChange(
+  boardContext: BoardContextType,
+  appContext: AppContextType
+) {
+  const { colorCells, bloomCells, boardChangeAnimation } = boardContext;
+  for (let i = 0; i < boardChangeAnimation.length; i += 1) {
+    const [row, col] = boardChangeAnimation[i];
+    colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
   }
 }

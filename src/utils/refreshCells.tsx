@@ -7,7 +7,11 @@ import {
   UserSelectedCells,
 } from "../types/types";
 import { deepCopyBoard, indexToRowCol, mapNumberRange, timeout } from "./utils";
-import { drawNumberToCell, drawPendingAnimations } from "./drawToCells";
+import {
+  animateBoardChange,
+  drawNumberToCell,
+  drawPendingAnimations,
+} from "./drawToCells";
 import { handleMouseHover, highlightCellOnHover } from "./mouseHover";
 import { secondary_color } from "../styleVars/styleVars";
 
@@ -17,10 +21,14 @@ export async function refreshCells(
   mouseContext: MouseContextType
 ) {
   const pendingAnimations = await getPendingAnimations(boardContext);
-  refreshAllCells(boardContext, appContext, mouseContext);
-  if (appContext.mouseHoverIndex !== null)
-    highlightCellOnHover(boardContext, appContext);
-  drawPendingAnimations(boardContext, appContext, pendingAnimations);
+  function refresh() {
+    refreshAllCells(boardContext, appContext, mouseContext);
+    if (appContext.mouseHoverIndex !== null)
+      highlightCellOnHover(boardContext, appContext);
+    animateBoardChange(boardContext, appContext);
+    drawPendingAnimations(boardContext, appContext, pendingAnimations);
+  }
+  window.requestAnimationFrame(refresh);
   refreshCells(boardContext, appContext, mouseContext);
 }
 
@@ -30,11 +38,12 @@ function fadeOutColor(
   context: AppContextType
 ) {
   const pixelData = ctx.getImageData(0, 0, 1, 1).data;
-  const tailLength = context.colorFadeSpeed;
+  let { colorFadeSpeed, isRunning } = context;
+  if (!isRunning) colorFadeSpeed = 0.87;
   const r = 16;
   const g = 32;
   const b = 39;
-  ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${1 - tailLength})`;
+  ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${1 - colorFadeSpeed})`;
   if (pixelData[1] <= g + 6) ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
@@ -46,7 +55,8 @@ function fadeOutNumbers(
 ) {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const values = imageData.data;
-  const textFadeSpeed = context.textFadeSpeed;
+  let { isRunning, textFadeSpeed } = context;
+  if (!isRunning) textFadeSpeed = 40;
   for (let i = 3; i < values.length; i += 4) {
     values[i] -= textFadeSpeed;
     if (values[i] < 0) values[i] = 0;
@@ -101,7 +111,7 @@ async function getPendingAnimations(boardContext: BoardContextType) {
   const { board } = boardContext;
   const startingBoard = deepCopyBoard(board);
   const pendingAnimations: [number, number, number | null][] = [];
-  await timeout(100 / 60);
+  await timeout(1000 / 60);
   for (let i = 0; i < board.length; i += 1) {
     for (let j = 0; j < board[0].length; j += 1) {
       if (startingBoard[i][j] !== board[i][j]) {

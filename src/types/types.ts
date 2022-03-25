@@ -125,6 +125,7 @@ export type BoardContextType = {
   bloomCells: CellBloom[];
   numberCells: CanvasAndCtxTuple[];
   selectedCells: UserSelectedCells;
+  boardChangeAnimation: [number, number][];
 };
 export type UserSelectedCells = { [index: string]: number };
 export type MousePosition = { position: { x: number; y: number } };

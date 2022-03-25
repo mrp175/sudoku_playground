@@ -13,7 +13,7 @@ import {
   Canvas,
 } from "../components/BoardSelectionMenu/Selection/Selection.styled";
 import RippleEffect from "../components/BoardSelectionMenu/Selection/RippleEffect/RippleEffect";
-import { animateBoardChange } from "./animateBoardChange";
+import { changeBoard } from "./changeBoard";
 
 export function createPresetBoard(
   canvas: HTMLCanvasElement,
@@ -109,6 +109,7 @@ function onClick(
     setIsOpen(false);
   }, 150);
   setTimeout(function () {
-    animateBoardChange(boardContext, appContext, index, difficulty);
+    changeBoard(boardContext, index, difficulty);
+    // animateBoardChange(boardContext, appContext, index, difficulty);
   }, 900);
 }

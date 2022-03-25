@@ -53,26 +53,26 @@ function addToResult(
   }
 }
 
-export async function animateBoardChange(
+export async function changeBoard(
   boardContext: BoardContextType,
-  appContext: AppContextType,
   index: number,
   difficulty: "easy" | "medium" | "hard" | "expert"
 ) {
   const puzzleString = puzzleStringsObj[difficulty][index];
   const puzzleObj = convertPuzzleStringToObject(puzzleString);
   const animationFrames = createAnimationIndexes([4, 4]);
-  const { board } = boardContext;
-  const { colorCells, bloomCells } = boardContext;
+  const { board, selectedCells } = boardContext;
   for (let frame of animationFrames) {
+    boardContext.boardChangeAnimation = frame;
     for (let cell of frame) {
       const [row, col] = cell;
       const i = RowColToIndex(row, col);
+      if (selectedCells[i]) delete selectedCells[i];
       if (puzzleObj[i]) board[row][col] = puzzleObj[i];
       else board[row][col] = null;
-      colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
     }
     await timeout(1000 / 60);
   }
+  boardContext.boardChangeAnimation = [];
   boardContext.originalBoard = deepCopyBoard(board);
 }

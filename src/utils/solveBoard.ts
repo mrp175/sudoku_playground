@@ -21,7 +21,7 @@ export async function solveBoard(
     await timeout(1000 / appContext.speed);
   } else {
     if (count >= appContext.speed / 120) {
-      await timeout(1000 / 120);
+      await timeout(1000 / 60);
       count = 0;
     }
     count += 1;

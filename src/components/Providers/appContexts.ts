@@ -52,6 +52,7 @@ export const boardContext: BoardContextType = {
   bloomCells: [],
   numberCells: [],
   selectedCells: {},
+  boardChangeAnimation: [],
 };
 export const BoardContext =
   React.createContext<React.MutableRefObject<BoardContextType> | null>(null);

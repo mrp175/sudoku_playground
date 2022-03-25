@@ -24,7 +24,7 @@ function calculateValue(
 ) {
   const num = handleRangeBias(value, bias, type);
   const mapped = mapNumberRange(num, 0, 1, min, max);
-
+  console.log(mapped);
   return Math.round((mapped + Number.EPSILON) * 1000) / 1000;
 }
 
