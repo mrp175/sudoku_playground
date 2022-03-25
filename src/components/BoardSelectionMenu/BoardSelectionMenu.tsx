@@ -26,7 +26,13 @@ export default function BoardSelectionMenu() {
   const boardContextRef = useContext(BoardContext);
   const appContextRef = useContext(AppContext);
   const presetsRef = useRef<PresetsRef>({});
-  const difficulties: Difficulty[] = ["easy", "medium", "hard", "expert"];
+  const difficulties: Difficulty[] = [
+    "custom",
+    "easy",
+    "medium",
+    "hard",
+    "expert",
+  ];
   const [isRunning] = useContext(IsRunningContext) as StateSetState<boolean>;
 
   function handleClick() {
@@ -77,7 +83,10 @@ export default function BoardSelectionMenu() {
         </Button>
         <VerticalCarousel>
           <Selection>
-            <div></div>
+            <>
+              {presets.custom}
+              <div></div>
+            </>
           </Selection>
           <Selection>
             <>{presets.easy}</>

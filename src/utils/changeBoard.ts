@@ -1,5 +1,10 @@
 import { primary_color } from "../styleVars/styleVars";
-import { BoardContextType, AppContextType, PresetsRef } from "../types/types";
+import {
+  BoardContextType,
+  AppContextType,
+  PresetsRef,
+  Difficulty,
+} from "../types/types";
 import { colorCell } from "./drawToCells";
 import { deepCopyBoard, RowColToIndex, timeout } from "./utils";
 import { puzzleStringsObj } from "../puzzleStrings/puzzelStrings";
@@ -60,7 +65,7 @@ function addToResult(
 export async function changeBoard(
   boardContext: BoardContextType,
   index: number,
-  difficulty: "easy" | "medium" | "hard" | "expert"
+  difficulty: Difficulty
 ) {
   const puzzleString = puzzleStringsObj[difficulty][index];
   const puzzleObj = convertPuzzleStringToObject(puzzleString);
