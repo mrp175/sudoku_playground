@@ -18,6 +18,7 @@ export type AppContextType = {
   mouseHoverIndex: number | null;
   userSelectionExists: boolean;
   hasRun: boolean;
+  shouldRunAnimations: boolean;
 };
 
 export type TraversalDirections =
@@ -123,9 +124,11 @@ export type BoardContextType = {
   board: Board;
   colorCells: CanvasAndCtxTuple[];
   bloomCells: CellBloom[];
+  bloomCellsAltColor: CellBloom[];
   numberCells: CanvasAndCtxTuple[];
   selectedCells: UserSelectedCells;
   boardChangeAnimation: [number, number][];
+  mouseClickAnimations: [number, number][];
 };
 export type UserSelectedCells = { [index: string]: number };
 export type MousePosition = { position: { x: number; y: number } };

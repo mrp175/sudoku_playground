@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { primary_color, border_radius } from "../../styleVars/styleVars";
+import {
+  primary_color,
+  border_radius,
+  secondary_color,
+} from "../../styleVars/styleVars";
 
 type Props = {
   theme: {
@@ -69,5 +73,17 @@ export const BloomBoxShadow = styled.div`
   width: 100%;
   height: 100%;
   box-shadow: 0px 0px 15px 0px rgba(${primary_color}, 1);
+  opacity: 0;
+`;
+
+export const BloomBoxShadowAltColor = styled.div`
+  position: absolute;
+  border-radius: 4px;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 15px 0px rgba(${secondary_color}, 1);
   opacity: 0;
 `;

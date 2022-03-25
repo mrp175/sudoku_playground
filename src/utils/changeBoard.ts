@@ -9,13 +9,17 @@ type Node = [number, number, number];
 type Queue = Node[];
 type IndexArrays = { [key: string]: [number, number][] };
 
-export function createAnimationIndexes(startPosition: [number, number]) {
+export function createAnimationIndexes(
+  startPosition: [number, number],
+  length?: number
+) {
   const queue: Queue = [[...startPosition, 0]];
   const indexes: IndexArrays = { "0": [[...startPosition]] };
   const visited: Set<string> = new Set([]);
   while (queue.length > 0) {
     const [row, col, level] = queue.shift() as Node;
     if (visited.has(`${row},${col}`)) continue;
+    if (length && level + 1 > length) continue;
     visited.add(`${row},${col}`);
     addToResult(row + 1, col, level + 1, indexes, queue);
     addToResult(row - 1, col, level + 1, indexes, queue);
@@ -63,7 +67,7 @@ export async function changeBoard(
   const animationFrames = createAnimationIndexes([4, 4]);
   const { board, selectedCells } = boardContext;
   for (let frame of animationFrames) {
-    boardContext.boardChangeAnimation = frame;
+    boardContext.boardChangeAnimation.push(...frame);
     for (let cell of frame) {
       const [row, col] = cell;
       const i = RowColToIndex(row, col);
@@ -73,6 +77,5 @@ export async function changeBoard(
     }
     await timeout(1000 / 60);
   }
-  boardContext.boardChangeAnimation = [];
   boardContext.originalBoard = deepCopyBoard(board);
 }

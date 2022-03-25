@@ -11,7 +11,8 @@ import {
   drawNumberToCell,
   drawNumberToCellAltInputs,
 } from "./drawToCells";
-import { indexToRowCol } from "./utils";
+import { indexToRowCol, timeout } from "./utils";
+import { createAnimationIndexes } from "./changeBoard";
 
 export function handleMouseHover(
   canvas: HTMLCanvasElement,
@@ -52,7 +53,7 @@ export function highlightCellOnHover(
   const { selectedNumber, mouseHoverIndex } = appContext;
   if (mouseHoverIndex !== null) {
     const [row, col] = indexToRowCol(mouseHoverIndex);
-    colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
+    colorCell(row, col, colorCells, bloomCells, appContext, primary_color, 0.5);
     drawNumberToCell(
       selectedNumber,
       row,
@@ -69,14 +70,42 @@ export function onMouseUp(
   appContext: AppContextType,
   setUserSelectionExists: SetState<boolean>
 ) {
-  const { board, colorCells, bloomCells, selectedCells } = boardContext;
+  console.log("mouse up");
+  const { board, selectedCells } = boardContext;
   const { mouseHoverIndex, selectedNumber } = appContext;
   if (mouseHoverIndex !== null) {
     const [row, col] = indexToRowCol(mouseHoverIndex);
-    colorCell(row, col, colorCells, bloomCells, appContext, secondary_color);
+    createClickCellIndexes(boardContext, row, col);
+    // colorCell(row, col, colorCells, bloomCells, appContext, secondary_color);
     selectedCells[mouseHoverIndex] = selectedNumber;
     appContext.userSelectionExists = true;
     setUserSelectionExists(true);
     board[row][col] = selectedNumber;
   }
+}
+
+export async function createClickCellIndexes(
+  boardContext: BoardContextType,
+  row: number,
+  col: number
+) {
+  const indexes = createAnimationIndexes([row, col], 5);
+  indexes.shift();
+  // const indexes = createIndexes(row, col);
+  indexes.reverse();
+  // const indexes: [number, number][][] = [[[row, col]]];
+  for (let frame of indexes) {
+    boardContext.mouseClickAnimations.push(...frame);
+    await timeout(1000 / 60);
+  }
+  // boardContext.mouseClickAnimations.push(...indexes);
+}
+
+function createIndexes(row: number, col: number) {
+  const indexes: [number, number][] = [];
+  for (let i = 0; i < 9; i += 1) {
+    if (i !== col) indexes.push([row, i]);
+    if (i !== row) indexes.push([i, col]);
+  }
+  return indexes;
 }

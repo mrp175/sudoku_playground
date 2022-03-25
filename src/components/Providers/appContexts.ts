@@ -35,6 +35,7 @@ export const appContext: AppContextType = {
   mouseHoverIndex: null,
   userSelectionExists: false,
   hasRun: false,
+  shouldRunAnimations: false,
 };
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -50,9 +51,11 @@ export const boardContext: BoardContextType = {
   board: [],
   colorCells: [],
   bloomCells: [],
+  bloomCellsAltColor: [],
   numberCells: [],
   selectedCells: {},
   boardChangeAnimation: [],
+  mouseClickAnimations: [],
 };
 export const BoardContext =
   React.createContext<React.MutableRefObject<BoardContextType> | null>(null);

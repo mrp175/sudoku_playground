@@ -5,7 +5,7 @@ import {
   mapNumberRange,
 } from "../utils/utils";
 import { primary_color } from "../styleVars/styleVars";
-import { NumberLiteralType } from "typescript";
+import { createAnimationIndexes } from "./changeBoard";
 
 export function drawNumberToCell(
   value: number,
@@ -68,7 +68,8 @@ export function colorCell(
   refs: [HTMLCanvasElement, CanvasRenderingContext2D][],
   cellBloomRefs: HTMLDivElement[],
   appContext: AppContextType,
-  color: string
+  color: string,
+  brightness?: number
 ) {
   const bloomAmount =
     Math.floor(mapNumberRange(appContext.colorFadeSpeed, 0, 0.92, 0, 1) * 100) /
@@ -77,7 +78,9 @@ export function colorCell(
   cellBloomRefs[index].style.opacity = bloomAmount + "";
   const [canvas, ctx] = getCanvasAndContext(refs, row, col);
   ctx.beginPath();
-  ctx.fillStyle = `rgb(${color})`;
+  let fillStyle = `rgb(${color})`;
+  if (brightness) fillStyle = `rgba(${color}, ${brightness})`;
+  ctx.fillStyle = fillStyle;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.closePath();
 }
@@ -115,4 +118,17 @@ export function animateBoardChange(
     const [row, col] = boardChangeAnimation[i];
     colorCell(row, col, colorCells, bloomCells, appContext, primary_color);
   }
+  boardContext.boardChangeAnimation = [];
+}
+
+export function animateClick(
+  boardContext: BoardContextType,
+  appContext: AppContextType
+) {
+  const { colorCells, bloomCells, mouseClickAnimations } = boardContext;
+  for (let i = 0; i < mouseClickAnimations.length; i += 1) {
+    const [row, col] = mouseClickAnimations[i];
+    colorCell(row, col, colorCells, bloomCells, appContext, primary_color, 0.2);
+  }
+  boardContext.mouseClickAnimations = [];
 }

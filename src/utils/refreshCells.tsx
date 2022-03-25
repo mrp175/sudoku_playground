@@ -9,6 +9,7 @@ import {
 import { deepCopyBoard, indexToRowCol, mapNumberRange, timeout } from "./utils";
 import {
   animateBoardChange,
+  animateClick,
   drawNumberToCell,
   drawPendingAnimations,
 } from "./drawToCells";
@@ -21,14 +22,15 @@ export async function refreshCells(
   mouseContext: MouseContextType
 ) {
   const pendingAnimations = await getPendingAnimations(boardContext);
-  function refresh() {
+  draw();
+  function draw() {
     refreshAllCells(boardContext, appContext, mouseContext);
     if (appContext.mouseHoverIndex !== null)
       highlightCellOnHover(boardContext, appContext);
     animateBoardChange(boardContext, appContext);
+    animateClick(boardContext, appContext);
     drawPendingAnimations(boardContext, appContext, pendingAnimations);
   }
-  window.requestAnimationFrame(refresh);
   refreshCells(boardContext, appContext, mouseContext);
 }
 
@@ -132,6 +134,7 @@ function refreshAllCells(
     board,
     colorCells,
     bloomCells,
+    bloomCellsAltColor,
     numberCells,
     selectedCells,
   } = boardContext;
@@ -140,6 +143,7 @@ function refreshAllCells(
     let [canvas, ctx] = colorCells[i];
     fadeOutColor(canvas, ctx, appContext);
     fadeOutBloom(i, bloomCells, appContext);
+    fadeOutBloom(i, bloomCellsAltColor, appContext);
     if (handleMouseHover(canvas, mouseContext, appContext, i) === true)
       hoveringOverCell = true;
     [canvas, ctx] = numberCells[i];
