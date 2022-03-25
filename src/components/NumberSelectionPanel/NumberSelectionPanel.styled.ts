@@ -54,6 +54,7 @@ export const Component = styled.div`
     }
 
     &.selected {
+      z-index: 1;
       background: rgb(${secondary_color});
       transition: 0.1s ease;
       box-shadow: 0px 0px 15px 0px rgba(${secondary_color}, 1);
