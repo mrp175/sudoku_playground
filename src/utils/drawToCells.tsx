@@ -116,7 +116,7 @@ export function animateBoardChange(
   const { colorCells, bloomCells, boardChangeAnimation } = boardContext;
   for (let i = 0; i < boardChangeAnimation.length; i += 1) {
     const [row, col] = boardChangeAnimation[i];
-    colorCell(row, col, colorCells, bloomCells, appContext, primary_color, 0.1);
+    colorCell(row, col, colorCells, bloomCells, appContext, primary_color, 0.2);
   }
   boardContext.boardChangeAnimation = [];
 }
