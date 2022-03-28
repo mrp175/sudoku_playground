@@ -84,3 +84,24 @@ export async function changeBoard(
   }
   boardContext.originalBoard = deepCopyBoard(board);
 }
+
+export async function changeBoardFromString(
+  boardContext: BoardContextType,
+  puzzleString: string
+) {
+  const puzzleObj = convertPuzzleStringToObject(puzzleString);
+  const animationFrames = createAnimationIndexes([4, 4]);
+  const { board, selectedCells } = boardContext;
+  for (let frame of animationFrames) {
+    boardContext.boardChangeAnimation.push(...frame);
+    for (let cell of frame) {
+      const [row, col] = cell;
+      const i = RowColToIndex(row, col);
+      if (selectedCells[i]) delete selectedCells[i];
+      if (puzzleObj[i]) board[row][col] = puzzleObj[i];
+      else board[row][col] = null;
+    }
+    await timeout(1000 / 60);
+  }
+  boardContext.originalBoard = deepCopyBoard(board);
+}

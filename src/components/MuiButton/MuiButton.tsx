@@ -7,11 +7,13 @@ export default function MuiButton({
   color,
   onClick,
   isDisabled,
+  width,
 }: {
   children: string;
   color: string;
   onClick: () => void;
   isDisabled: boolean;
+  width: number;
 }) {
   return (
     <Component theme={{ color, isDisabled }}>
@@ -23,7 +25,7 @@ export default function MuiButton({
         sx={{
           margin: 0,
           transition: "0.2s ease",
-          width: 200,
+          width: width,
           fontWeight: "900",
           fontSize: "16px",
           padding: "20px",

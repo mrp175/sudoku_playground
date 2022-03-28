@@ -71,6 +71,7 @@ export default function ControlPanel() {
           onClick={returnPlayPause}
           color={primary_color}
           isDisabled={false}
+          width={200}
         >
           {isRunning ? "PAUSE" : "SOLVE BOARD"}
         </MuiButton>
@@ -82,6 +83,7 @@ export default function ControlPanel() {
           }
           color={secondary_color}
           isDisabled={isRunning}
+          width={200}
         >
           {buttonText}
         </MuiButton>

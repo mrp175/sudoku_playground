@@ -13,7 +13,7 @@ import {
   Canvas,
 } from "../components/BoardSelectionMenu/Selection/Selection.styled";
 import RippleEffect from "../components/BoardSelectionMenu/Selection/RippleEffect/RippleEffect";
-import { changeBoard } from "./changeBoard";
+import { changeBoard, changeBoardFromString } from "./changeBoard";
 
 export function createPresetBoard(
   canvas: HTMLCanvasElement,
@@ -23,8 +23,6 @@ export function createPresetBoard(
 ) {
   canvas.height = height;
   canvas.width = height;
-  // ctx.fillStyle = `rgb(${background_alt_color})`;
-  // ctx.fillRect(0, 0, height, height);
   const cellHeight = height / 9;
   ctx.strokeStyle = `rgba(${primary_color}, ${primary_color_alpha})`;
   ctx.beginPath();
@@ -110,6 +108,18 @@ function onClick(
   }, 150);
   setTimeout(function () {
     changeBoard(boardContext, index, difficulty);
-    // animateBoardChange(boardContext, appContext, index, difficulty);
+  }, 900);
+}
+
+export function createFromPuzzleString(
+  setIsOpen: SetState<boolean>,
+  boardContext: BoardContextType,
+  puzzleString: string
+) {
+  setTimeout(function () {
+    setIsOpen(false);
+  }, 150);
+  setTimeout(function () {
+    changeBoardFromString(boardContext, puzzleString);
   }, 900);
 }

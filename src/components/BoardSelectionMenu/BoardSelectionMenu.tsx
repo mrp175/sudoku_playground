@@ -19,6 +19,7 @@ import {
   BoardContext,
   IsRunningContext,
 } from "../Providers/appContexts";
+import PuzzleStringInput from "./PuzzleStringInput/PuzzleStringInput";
 
 export default function BoardSelectionMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,7 +96,7 @@ export default function BoardSelectionMenu() {
           <Selection>
             <>
               {presets.custom}
-              <div></div>
+              <PuzzleStringInput setIsOpen={setIsOpen}></PuzzleStringInput>
             </>
           </Selection>
           <Selection>

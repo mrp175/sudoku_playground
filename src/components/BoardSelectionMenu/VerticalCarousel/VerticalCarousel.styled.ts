@@ -1,11 +1,5 @@
 import styled from "styled-components";
-import {
-  border_radius,
-  padding,
-  primary_color,
-  primary_color_alpha,
-  secondary_color,
-} from "../../../styleVars/styleVars";
+import { border_radius, primary_color } from "../../../styleVars/styleVars";
 
 export const Component = styled.div`
   display: grid;
