@@ -105,7 +105,7 @@ export async function createClickCellIndexes(
   row: number,
   col: number
 ) {
-  const indexes = createAnimationIndexes([row, col], 5);
+  const indexes = createAnimationIndexes([row, col], 2);
   indexes.shift();
   indexes.reverse();
   for (let frame of indexes) {
