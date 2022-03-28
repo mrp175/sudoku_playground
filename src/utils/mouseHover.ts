@@ -75,15 +75,26 @@ export function onMouseUp(
   setUserSelectionExists: SetState<boolean>,
   mouseContext: MouseContextType
 ) {
-  const { board, selectedCells } = boardContext;
+  const { originalBoard, board, selectedCells } = boardContext;
   const { mouseHoverIndex, selectedNumber } = appContext;
   if (mouseHoverIndex !== null) {
     const [row, col] = indexToRowCol(mouseHoverIndex);
-    createClickCellIndexes(boardContext, row, col);
-    selectedCells[mouseHoverIndex] = selectedNumber;
-    appContext.userSelectionExists = true;
-    setUserSelectionExists(true);
-    board[row][col] = selectedNumber;
+    if (board[row][col] === selectedNumber) {
+      board[row][col] = null;
+      if (selectedCells[mouseHoverIndex]) delete selectedCells[mouseHoverIndex];
+      if (Object.keys(selectedCells).length === 0) {
+        appContext.userSelectionExists = false;
+        setUserSelectionExists(false);
+      }
+    } else {
+      createClickCellIndexes(boardContext, row, col);
+      board[row][col] = selectedNumber;
+      if (originalBoard[row][col] !== selectedNumber) {
+        selectedCells[mouseHoverIndex] = selectedNumber;
+        appContext.userSelectionExists = true;
+        setUserSelectionExists(true);
+      }
+    }
   }
   appContext.mouseHoverIndex = null;
   mouseContext.position = { x: null, y: null };
