@@ -75,6 +75,16 @@ export default function BoardSelectionMenu() {
     [presets]
   );
 
+  useEffect(
+    function () {
+      if (appContextRef && appContextRef.current) {
+        const current = appContextRef.current;
+        current.isMenuOpen = isOpen;
+      }
+    },
+    [isOpen]
+  );
+
   return (
     <Component theme={{ isOpen }}>
       <Panel>

@@ -19,6 +19,7 @@ export type AppContextType = {
   userSelectionExists: boolean;
   hasRun: boolean;
   shouldRunAnimations: boolean;
+  isMenuOpen: boolean;
 };
 
 export type TraversalDirections =
@@ -143,3 +144,7 @@ export type PresetsRef = {
   [key: string]: HTMLCanvasElement[];
 };
 export type Difficulty = "custom" | "easy" | "medium" | "hard" | "expert";
+export type ScreenDimensionsContextType = {
+  width: number;
+  height: number;
+};

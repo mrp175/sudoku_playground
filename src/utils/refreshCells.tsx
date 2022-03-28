@@ -5,6 +5,7 @@ import {
   BoardContextType,
   MouseContextType,
   UserSelectedCells,
+  UseRef,
 } from "../types/types";
 import { deepCopyBoard, indexToRowCol, mapNumberRange, timeout } from "./utils";
 import {
@@ -14,7 +15,7 @@ import {
   drawPendingAnimations,
 } from "./drawToCells";
 import { handleMouseHover, highlightCellOnHover } from "./mouseHover";
-import { secondary_color } from "../styleVars/styleVars";
+import { primary_color, secondary_color } from "../styleVars/styleVars";
 
 export async function refreshCells(
   boardContext: BoardContextType,
@@ -87,7 +88,7 @@ function drawPlacedNumbers(
         context
       );
     else if (originalBoard[row][col])
-      drawNumberToCell(value, row, col, refs, "54, 224, 173", context);
+      drawNumberToCell(value, row, col, refs, primary_color, context);
     else drawNumberToCell(value, row, col, refs, "255, 255, 255", context);
   }
 }

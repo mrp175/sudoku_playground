@@ -20,9 +20,13 @@ export function handleMouseHover(
   appContext: AppContextType,
   index: number
 ) {
+  if (appContext.isMenuOpen) return;
   const boundingRect = canvas.getBoundingClientRect();
-  const { left, top, bottom, right } = boundingRect;
+  let { left, top, bottom, right } = boundingRect;
   const { x, y } = mouse.position;
+  if (top < 44) top = 44;
+  let maxHeight = window.innerHeight - 44;
+  if (bottom > maxHeight) bottom = maxHeight;
   if (x !== null && y !== null) {
     if (x >= left && x <= right && y >= top && y <= bottom) {
       appContext.mouseHoverIndex = index;

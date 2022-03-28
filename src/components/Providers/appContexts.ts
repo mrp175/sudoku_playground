@@ -5,6 +5,7 @@ import {
   StateSetState,
   BoardContextType,
   ResetStateContextType,
+  ScreenDimensionsContextType,
 } from "../../types/types";
 
 export const defaultRunningState = false;
@@ -36,6 +37,7 @@ export const appContext: AppContextType = {
   userSelectionExists: false,
   hasRun: false,
   shouldRunAnimations: false,
+  isMenuOpen: false,
 };
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
@@ -78,7 +80,5 @@ export const OrientationContext = React.createContext<string | null>(null);
 //   return <Context.Provider value={value}>{children}</Context.Provider>;
 // }
 
-export const ScreenDimensionsContext = React.createContext<{
-  width: number;
-  height: number;
-} | null>(null);
+export const ScreenDimensionsContext =
+  React.createContext<ScreenDimensionsContextType | null>(null);
