@@ -30,6 +30,7 @@ export function resetBoard(
   appContext: AppContextType,
   setHasRun: SetState<boolean>
 ) {
+  loadResetAnimations(boardContext);
   const board = deepCopyBoard(boardContext.originalBoard);
   const selectedCells = boardContext.selectedCells;
   for (let index in selectedCells) {
@@ -48,61 +49,20 @@ export function clearUserInput(
   appContext: AppContextType,
   setUserSelectionExists: SetState<boolean>
 ) {
+  loadResetAnimations(boardContext);
   boardContext.board = deepCopyBoard(boardContext.originalBoard);
   boardContext.selectedCells = {};
   appContext.userSelectionExists = false;
   setUserSelectionExists(false);
 }
 
-// function resetBoard() {
-
-// }
-
-// function resetAll() {
-
-// }
-
-// function resetBoard() {
-//   const boardContext = boardContextRef?.current!;
-//   let board = boardContext.board;
-//   board = deepCopyBoard(boardPresetsContextRef![1]);
-//   const selectedCells = boardContext.selectedCells;
-//   for (let i = 0; i < board.length; i += 1) {
-//     if (i + "" in selectedCells) {
-//       const [row, col] = indexToRowCol(i);
-//       board[row][col] = selectedCells[i + ""];
-//     }
-//   }
-//   const appContext = appContextRef?.current!;
-//   if (hasRun) {
-//     setHasRun(false);
-//   } else if (userSelectionExists) {
-//     boardContext.selectedCells = {};
-//     appContext.userSelectionExists = false;
-//     setUserSelectionExists(false);
-//   }
-// }
-
-// function playPause() {
-//   if (appContextRef && appContextRef.current) {
-//     if (appContextRef.current.isRunning === false) {
-//       appContextRef.current.isRunning = true;
-//       const availableCellIndexes = createAvailableIndexes(
-//         boardContextRef?.current!,
-//         appContextRef.current.traversalDirection
-//       );
-//       appContextRef.current.hasRun = true;
-//       setIsRunning(true);
-//       setHasRun(true);
-//       solveBoard(
-//         boardContextRef?.current!,
-//         appContextRef.current,
-//         availableCellIndexes,
-//         setIsRunning
-//       );
-//     } else {
-//       appContextRef.current.isRunning = false;
-//       setIsRunning(false);
-//     }
-//   }
-// }
+function loadResetAnimations(boardContext: BoardContextType) {
+  const { board, originalBoard, resetAnimations } = boardContext;
+  for (let i = 0; i < board.length; i += 1) {
+    for (let j = 0; j < board[i].length; j += 1) {
+      if (originalBoard[i][j] !== null && board[i][j] !== originalBoard[i][j]) {
+        resetAnimations.push([i, j]);
+      }
+    }
+  }
+}

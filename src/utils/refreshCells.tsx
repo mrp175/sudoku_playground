@@ -5,12 +5,12 @@ import {
   BoardContextType,
   MouseContextType,
   UserSelectedCells,
-  UseRef,
 } from "../types/types";
 import { deepCopyBoard, indexToRowCol, mapNumberRange, timeout } from "./utils";
 import {
   animateBoardChange,
   animateClick,
+  animateReset,
   drawNumberToCell,
   drawPendingAnimations,
 } from "./drawToCells";
@@ -29,6 +29,7 @@ export async function refreshCells(
     if (appContext.mouseHoverIndex !== null)
       highlightCellOnHover(boardContext, appContext);
     animateBoardChange(boardContext, appContext);
+    animateReset(boardContext, appContext);
     animateClick(boardContext, appContext);
     drawPendingAnimations(boardContext, appContext, pendingAnimations);
   }

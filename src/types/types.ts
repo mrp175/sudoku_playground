@@ -132,6 +132,7 @@ export type BoardContextType = {
   selectedCells: UserSelectedCells;
   boardChangeAnimation: [number, number][];
   mouseClickAnimations: [number, number][];
+  resetAnimations: [number, number][];
 };
 export type UserSelectedCells = { [index: string]: number };
 export type MousePosition = { position: { x: number; y: number } };

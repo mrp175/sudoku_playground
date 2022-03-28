@@ -131,3 +131,15 @@ export function animateClick(
   }
   boardContext.mouseClickAnimations = [];
 }
+
+export function animateReset(
+  boardContext: BoardContextType,
+  appContext: AppContextType
+) {
+  const { colorCells, bloomCells, resetAnimations } = boardContext;
+  for (let i = 0; i < resetAnimations.length; i += 1) {
+    const [row, col] = resetAnimations[i];
+    colorCell(row, col, colorCells, bloomCells, appContext, primary_color, 1);
+  }
+  boardContext.resetAnimations = [];
+}
