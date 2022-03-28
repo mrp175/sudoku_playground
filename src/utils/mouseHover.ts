@@ -72,20 +72,21 @@ export function highlightCellOnHover(
 export function onMouseUp(
   boardContext: BoardContextType,
   appContext: AppContextType,
-  setUserSelectionExists: SetState<boolean>
+  setUserSelectionExists: SetState<boolean>,
+  mouseContext: MouseContextType
 ) {
-  console.log("mouse up");
   const { board, selectedCells } = boardContext;
   const { mouseHoverIndex, selectedNumber } = appContext;
   if (mouseHoverIndex !== null) {
     const [row, col] = indexToRowCol(mouseHoverIndex);
     createClickCellIndexes(boardContext, row, col);
-    // colorCell(row, col, colorCells, bloomCells, appContext, secondary_color);
     selectedCells[mouseHoverIndex] = selectedNumber;
     appContext.userSelectionExists = true;
     setUserSelectionExists(true);
     board[row][col] = selectedNumber;
   }
+  appContext.mouseHoverIndex = null;
+  mouseContext.position = { x: null, y: null };
 }
 
 export async function createClickCellIndexes(
@@ -95,14 +96,11 @@ export async function createClickCellIndexes(
 ) {
   const indexes = createAnimationIndexes([row, col], 5);
   indexes.shift();
-  // const indexes = createIndexes(row, col);
   indexes.reverse();
-  // const indexes: [number, number][][] = [[[row, col]]];
   for (let frame of indexes) {
     boardContext.mouseClickAnimations.push(...frame);
     await timeout(1000 / 60);
   }
-  // boardContext.mouseClickAnimations.push(...indexes);
 }
 
 function createIndexes(row: number, col: number) {

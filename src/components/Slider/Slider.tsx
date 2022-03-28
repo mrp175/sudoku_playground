@@ -8,8 +8,6 @@ import { AppContextPropNames } from "../../types/types";
 import { handleRangeBias, mapNumberRange } from "../../utils/utils";
 
 function valueLabelFormat(value: number) {
-  const units = ["KB", "MB", "GB", "TB"];
-
   let scaledValue = value;
 
   return `${scaledValue}`;
@@ -24,7 +22,6 @@ function calculateValue(
 ) {
   const num = handleRangeBias(value, bias, type);
   const mapped = mapNumberRange(num, 0, 1, min, max);
-  console.log(mapped);
   return Math.round((mapped + Number.EPSILON) * 1000) / 1000;
 }
 

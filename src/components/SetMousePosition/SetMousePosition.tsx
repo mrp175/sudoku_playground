@@ -16,6 +16,15 @@ export default function SetMousePosition() {
   const [u, setUserSelectionExists] =
     resetStateContext?.userSelectionExists as StateSetState<boolean>;
 
+  function onPointerDown(e: PointerEvent) {
+    const x = e.clientX;
+    const y = e.clientY;
+    const current = mouseContext?.current!;
+    current.position = { x, y };
+    current.positionOnMouseDown = { x, y };
+    current.mouseDown = true;
+  }
+
   function onPointerMove(e: PointerEvent) {
     const x = e.clientX;
     const y = e.clientY;
@@ -27,13 +36,20 @@ export default function SetMousePosition() {
     onMouseUp(
       boardContext?.current!,
       appContext?.current!,
-      setUserSelectionExists
+      setUserSelectionExists,
+      mouseContext?.current!
     );
     const current = mouseContext?.current!;
     current.position = { x: null, y: null };
+    current.mouseDown = false;
   }
+
   useEffect(function () {
-    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerdown", onPointerDown);
+  }, []);
+
+  useEffect(function () {
+    window.addEventListener("pointerover", onPointerMove);
   }, []);
 
   useEffect(function () {

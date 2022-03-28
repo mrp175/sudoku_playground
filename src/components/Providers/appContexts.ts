@@ -43,7 +43,15 @@ export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);
 
 export const mouseContext: MouseContextType = {
-  position: { x: null, y: null },
+  position: {
+    x: null,
+    y: null,
+  },
+  positionOnMouseDown: {
+    x: null,
+    y: null,
+  },
+  mouseDown: false,
 };
 export const MouseContext =
   React.createContext<React.MutableRefObject<MouseContextType> | null>(null);

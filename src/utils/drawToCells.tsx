@@ -5,7 +5,6 @@ import {
   mapNumberRange,
 } from "../utils/utils";
 import { primary_color } from "../styleVars/styleVars";
-import { createAnimationIndexes } from "./changeBoard";
 
 export function drawNumberToCell(
   value: number,

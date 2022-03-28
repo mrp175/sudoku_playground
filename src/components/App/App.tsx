@@ -13,9 +13,7 @@ import NumberSelectionPanel from "../NumberSelectionPanel/NumberSelectionPanel";
 import BoardSelectionMenu from "../BoardSelectionMenu/BoardSelectionMenu";
 import ManageScreenDimensions from "../Utils/ManageScreenDimensions";
 import { gridDimensions } from "../../styleVars/styleVars";
-import { handleMouseMove } from "../../utils/utils";
 import {
-  MouseContext,
   OrientationContext,
   ScreenDimensionsContext,
 } from "../Providers/appContexts";
@@ -28,7 +26,6 @@ function App() {
   });
   const [scale, setScale] = useState(1);
   const appWrapperRef = useRef<HTMLDivElement>(null);
-  const mouseContextRef = useContext(MouseContext);
   const [orientation, setOrientation] = useState("landscape");
 
   return (
@@ -44,7 +41,7 @@ function App() {
             appWrapperRef={appWrapperRef}
             setScale={setScale}
           />
-          <ComponentWrapper onMouseMove={handleMouseMove(mouseContextRef)}>
+          <ComponentWrapper>
             <TitleBar />
             <GridContainer theme={{ orientation, scale }} ref={appWrapperRef}>
               <PreventHorizontalScroll

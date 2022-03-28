@@ -46,6 +46,8 @@ export type TraversalTextFields =
 
 export type MouseContextType = {
   position: { x: number | null; y: number | null };
+  positionOnMouseDown: { x: number | null; y: number | null };
+  mouseDown: boolean;
 };
 
 export type DialType = {

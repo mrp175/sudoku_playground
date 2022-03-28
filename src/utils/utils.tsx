@@ -85,17 +85,6 @@ export function detectBrowser() {
   return browserName;
 }
 
-export function handleMouseMove(
-  mouseRef: React.MutableRefObject<MouseContextType> | null
-) {
-  return function (e: any) {
-    const current = mouseRef?.current;
-    if (current) {
-      current.position = { x: e.clientX, y: e.clientY };
-    }
-  };
-}
-
 export function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
