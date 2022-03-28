@@ -5,14 +5,12 @@ import {
   BoardPresetsContext,
   MouseContext,
   ResetStateContext,
-  ScreenDimensionsContext,
 } from "../Providers/appContexts";
 import { BoardGrid } from "./Board.styled";
 import { handleResize } from "../../utils/handleResize";
 import { createSubGrid } from "../../utils/createBoard";
 import { refreshCells } from "../../utils/refreshCells";
 import { deepCopyBoard } from "../../utils/utils";
-import { UseRef } from "../../types/types";
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);

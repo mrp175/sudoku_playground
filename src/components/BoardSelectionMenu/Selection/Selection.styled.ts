@@ -8,30 +8,39 @@ import {
 } from "../../../styleVars/styleVars";
 
 export const Component = styled.div`
-  width: calc(100vw - 250px);
-  height: calc(100vh - 44px);
+  ${(props) =>
+    props.theme.width > 750
+      ? `
+        width: calc(100vw - 240px);
+        height: calc(100vh - 44px);
+        padding: 25px;
+
+      `
+      : `
+        width: calc(100vw);
+        height: calc(100vh - 244px);
+        padding: 25px;
+        padding-top: 75px;
+  `};
   overflow: hidden;
   display: grid;
   align-content: start;
   justify-content: space-evenly;
-  grid-template-columns: repeat(auto-fill, 400px);
+  grid-template-columns: repeat(
+    auto-fill,
+    ${(props) => props.theme.gridWidth}px
+  );
   grid-gap: 50px;
-  padding: 25px;
   overflow-y: scroll;
-  /* -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%); */
-
-  & > div {
-    height: 400px;
-    width: 400px;
-    border-radius: 4px;
-    box-shadow: ${box_shadow};
-  }
 `;
 
 export const CanvasContainer = styled.div`
   cursor: pointer;
   position: relative;
+  border-radius: 4px;
+  box-shadow: ${box_shadow};
+  height: ${(props) => props.theme.gridWidth}px;
+  width: ${(props) => props.theme.gridWidth}px;
 `;
 
 export const Canvas = styled.canvas`
@@ -54,4 +63,11 @@ export const BoxShadowHover = styled.div`
   &:hover {
     opacity: 1;
   }
+`;
+
+export const PresetText = styled.div`
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(${primary_color});
 `;

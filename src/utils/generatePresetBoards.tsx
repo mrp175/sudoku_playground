@@ -11,6 +11,7 @@ import { indexToRowCol } from "./utils";
 import {
   CanvasContainer,
   Canvas,
+  PresetText,
 } from "../components/BoardSelectionMenu/Selection/Selection.styled";
 import RippleEffect from "../components/BoardSelectionMenu/Selection/RippleEffect/RippleEffect";
 import { changeBoard, changeBoardFromString } from "./changeBoard";
@@ -41,7 +42,7 @@ export function createPresetBoard(
     const yPos = row * cellHeight + cellHeight / 2;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = "bold 30px Arial";
+    ctx.font = `bold ${Math.floor(height / 13)}px Arial`;
     ctx.fillStyle = `rgb(${primary_color})`;
     ctx.fillText(value + "", xPos, yPos);
   }
@@ -70,7 +71,8 @@ export function createCanvasElements(
   presetsRef: PresetsRef,
   setIsOpen: SetState<boolean>,
   appContext: AppContextType,
-  boardContext: BoardContextType
+  boardContext: BoardContextType,
+  gridWidth: number
 ) {
   const canvasElements: JSX.Element[] = [];
   const currentRefs: HTMLCanvasElement[] = [];
@@ -81,9 +83,11 @@ export function createCanvasElements(
         onClick={() =>
           onClick(setIsOpen, appContext, boardContext, i, difficulty)
         }
+        theme={{ gridWidth }}
       >
         <Canvas key={"C" + i} ref={(el) => currentRefs.push(el!)} />
         <RippleEffect />
+        {/* <PresetText>{i}</PresetText> */}
       </CanvasContainer>
     );
     canvasElements.push(canvas);

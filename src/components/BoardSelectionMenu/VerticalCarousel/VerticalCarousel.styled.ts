@@ -3,17 +3,32 @@ import { border_radius, primary_color } from "../../../styleVars/styleVars";
 
 export const Component = styled.div`
   display: grid;
-  grid-template-columns: 250px 1fr;
+  ${(props) =>
+    props.theme.width > 750
+      ? "grid-template-columns: 250px 1fr;"
+      : "grid-template-rows: 250px 1fr"}
   height: 100vh;
 `;
 
 export const Panels = styled.div`
   box-sizing: border-box;
   display: grid;
+  ${(props) =>
+    props.theme.width > 750
+      ? `
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  transition: 0.5s ease;
   height: 500%;
-  transform: translateY(${(props) => props.theme.position}%);
+  transform: translateY(${props.theme.position}%);
+  `
+      : `
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  width: 500%;
+  transform: translateX(${props.theme.position}%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 2%, black 15%);
+  mask-image: linear-gradient(to bottom, transparent 2%, black 15%);
+  `}
+
+  transition: 0.5s ease;
 `;
 
 export const PanelsContainer = styled.div`
@@ -25,12 +40,18 @@ export const PanelsContainer = styled.div`
 export const ButtonSelection = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  ${(props) =>
+    props.theme.width > 750
+      ? `border-right: 2px solid rgb(${primary_color});
   width: 100%;
-  border-right: 2px solid rgb(${primary_color});
+  `
+      : `border-bottom: 2px solid rgb(${primary_color});
+      width: 75%;
+      height: 200px`}
 `;
 
 export const Button = styled.button`
-  padding: 20px;
+  ${(props) => (props.theme.width > 750 ? "padding: 20px" : "")};
   font-size: 16px;
   font-weight: 500;
   color: rgb(${primary_color});

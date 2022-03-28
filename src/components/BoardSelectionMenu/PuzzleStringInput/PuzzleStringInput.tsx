@@ -14,8 +14,10 @@ import RippleEffect from "../Selection/RippleEffect/RippleEffect";
 
 export default function PuzzleStringInput({
   setIsOpen,
+  gridWidth,
 }: {
   setIsOpen: SetState<boolean>;
+  gridWidth: number;
 }) {
   const [text, setText] = useState("");
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -31,6 +33,7 @@ export default function PuzzleStringInput({
         onChange={(e) => setText(e.target.value)}
         value={text}
         onKeyDown={(e) => handleKeyDown(e)}
+        theme={{ gridWidth }}
       ></TextArea>
       <Buttons>
         <ButtonContainer

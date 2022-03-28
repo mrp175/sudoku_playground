@@ -2,22 +2,26 @@ import styled from "styled-components";
 import {
   background_alt_color,
   border_radius,
+  box_shadow,
   primary_color,
   primary_color_alpha,
 } from "../../../styleVars/styleVars";
 
 export const Component = styled.div`
   height: 100%;
+  max-height: 400px;
 `;
 
 export const Buttons = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
 `;
 
 export const TextArea = styled.textarea`
   box-sizing: border-box;
-  height: calc(100% - 50px);
+  height: ${(props) => props.theme.gridWidth - 50}px;
+  max-height: 200px;
   width: 100%;
   margin: 0;
   resize: none;
@@ -28,6 +32,8 @@ export const TextArea = styled.textarea`
   font-weight: 600;
   outline: none;
   border-radius: ${border_radius};
+  box-shadow: ${box_shadow};
+  margin-bottom: 10px;
   &:focus {
     outline: 2px solid rgba(${primary_color}, ${primary_color_alpha});
   }
@@ -43,7 +49,8 @@ export const Button = styled.button`
   outline: none;
   border: none;
   border-radius: ${border_radius};
-  margin: 0;
+  margin: auto;
+  box-shadow: ${box_shadow};
 `;
 
 export const ButtonContainer = styled.div`

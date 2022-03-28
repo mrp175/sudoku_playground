@@ -1,4 +1,9 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useContext } from "react";
+import {
+  ScreenDimensionsContextType,
+  StateSetState,
+} from "../../../types/types";
+import { ScreenDimensionsContext } from "../../Providers/appContexts";
 import {
   Component,
   Panels,
@@ -18,6 +23,8 @@ export default function VerticalCarousel({
 }) {
   const [position, setPosition] = useState(0);
   const buttonsRef = useRef<ButtonsRef>([]);
+  const screenDimentions = useContext(ScreenDimensionsContext);
+  const screenWidth = screenDimentions?.width;
 
   function createButtons(buttonsRef: ButtonsRef) {
     const buttonElements: Buttons = [];
@@ -28,6 +35,7 @@ export default function VerticalCarousel({
           key={"b" + i}
           onClick={() => handleClick(i)}
           ref={(el) => buttonsRef.push(el!)}
+          theme={{ width: screenWidth }}
         >
           {difficulties[i]}
         </Button>
@@ -46,15 +54,22 @@ export default function VerticalCarousel({
     });
   }
 
-  const buttons = useMemo(() => createButtons(buttonsRef.current), []);
+  const buttons = useMemo(
+    () => createButtons(buttonsRef.current),
+    [screenWidth]
+  );
 
   return (
-    <Component>
+    <Component theme={{ width: screenWidth }}>
       <SelectionContainer>
-        <ButtonSelection>{buttons}</ButtonSelection>
+        <ButtonSelection theme={{ width: screenWidth }}>
+          {buttons}
+        </ButtonSelection>
       </SelectionContainer>
       <PanelsContainer>
-        <Panels theme={{ position: -position * 20 }}>{children}</Panels>
+        <Panels theme={{ position: -position * 20, width: screenWidth }}>
+          {children}
+        </Panels>
       </PanelsContainer>
     </Component>
   );

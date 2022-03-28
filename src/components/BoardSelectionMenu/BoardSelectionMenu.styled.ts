@@ -56,6 +56,5 @@ export const Panel = styled.div`
   display: grid;
   grid-template-rows: 44px 1fr;
   width: 100vw;
-  aspect-ratio: 2 / 1;
   height: 100vh;
 `;
