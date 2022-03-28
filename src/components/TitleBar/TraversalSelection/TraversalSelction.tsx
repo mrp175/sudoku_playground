@@ -12,6 +12,7 @@ import {
   Text,
   DividingLine,
 } from "./TraversalSelection.styled";
+
 export default function TraversalSelection() {
   const [isRunning, setIsRunning] = useContext(
     IsRunningContext

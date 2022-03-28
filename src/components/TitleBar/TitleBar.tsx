@@ -1,16 +1,17 @@
 import { Component, Title } from "./TitleBar.styled";
-import Button from "../Button/Button";
-import {
-  primary_color,
-  background_alt_color,
-  secondary_color,
-} from "../../styleVars/styleVars";
 import TraversalSelection from "./TraversalSelection/TraversalSelction";
+import { ScreenDimensionsContextType } from "../../types/types";
 
-export default function TitleBar() {
+export default function TitleBar({
+  screenDimensions,
+}: {
+  screenDimensions: ScreenDimensionsContextType;
+}) {
+  const title = <Title>SUDOKU PLAYGROUND</Title>;
+
   return (
     <Component>
-      <Title>SUDOKU PLAYGROUND</Title>
+      {screenDimensions.width > 600 ? title : ""}
       <TraversalSelection />
     </Component>
   );

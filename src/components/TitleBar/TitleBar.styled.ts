@@ -13,6 +13,7 @@ export const Component = styled.div`
   box-shadow: ${box_shadow};
   padding: ${title_bar.padding}px 25px;
   position: relative;
+  height: 44px;
 `;
 
 export const Title = styled.div`
@@ -20,4 +21,5 @@ export const Title = styled.div`
   color: rgb(${primary_color});
   font-weight: 900;
   text-shadow: 0px 0px 2px rgb(${primary_color});
+  height: 44px;
 `;

@@ -42,7 +42,7 @@ function App() {
             setScale={setScale}
           />
           <ComponentWrapper>
-            <TitleBar />
+            <TitleBar screenDimensions={screenDimensions} />
             <GridContainer theme={{ orientation, scale }} ref={appWrapperRef}>
               <PreventHorizontalScroll
                 theme={{ scale, orientation, dimensions: gridDimensions }}
