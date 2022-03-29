@@ -21,6 +21,7 @@ export function handleMouseHover(
   index: number
 ) {
   if (appContext.isMenuOpen) return;
+  if (appContext.isRunning) return;
   const boundingRect = canvas.getBoundingClientRect();
   let { left, top, bottom, right } = boundingRect;
   const { x, y } = mouse.position;
@@ -76,7 +77,8 @@ export function onMouseUp(
   mouseContext: MouseContextType
 ) {
   const { originalBoard, board, selectedCells } = boardContext;
-  const { mouseHoverIndex, selectedNumber } = appContext;
+  const { mouseHoverIndex, selectedNumber, isRunning } = appContext;
+  if (isRunning) return;
   if (mouseHoverIndex !== null) {
     const [row, col] = indexToRowCol(mouseHoverIndex);
     if (board[row][col] === selectedNumber) {

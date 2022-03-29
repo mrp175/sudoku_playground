@@ -32,6 +32,10 @@ export const BoardGrid = styled.div`
   position: relative;
   align-items: center;
   justify-items: center;
+
+  &.no-pointer-events {
+    pointer-events: none;
+  }
 `;
 
 export const Canvas = styled.canvas`

@@ -3,6 +3,7 @@ import {
   AppContext,
   BoardContext,
   BoardPresetsContext,
+  IsRunningContext,
   MouseContext,
   ResetStateContext,
 } from "../Providers/appContexts";
@@ -11,6 +12,7 @@ import { handleResize } from "../../utils/handleResize";
 import { createSubGrid } from "../../utils/createBoard";
 import { refreshCells } from "../../utils/refreshCells";
 import { deepCopyBoard } from "../../utils/utils";
+import { StateSetState } from "../../types/types";
 
 export default function Board() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -21,6 +23,9 @@ export default function Board() {
   const boardPresetsContext = useContext(BoardPresetsContext);
   const mouseContext = useContext(MouseContext);
   const resetState = useContext(ResetStateContext);
+  const [isRunning, setIsRunning] = useContext(
+    IsRunningContext
+  ) as StateSetState<boolean>;
 
   useEffect(() => {
     if (boardContext && boardContext.current && boardPresetsContext) {
@@ -47,7 +52,11 @@ export default function Board() {
   }, []);
 
   return (
-    <BoardGrid theme={{ height: width }} ref={gridRef}>
+    <BoardGrid
+      className={isRunning ? "no-pointer-events" : ""}
+      theme={{ height: width }}
+      ref={gridRef}
+    >
       {subGrid}
     </BoardGrid>
   );
