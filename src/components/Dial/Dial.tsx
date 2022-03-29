@@ -38,6 +38,7 @@ export default function Dial({
   const dial = new DialState(initDialVal);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const appContext = useContext(AppContext);
+  const [operationsPerSecond, setOperationsPerSecond] = useState(303);
 
   function mapMouseToDial(mouse: MouseState) {
     const change = mouse.y.distanceTravelled;
@@ -57,6 +58,7 @@ export default function Dial({
       mapped = mapNumberRange(mapped, 0, 1, 1, 90000);
       mapped = Math.round((mapped + Number.EPSILON) * 100) / 100;
       current.speed = mapped;
+      setOperationsPerSecond(parseInt(mapped + ""));
     }
   }
 
@@ -133,7 +135,7 @@ export default function Dial({
           <Line theme={{ glowAmount: setGlowAmount() }}></Line>
         </LineContainer>
       </Knob>
-      <Text>Speed</Text>
+      <Text>Numbers Per Second: {operationsPerSecond}</Text>
     </Component>
   );
 }
