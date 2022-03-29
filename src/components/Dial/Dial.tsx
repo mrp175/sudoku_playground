@@ -7,7 +7,11 @@ import {
   addGenericEventListener,
   DialState,
 } from "../../utils/dial";
-import { handleRangeBias, mapNumberRange } from "../../utils/utils";
+import {
+  handleRangeBias,
+  mapNumberRange,
+  mapRangeWithBias,
+} from "../../utils/utils";
 import { DialType, NewMouseState, MouseState } from "../../types/types";
 import {
   Component,
@@ -38,7 +42,7 @@ export default function Dial({
   const dial = new DialState(initDialVal);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const appContext = useContext(AppContext);
-  const [operationsPerSecond, setOperationsPerSecond] = useState(303);
+  const [operationsPerSecond, setOperationsPerSecond] = useState(77);
 
   function mapMouseToDial(mouse: MouseState) {
     const change = mouse.y.distanceTravelled;
@@ -58,7 +62,16 @@ export default function Dial({
       mapped = mapNumberRange(mapped, 0, 1, 1, 90000);
       mapped = Math.round((mapped + Number.EPSILON) * 100) / 100;
       current.speed = mapped;
-      setOperationsPerSecond(parseInt(mapped + ""));
+      let displaySpeed = mapRangeWithBias(
+        mapped,
+        1,
+        90000,
+        1,
+        13500,
+        0.16,
+        "exp"
+      );
+      setOperationsPerSecond(parseInt(displaySpeed + ""));
     }
   }
 

@@ -15,7 +15,7 @@ export async function solveBoard(
 ): Promise<Board | false> {
   const { board } = boardContext;
   if (appContext.isRunning === false) return board;
-
+  appContext.totalCount += 1;
   if (appContext.speed <= 120) {
     count = 0;
     await timeout(1000 / appContext.speed);
@@ -29,6 +29,7 @@ export async function solveBoard(
 
   if (index === availableCellsArray.length) {
     setIsRunning(false);
+    console.log(new Date().getTime());
     appContext.isRunning = false;
     return board;
   }

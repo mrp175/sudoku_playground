@@ -38,6 +38,7 @@ export const appContext: AppContextType = {
   hasRun: false,
   shouldRunAnimations: false,
   isMenuOpen: false,
+  totalCount: 0,
 };
 export const AppContext =
   React.createContext<React.MutableRefObject<AppContextType> | null>(null);

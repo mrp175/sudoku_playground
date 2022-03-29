@@ -10,6 +10,7 @@ export function playPause(
   setIsRunning: SetState<boolean>
 ) {
   if (!appContext.isRunning) {
+    console.log(new Date().getTime());
     appContext.isRunning = true;
     appContext.hasRun = true;
     setIsRunning(true);

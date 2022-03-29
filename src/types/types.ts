@@ -20,6 +20,7 @@ export type AppContextType = {
   hasRun: boolean;
   shouldRunAnimations: boolean;
   isMenuOpen: boolean;
+  totalCount: number;
 };
 
 export type TraversalDirections =

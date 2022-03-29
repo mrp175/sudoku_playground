@@ -26,7 +26,6 @@ import {
 export default function ControlPanel() {
   const appContextRef = useContext(AppContext);
   const boardContextRef = useContext(BoardContext);
-  const boardPresetsContextRef = useContext(BoardPresetsContext);
   const [isRunning, setIsRunning] = useContext(
     IsRunningContext
   ) as StateSetState<boolean>;
@@ -46,12 +45,14 @@ export default function ControlPanel() {
   function returnResetBoard() {
     const boardContext = boardContextRef?.current as BoardContextType;
     const appContext = appContextRef?.current as AppContextType;
+    appContext.totalCount = 0;
     return resetBoard(boardContext, appContext, setHasRun);
   }
 
   function returnClearUserInput() {
     const boardContext = boardContextRef?.current as BoardContextType;
     const appContext = appContextRef?.current as AppContextType;
+    appContext.totalCount = 0;
     return clearUserInput(boardContext, appContext, setUserSelectionExists);
   }
 
