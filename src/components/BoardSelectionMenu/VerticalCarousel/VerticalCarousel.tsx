@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useContext } from "react";
+import { useState, useRef, useMemo, useContext, useEffect } from "react";
 import {
   ScreenDimensionsContextType,
   StateSetState,
@@ -32,7 +32,6 @@ export default function VerticalCarousel({
     for (let i = 0; i < difficulties.length; i += 1) {
       const button = (
         <Button
-          className={i === 0 ? "selected" : ""}
           key={"b" + i}
           onClick={() => handleClick(i)}
           ref={(el) => buttonsRef.push(el!)}
@@ -57,6 +56,13 @@ export default function VerticalCarousel({
 
   const buttons = useMemo(
     () => createButtons(buttonsRef.current),
+    [screenWidth]
+  );
+
+  useEffect(
+    function () {
+      handleClick(position);
+    },
     [screenWidth]
   );
 
