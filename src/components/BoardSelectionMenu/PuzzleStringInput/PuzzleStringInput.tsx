@@ -34,6 +34,7 @@ export default function PuzzleStringInput({
         value={text}
         onKeyDown={(e) => handleKeyDown(e)}
         theme={{ gridWidth }}
+        placeholder="Enter a valid 81 character puzzle string consisting of digits 0-9 here to generate sudoku board."
       ></TextArea>
       <Buttons>
         <ButtonContainer

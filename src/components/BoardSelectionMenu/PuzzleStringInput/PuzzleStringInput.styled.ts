@@ -34,6 +34,7 @@ export const TextArea = styled.textarea`
   border-radius: ${border_radius};
   box-shadow: ${box_shadow};
   margin-bottom: 10px;
+  padding: 10px;
   &:focus {
     outline: 2px solid rgba(${primary_color}, ${primary_color_alpha});
   }
