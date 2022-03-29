@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { primary_color } from "../../../styleVars/styleVars";
 import {
   Component,
@@ -8,7 +8,7 @@ import {
   ButtonContainer,
 } from "./PuzzleStringInput.styled";
 import { createFromPuzzleString } from "../../../utils/generatePresetBoards";
-import { boardContext } from "../../Providers/appContexts";
+import { AppContext, boardContext } from "../../Providers/appContexts";
 import { SetState } from "../../../types/types";
 import RippleEffect from "../Selection/RippleEffect/RippleEffect";
 
@@ -20,10 +20,11 @@ export default function PuzzleStringInput({
   gridWidth: number;
 }) {
   const [text, setText] = useState("");
+  const appContext = useContext(AppContext);
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.code === "Enter") {
       e.preventDefault();
-      createFromPuzzleString(setIsOpen, boardContext, text);
+      createFromPuzzleString(setIsOpen, appContext, boardContext, text);
     }
   }
 
@@ -38,7 +39,9 @@ export default function PuzzleStringInput({
       ></TextArea>
       <Buttons>
         <ButtonContainer
-          onClick={() => createFromPuzzleString(setIsOpen, boardContext, text)}
+          onClick={() =>
+            createFromPuzzleString(setIsOpen, appContext, boardContext, text)
+          }
         >
           <RippleEffect />
           <Button>Generate</Button>

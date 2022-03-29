@@ -6,12 +6,12 @@ import {
   AppContextType,
   BoardContextType,
   Difficulty,
+  UseRefMutable,
 } from "../types/types";
 import { indexToRowCol } from "./utils";
 import {
   CanvasContainer,
   Canvas,
-  PresetText,
 } from "../components/BoardSelectionMenu/Selection/Selection.styled";
 import RippleEffect from "../components/BoardSelectionMenu/Selection/RippleEffect/RippleEffect";
 import { changeBoard, changeBoardFromString } from "./changeBoard";
@@ -111,12 +111,14 @@ function onClick(
     setIsOpen(false);
   }, 150);
   setTimeout(function () {
+    appContext.totalCount = 0;
     changeBoard(boardContext, index, difficulty);
   }, 900);
 }
 
 export function createFromPuzzleString(
   setIsOpen: SetState<boolean>,
+  appContext: UseRefMutable<AppContextType>,
   boardContext: BoardContextType,
   puzzleString: string
 ) {
@@ -124,6 +126,8 @@ export function createFromPuzzleString(
     setIsOpen(false);
   }, 150);
   setTimeout(function () {
+    const current = appContext.current as AppContextType;
+    current.totalCount = 0;
     changeBoardFromString(boardContext, puzzleString);
   }, 900);
 }
