@@ -1,46 +1,76 @@
-# Getting Started with Create React App
+# The Sudoku Playground
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Experience backtracking like you've never seen it before! The app is hosted [here](https://mrp175.github.io/sudoku_playground/), although please do read the rest of this readme before diving in. 
 
-## Available Scripts
+![project image](https://github.com/mrp175/sudoku_playground/blob/master/readme_image.gif)
 
-In the project directory, you can run:
+## About
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Sudoku Playground is a web app that solves Sudoku puzzles using a brute force backtracking algorithm in real-time providing feedback through the use of engaging animations to emphasise changes as they happen.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Usage notes
 
-### `npm test`
+* The 'Numbers Per Second" dial is operated by dragging on it vertically!
+* Any board can be edited by selecting a number from the blue number selection panel. Click/tap anywhere on the board to place a number. Numbers can be deleted with a double-click/double-tap.
+* Preset puzzles can be selected from the "select board" menu located at the bottom of the app. The board can also be generated from Sudoku "puzzle strings" from within this menu.
+* Choosing different options from the 'traversal type' menu will change the order in which the algorithm solves any puzzle. Apart from providing a visual change, it also demonstrates how order can drastically change the amount of work required to find a solution.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Current features
 
-### `npm run build`
+* Can solve Sudoku puzzles using a brute force backtracking algorithm.
+* Different traversal directions that the algorithm can take when solving the board. 
+* Animate board changes as they happen (numbers and cell highlights).
+* Controls for algorithm speed, as well as animation durations.
+* Preset board selection menu with different difficulty options.
+* Import custom puzzles through with Sudoku "puzzle strings".
+* Ability to edit the board by adding or deleting numbers.
+* Visually differentiate between original board numbers and user placed numbers.
+* Board change animations when choosing a preset or importing a puzzle string.
+* Animation when placing individual numbers on the board. 
+* Responsive design.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Current state and the future
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Currently there is no tutorial or any useful information provided to the user on load. The UI isn't unintuitive, however, it is something that needs to be added to demonstrate how to use the app and what features are available. This is currently being worked on. 
+* Performance is not amazing, so I may rework how the animations are implemented. Currently, it uses canvas elements, but I may consider implementing animations through dom-manipulation instead if it is more performant.
+* Currently it only uses a backtracking algorithm, but I would like to implement different algorithms to demonstrate some of the more intuitive and efficient ways of solving Sudoku boards. 
+* Currently traversal directions are chosen from a single list, and the list is limited. I would like to implement a more feature-rich selection, perhaps with a full-screen modal that allows for a highly customisable experience. 
+* The ability to solve different types of Sudoku puzzles is also something I have considered. 4x4 or 16x16 puzzles for example, or X-Sudoku or Jigsaw-Sudoku. Whilst these would be nice, it really would require a lot of work, and as such is not something I am considering at the moment. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* React
+* Typescript
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Run locally
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+These instructions will help you set up a local development instance of the app if you want to run it locally.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Get the repo
 
-## Learn More
+```
+git clone https://github.com/mrp175/sudoku_playground.git
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Navigate to the folder
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+cd sudoku_playground
+```
+
+### Install the dependencies
+
+```
+npm install
+```
+
+### Start the app in development mode
+
+```
+npm start
+```
+Then go to http://localhost:3000 to view it in the browser.
+
+## Contributions
