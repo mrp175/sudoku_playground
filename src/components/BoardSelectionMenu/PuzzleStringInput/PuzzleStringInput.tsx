@@ -9,7 +9,7 @@ import {
 } from "./PuzzleStringInput.styled";
 import { createFromPuzzleString } from "../../../utils/generatePresetBoards";
 import { AppContext, boardContext } from "../../Providers/appContexts";
-import { SetState } from "../../../types/types";
+import { AppContextType, SetState, UseRefMutable } from "../../../types/types";
 import RippleEffect from "../Selection/RippleEffect/RippleEffect";
 
 export default function PuzzleStringInput({
@@ -20,7 +20,7 @@ export default function PuzzleStringInput({
   gridWidth: number;
 }) {
   const [text, setText] = useState("");
-  const appContext = useContext(AppContext);
+  const appContext = useContext(AppContext) as UseRefMutable<AppContextType>;
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.code === "Enter") {
       e.preventDefault();
