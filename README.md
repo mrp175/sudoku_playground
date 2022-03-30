@@ -14,7 +14,7 @@ Sudoku Playground is a web app that solves Sudoku puzzles using a brute force ba
 * The 'Numbers Per Second" dial is operated by dragging on it vertically!
 * Any board can be edited by selecting a number from the blue number selection panel. Click/tap anywhere on the board to place a number. Numbers can be deleted with a double-click/double-tap.
 * Preset puzzles can be selected from the "select board" menu located at the bottom of the app. The board can also be generated from Sudoku "puzzle strings" from within this menu.
-* Choosing different options from the 'traversal type' menu will change the order in which the algorithm solves any puzzle. Apart from providing a visual change, it also demonstrates how order can drastically change the amount of work required to find a solution.
+* Choosing different options from the 'traversal type' menu will change the order in which the algorithm solves any puzzle. Apart from providing a visual change, it also demonstrates how order can change the amount of work required to find a solution.
 
 ## Current features
 
@@ -43,6 +43,7 @@ Sudoku Playground is a web app that solves Sudoku puzzles using a brute force ba
 
 * React
 * Typescript
+* Styled Components
 
 ## Run locally
 
@@ -74,3 +75,5 @@ npm start
 Then go to http://localhost:3000 to view it in the browser.
 
 ## Contributions
+
+It would be great to see this project grow, so any contributions are welcome! 
